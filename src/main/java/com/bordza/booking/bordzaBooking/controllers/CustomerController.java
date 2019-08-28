@@ -25,21 +25,17 @@ public class CustomerController {
 
     private static List<UserEntity> usersMap = new ArrayList<>();
 
-    static {
-        usersMap.add(new UserEntity("Bill", "Gates"));
-        usersMap.add(new UserEntity("Steve", "Jobsrr"));
-    }
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
 
+        usersMap = userRepository.findAll();
         model.addAttribute("usersMap", usersMap);
 
         return "index";
     }
 
     @GetMapping("/signup")
-    //@RequestMapping(value = {"/signup"}, method = RequestMethod.GET)
     public String signup(Model model) {
 
         model.addAttribute("inputUser", new UserEntity());
@@ -47,8 +43,7 @@ public class CustomerController {
         return "signup";
     }
 
-    //@PostMapping("/signup")
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    @PostMapping("/signup")
     public String saveUser(@ModelAttribute("inputUser") UserEntity userEntity,
                            BindingResult result, ModelMap model) {
 
@@ -59,9 +54,8 @@ public class CustomerController {
         String usrLogin = userEntity.getUsrLogin();
         String usrPwd = userEntity.getUsrPwd();
 
-        if (usrLogin != null && usrLogin.length() > 0 //
+        if (usrLogin != null && usrLogin.length() > 0
                 && usrPwd != null && usrPwd.length() > 0) {
-            //usersMap.add(new UserEntity(usrLogin, usrPwd));
             userRepository.save(userEntity);
             return "redirect:/index";
         }
