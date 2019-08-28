@@ -1,17 +1,14 @@
 <!DOCTYPE HTML>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Welcome</title>
+    <title>User List</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Welcome</h1>
-
-<a th:href="@{/signup}">sign up</a>
-
+<h1>Person List</h1>
+<a href="/signup">Add Person</a>
+<br/><br/>
 <div>
     <table border="1">
         <tr>
@@ -19,13 +16,10 @@
             <th>Last Name</th>
         </tr>
         <tr th:each ="userEntity : ${usersMap}">
-            <td th:utext="${userEntity.usrLogin}">...</td>
-            <td th:utext="${userEntity.usrPwd}">...</td>
+            <td th:utext="${userEntity.getUsrLogin}">...</td>
+            <td th:utext="${userEntity.getUsrPwd}">...</td>
         </tr>
     </table>
 </div>
-
-
 </body>
-
 </html>
