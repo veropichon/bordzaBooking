@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Welcome</h1>
+
+<a th:href="@{/signup}">sign up</a>
+
+<div>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+        <tr th:each="myUser : ${usersMap}">
+            <td th:utext="${myUser.getId()}">...</td>
+            <td th:utext="${myUser.getUsrLogin()}">...</td>
+            <td th:utext="${myUser.getUsrPwd()}">...</td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+
+</html>

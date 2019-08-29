@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>User List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Person List</h1>
+<a href="/signup">Add Person</a>
+<br/><br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+        <tr th:each ="userEntity : ${usersMap}">
+            <td th:utext="${userEntity.getUsrLogin}">...</td>
+            <td th:utext="${userEntity.getUsrPwd}">...</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
