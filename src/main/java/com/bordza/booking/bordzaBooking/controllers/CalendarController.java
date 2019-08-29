@@ -1,5 +1,6 @@
 package com.bordza.booking.bordzaBooking.controllers;
 
+import com.bordza.booking.bordzaBooking.repositories.EventJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +16,10 @@ public class CalendarController {
     @Autowired
     private EventJpaRepository eventRepository;
 
-    @RequestMapping(value="/", method= RequestMethod.GET)
-    public ModelAndView index() {
-        return new ModelAndView("index");
-    }
+    // @RequestMapping(value="/", method= RequestMethod.GET)
+    // public ModelAndView index() {
+        // return new ModelAndView("index");
+    // }
 
     @RequestMapping(value="/staticcalendar", method=RequestMethod.GET)
     public ModelAndView staticcalendar() {
