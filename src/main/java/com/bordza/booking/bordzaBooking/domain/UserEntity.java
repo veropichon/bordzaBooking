@@ -13,13 +13,13 @@ import javax.validation.constraints.Size;
 //@FieldDefaults(level= AccessLevel.PRIVATE)
 //@NoArgsConstructor
 //@AllArgsConstructor
-@Entity
+@Entity (name = "user")
 public class UserEntity {
 
     //@Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    Long usrId;
 
     //@Getter @Setter
     String usrLogin;
@@ -37,7 +37,7 @@ public class UserEntity {
     }
 
     public Long getId() {
-        return id;
+        return usrId;
     }
 
     public String getUsrLogin() {

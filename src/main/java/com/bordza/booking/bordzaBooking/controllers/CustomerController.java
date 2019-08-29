@@ -23,13 +23,13 @@ public class CustomerController {
 
     private static final Logger log = LoggerFactory.getLogger("test Input");
 
-    private static List<UserEntity> usersMap = new ArrayList<>();
+    //private static List<UserEntity> usersMap = new ArrayList<>();
 
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
 
-        usersMap = userRepository.findAll();
+        List<UserEntity> usersMap = userRepository.findAll();
         model.addAttribute("usersMap", usersMap);
 
         return "index";
@@ -53,6 +53,7 @@ public class CustomerController {
 
         String usrLogin = userEntity.getUsrLogin();
         String usrPwd = userEntity.getUsrPwd();
+        Long usrId = userEntity.getId();
 
         if (usrLogin != null && usrLogin.length() > 0
                 && usrPwd != null && usrPwd.length() > 0) {

@@ -15,12 +15,14 @@
 <div>
     <table border="1">
         <tr>
+            <th>Id</th>
             <th>First Name</th>
             <th>Last Name</th>
         </tr>
-        <tr th:each ="userEntity : ${usersMap}">
-            <td th:utext="${userEntity.usrLogin}">...</td>
-            <td th:utext="${userEntity.usrPwd}">...</td>
+        <tr th:each="myUser : ${usersMap}">
+            <td th:utext="${myUser.getId()}">...</td>
+            <td th:utext="${myUser.getUsrLogin()}">...</td>
+            <td th:utext="${myUser.getUsrPwd()}">...</td>
         </tr>
     </table>
 </div>
