@@ -1,6 +1,8 @@
 package com.bordza.booking.bordzaBooking.controllers;
 
 
+import com.bordza.booking.bordzaBooking.domain.TestEntity;
+import com.bordza.booking.bordzaBooking.repositories.TestRepository;
 import com.bordza.booking.bordzaBooking.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,18 +14,18 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class CustomerController {
+public class UserController {
 
     @Autowired
     UserRepository userRepository;
 
-    private static final Logger log = LoggerFactory.getLogger("test Input");
+    @Autowired
+    TestRepository testRepository;
 
-    //private static List<UserEntity> usersMap = new ArrayList<>();
+    private static final Logger log = LoggerFactory.getLogger("test Input");
 
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
@@ -32,6 +34,9 @@ public class CustomerController {
         List<UserEntity> usersMap = userRepository.findAll();
         model.addAttribute("usersMap", usersMap);
 
+        List<TestEntity> testsMap = testRepository.findAll();
+        model.addAttribute("testsMap", testsMap);
+
         return "index";
     }
 
@@ -39,39 +44,31 @@ public class CustomerController {
     public String signup(Model model) {
 
         model.addAttribute("inputUser", new UserEntity());
+        model.addAttribute("inputTest", new TestEntity());
 
         return "signup";
     }
 
     @PostMapping("/signup")
     public String saveUser(@ModelAttribute("inputUser") UserEntity userEntity,
+                           @ModelAttribute("inputTest") TestEntity testEntity,
                            BindingResult result, ModelMap model) {
 
         if (result.hasErrors()) {
             return "error";
         }
 
+
         String usrLogin = userEntity.getUsrLogin();
         String usrPwd = userEntity.getUsrPwd();
-        Long usrId = userEntity.getId();
 
         if (usrLogin != null && usrLogin.length() > 0
                 && usrPwd != null && usrPwd.length() > 0) {
             userRepository.save(userEntity);
+            testRepository.save(testEntity);
             return "redirect:/index";
         }
-        /*
-        String usrLogin = userEntity.getUsrLogin();
-        String usrPwd = userEntity.getUsrPwd();
 
-        log.info("login : " + usrLogin + " / pwd : " + usrPwd);
-
-        if (usrLogin != null && usrLogin.length() > 0 //
-                && usrPwd != null && usrPwd.length() > 0) {
-            usersMap.add(new UserEntity(usrLogin, usrPwd));
-
-            return "redirect:/index";
-        }*/
         return "signup";
     }
 }
