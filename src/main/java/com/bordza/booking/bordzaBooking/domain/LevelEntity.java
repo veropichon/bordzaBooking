@@ -2,11 +2,10 @@ package com.bordza.booking.bordzaBooking.domain;
 
 import javax.persistence.*;
 
-@Entity
+@Entity (name = "level")
 public class LevelEntity {
 
     @Id
-    @Column(name = "level")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long levId;
 

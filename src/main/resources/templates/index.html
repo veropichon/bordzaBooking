@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Welcome</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
@@ -12,7 +12,7 @@
 
 
 <div class="contenu">
-    <a th:href="@{/signup}">sign up</a>
+    <a th:href="@{/inscription}">Inscription</a>
 
     <table>
         <tr>
@@ -21,7 +21,7 @@
             <th>Password</th>
         </tr>
         <tr th:each="myUser : ${usersMap}">
-            <td th:utext="${myUser.getId()}">...</td>
+            <td th:utext="${myUser.getUsrId()}">...</td>
             <td th:utext="${myUser.getUsrLogin()}">...</td>
             <td th:utext="${myUser.getUsrPwd()}">...</td>
         </tr>
