@@ -3,28 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Welcome</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <h1>Welcome</h1>
 
-<a th:href="@{/signup}">sign up</a>
 
-<div>
-    <table border="1">
+<div class="contenu">
+    <a th:href="@{/inscription}">Inscription</a>
+
+    <table>
         <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Id user</th>
+            <th>Login</th>
+            <th>Password</th>
         </tr>
         <tr th:each="myUser : ${usersMap}">
-            <td th:utext="${myUser.getId()}">...</td>
+            <td th:utext="${myUser.getUsrId()}">...</td>
             <td th:utext="${myUser.getUsrLogin()}">...</td>
             <td th:utext="${myUser.getUsrPwd()}">...</td>
         </tr>
     </table>
+
+    <table>
+        <tr>
+            <th>Id test</th>
+            <th>prenom</th>
+            <th>nom</th>
+        </tr>
+        <tr th:each="myTest : ${testsMap}">
+            <td th:utext="${myTest.getTestId()}">...</td>
+            <td th:utext="${myTest.getTestFirstname()}">...</td>
+            <td th:utext="${myTest.getTestLastname()}">...</td>
+        </tr>
+    </table>
+
 </div>
 
 

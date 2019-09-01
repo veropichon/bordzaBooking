@@ -6,3 +6,9 @@ body{
     width: 60vw;
     margin: auto;
 }
+
+table, td{
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 5px;
+}
