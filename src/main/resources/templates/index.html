@@ -20,26 +20,44 @@
             <th>Login</th>
             <th>Password</th>
         </tr>
-        <tr th:each="myUser : ${usersMap}">
+        <tr th:each="myUser : ${usersList}">
             <td th:utext="${myUser.getUsrId()}">...</td>
-            <td th:utext="${myUser.getUsrLogin()}">...</td>
+            <td th:utext="${myUser.getUsrEmail()}">...</td>
             <td th:utext="${myUser.getUsrPwd()}">...</td>
         </tr>
     </table>
-
     <table>
         <tr>
-            <th>Id test</th>
-            <th>prenom</th>
+            <th>Id client</th>
             <th>nom</th>
+            <th>prenom</th>
+            <th>telephone</th>
+            <th>cp</th>
+            <th>ville</th>
+            <th>date de naissance</th>
+            <th>taille</th>
+            <th>poids</th>
+            <th>nom tuteur</th>
+            <th>prenom tuteur</th>
+            <th>telephone tuteur</th>
+            <th>antecedants</th>
         </tr>
-        <tr th:each="myTest : ${testsMap}">
-            <td th:utext="${myTest.getTestId()}">...</td>
-            <td th:utext="${myTest.getTestFirstname()}">...</td>
-            <td th:utext="${myTest.getTestLastname()}">...</td>
+        <tr th:each="myClient : ${clientsList}">
+            <td th:utext="${myClient.cliId}">...</td>
+            <td th:utext="${myClient.cliLastname}">...</td>
+            <td th:utext="${myClient.cliFirstname}">...</td>
+            <td th:utext="${myClient.cliPhone}">...</td>
+            <td th:utext="${myClient.cliZipcode}">...</td>
+            <td th:utext="${myClient.cliCity}">...</td>
+            <td th:utext="${myClient.cliBirthdate}">...</td>
+            <td th:utext="${myClient.cliHeight}">...</td>
+            <td th:utext="${myClient.cliWeight}">...</td>
+            <td th:utext="${myClient.cliTutorLastname}">...</td>
+            <td th:utext="${myClient.cliTutorFirstname}">...</td>
+            <td th:utext="${myClient.cliTutorPhone}">...</td>
+            <td th:utext="${myClient.cliComment}">...</td>
         </tr>
     </table>
-
 </div>
 
 
