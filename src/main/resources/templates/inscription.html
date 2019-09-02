@@ -14,28 +14,30 @@
 
     <h1>Inscription</h1>
 
-    <form action="#" th:action="@{/signup}" th:object="${inputClient}" method="post">
+    <form action="#" th:action="@{/inscription}" th:object="${modelClient}" method="post">
 
         <div class="form-group">
             <div class="row ">
                 <div class="col">
                     <div class="input_group-identity">
                         <label class="label--desc">Nom<em class="important">*</em></label>
-                        <input required class="form-control" type="text" name="name" th:field="*{cliLastname}" placeholder="Nom">
+                        <input required class="form-control" type="text" name="name" th:field="*{cliLastname}"
+                               placeholder="Nom">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input_group-identity">
                         <label class="label--desc">Prénom<em class="important">*</em></label>
-                        <input required class="form-control" type="text" first_name="first_name" th:field="*{cliFirstname}" placeholder="Prénom">
+                        <input required class="form-control" type="text" first_name="first_name"
+                               th:field="*{cliFirstname}" placeholder="Prénom">
                     </div>
                 </div>
             </div>
 
-            <div class="form-row" th:object="${inputUser}">
+            <div class="form-row" th:object="${modelUser}">
                 <div class="form-group col-md-6">
                     <label for="inputEmail">Email</label>
-                    <input type="email" class="form-control" th:field="*{usrLogin}" placeholder="Email"
+                    <input type="email" class="form-control" th:field="*{usrEmail}" placeholder="Email"
                            id="inputEmail"/>
                 </div>
                 <div class="form-group col-md-6">
@@ -48,7 +50,8 @@
 
 
         <label for="phone">N° Téléphone : <em class="important">*</em></label>
-        <input type="tel" required class="form-control" id="phone" pattern="([0-9]{2}){5}" name="phone"
+        <input type="tel" required class="form-control" id="phone" pattern="([0-9]{2}){5}" th:field="*{cliPhone}"
+               name="phone"
                placeholder="N° téléphone">
 
         <h3>Adresse :<em class="important">*</em></h3>
@@ -57,12 +60,12 @@
             <div class="col">
                 <div class="input_group-identity">
                     <input required class="form-control" type="text" name="postal_code" maxlength="5" pattern="[0-9]{5}"
-                           placeholder="CP">
+                           th:field="*{cliZipcode}" placeholder="CP">
                 </div>
             </div>
             <div class="col">
                 <div class="input_group-identity">
-                    <input class="form-control" type="text" town="town" placeholder="Ville">
+                    <input class="form-control" type="text" town="town" th:field="*{cliCity}" placeholder="Ville">
                 </div>
             </div>
         </div>
@@ -72,21 +75,21 @@
             <div class="col">
                 <div class="input_group-identity">
                     <label class="label--desc">Date de naissance<em>*</em></label>
-                    <input class="form-control" type="date" name="birthday_date">
+                    <input class="form-control" type="date" name="birthday_date" th:field="*{cliBirthdate}">
                 </div>
             </div>
             <div class="col">
                 <div class="input_group-identity">
                     <label class="label--desc">Taille</label>
                     <input class="form-control" type="text" minlength="3" maxlength="3" pattern="[0 9]{3}"
-                           height="height" placeholder="Hauteur">
+                           height="height" th:field="*{cliHeight}" placeholder="Hauteur">
                 </div>
             </div>
             <div class="col">
                 <div class="input_group-identity">
                     <label class="label--desc">Poids</label>
                     <input class="form-control" type="text" minlength="2" maxlength="3" pattern="[0 9]{3}"
-                           weight="weight" placeholder="Poids">
+                           weight="weight" th:field="*{cliWeight}" placeholder="Poids">
                 </div>
             </div>
         </div>
@@ -103,26 +106,28 @@
                     <div class="col">
                         <div class="input_group-identity">
                             <label class="label--desc">Nom du Tuteur/Tutrice</label>
-                            <input class="form-control" type="text" name="tutor_name" placeholder="Nom">
+                            <input class="form-control" type="text" name="tutor_name" th:field="*{cliTutorLastname}"
+                                   placeholder="Nom">
                         </div>
                     </div>
                     <div class="col">
                         <div class="input_group-identity">
                             <label class="label--desc">Prénom du Tuteur/Tutrice</label>
-                            <input class="form-control" type="text" first_name="tutor_first_name" placeholder="Prénom">
+                            <input class="form-control" type="text" first_name="tutor_first_name"
+                                   th:field="*{cliTutorFirstname}" placeholder="Prénom">
                         </div>
                     </div>
                 </div>
 
                 <label for="tutor_phone">N° Téléphone du Tuteur : </label>
-                <input type="tel" class="form-control" id="tutor_phone" name="tutor_phone" placeholder="N° téléphone">
+                <input type="tel" class="form-control" id="tutor_phone" name="tutor_phone" th:field="*{cliTutorPhone}"
+                       placeholder="N° téléphone">
             </div>
         </div>
 
-
+        <!--
         <hr/>
         <h2>Informations complémentaires :</h2>
-
         <div class="form-group">
             <h3>Prêt de matériel :</h3>
 
@@ -130,31 +135,63 @@
                 <div class="col">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                               value="option1">
+                               value="true">
                         <label class="form-check-label" for="inlineRadio1">Oui</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                               value="option2"
+                               value="false"
                                checked>
                         <label class="form-check-label" for="inlineRadio2">Non</label>
 
                     </div>
                 </div>
             </div>
+            </div>
 
-            <label for="medical_information">Antécédents médicaux : </label>
-            <div class="row">
-                <div class="col">
-                    <textarea id="medical_information" class="form-control" rows="3"
-                              name="medical_information"></textarea>
+            !-->
+
+
+        <h3>Niveau :</h3>
+
+        <div class="row " th:each="myLvl : ${modelLevel}">
+
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio"
+                           th:field="*{level}"
+                           th:value="${myLvl.getLevId()}"/>
+                    <label class="form-check-label"
+                           th:for="${#ids.prev('level')}"
+                           th:text="${myLvl.getLevClientLabel()}">
+                    </label>
                 </div>
             </div>
-            <hr>
-            <button type="submit" class="btn btn-primary">Valider</button>
+
+            <!--
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                           th:field="*{level}" th:value="${myLvl}"/>
+                    <label class="form-check-label" for="inlineRadio2">Confirmé</label>
+                </div>
+            </div>
+                !-->
         </div>
+
+        <h3>Antécédents médicaux : </h3>
+        <div class="row">
+            <div class="col">
+                    <textarea id="medical_information" class="form-control" rows="3"
+                              name="medical_information" th:field="*{cliComment}"></textarea>
+            </div>
+        </div>
+        <hr>
+
+        <button type="submit" class="btn btn-primary">Valider</button>
+
 
     </form>
 </div>

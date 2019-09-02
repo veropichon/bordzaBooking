@@ -14,7 +14,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long usrId;
 
-    private String usrLogin;
+    @Column(nullable = false)
+    private String usrEmail;
 
     @Size(min = 4, max = 15)
     private String usrPwd;
