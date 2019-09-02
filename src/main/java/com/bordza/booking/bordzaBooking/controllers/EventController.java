@@ -1,6 +1,6 @@
 package com.bordza.booking.bordzaBooking.controllers;
 
-import com.bordza.booking.bordzaBooking.entities.Event;
+import com.bordza.booking.bordzaBooking.domain.Event;
 import com.bordza.booking.bordzaBooking.repositories.EventJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

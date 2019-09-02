@@ -3,7 +3,6 @@ package com.bordza.booking.bordzaBooking.controllers;
 
 import com.bordza.booking.bordzaBooking.domain.ClientEntity;
 import com.bordza.booking.bordzaBooking.domain.UserEntity;
-import com.bordza.booking.bordzaBooking.entities.Event;
 import com.bordza.booking.bordzaBooking.repositories.ClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.UserRepository;
 import org.slf4j.Logger;
