@@ -15,11 +15,9 @@ public class ClientEntity {
     private Long cliId;
 
     @OneToOne
-    @Column(nullable = false)
     private UserEntity user;
 
     @ManyToOne
-    @Column(nullable = false)
     private LevelEntity level;
 
     @Column(nullable = false)
