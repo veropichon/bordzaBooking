@@ -17,7 +17,11 @@ public class UserEntity {
     @Column(nullable = false)
     private String usrEmail;
 
+    @Column(nullable = false)
     @Size(min = 4, max = 15)
     private String usrPwd;
+
+    @Column(nullable = false, columnDefinition = "VARCHAR(10) default 'CLIENT'")
+    private String usrRole;
 
 }
