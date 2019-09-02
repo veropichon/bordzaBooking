@@ -1,5 +1,7 @@
 package com.bordza.booking.bordzaBooking.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
