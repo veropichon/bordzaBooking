@@ -34,9 +34,20 @@ public class ClientEntity {
     private String cliComment;
 
     @Column(nullable = false)
-    private Boolean cliValidated = false;
+    private Boolean cliValidated;
 
     @Column(nullable = false)
-    private Boolean cliDeleted = false;
+    private Boolean cliDeleted;
+
+    /**
+     * Display Default values
+     * @return client entity with default values
+     */
+    public static ClientEntity defaultValue() {
+        ClientEntity clientEntity = new ClientEntity();
+        clientEntity.cliValidated = false;
+        clientEntity.cliDeleted = false;
+        return clientEntity;
+    }
 
 }

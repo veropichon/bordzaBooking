@@ -18,6 +18,16 @@ public class UserEntity {
     private String usrPwd;
 
     @Column(nullable = false)
-    private String usrRole = "CLIENT";
+    private String usrRole;
+
+    /**
+     * Display Default values
+     * @return user entity with default role
+     */
+    public static UserEntity defaultValue() {
+        UserEntity userEntity = new UserEntity();
+        userEntity.usrRole = "CLIENT";
+        return userEntity;
+    }
 
 }

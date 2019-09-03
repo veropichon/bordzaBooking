@@ -7,6 +7,7 @@ import com.bordza.booking.bordzaBooking.domain.UserEntity;
 import com.bordza.booking.bordzaBooking.repositories.ClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.LevelRepository;
 import com.bordza.booking.bordzaBooking.repositories.UserRepository;
+import com.bordza.booking.bordzaBooking.services.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class ClientController {
 
     @Autowired
     LevelRepository levelRepository;
+
+    @Autowired
+    ClientService clientService;
 
     private static final Logger log = LoggerFactory.getLogger("test Input");
 
@@ -68,32 +72,16 @@ public class ClientController {
             return "error";
         }
 
-        String clientlvl = clientEntity.getLevel().getLevClientLabel();
-        String usrEmail = userEntity.getUsrEmail();
-        String usrPwd = userEntity.getUsrPwd();
-
-        log.info("clientlvl : " + clientlvl);
-        log.info("usrEmail : " + usrEmail);
-        log.info("usrPwd : " + usrPwd);
-
-        if (usrEmail != null && usrEmail.length() > 0
-                && usrPwd != null && usrPwd.length() > 0) {
-            userRepository.save(userEntity);
-
-            saveClient(clientEntity, userEntity);
-
+        try {
+            clientService.saveClient(userEntity, clientEntity);
+        }
+        catch (IllegalArgumentException e) {
             return "redirect:/index";
         }
         return "inscription";
     }
 
 
-    public void saveClient(ClientEntity clientEntity, UserEntity userEntity){
-
-        clientEntity.setUser(userEntity);
-        clientRepository.save(clientEntity);
-
-    }
 
 }
 
