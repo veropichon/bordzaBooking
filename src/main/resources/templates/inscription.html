@@ -126,35 +126,8 @@
             </div>
         </div>
 
-        <!--
         <hr/>
         <h2>Informations complémentaires :</h2>
-        <div class="form-group">
-            <h3>Prêt de matériel :</h3>
-
-            <div class="row ">
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                               value="true">
-                        <label class="form-check-label" for="inlineRadio1">Oui</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                               value="false"
-                               checked>
-                        <label class="form-check-label" for="inlineRadio2">Non</label>
-
-                    </div>
-                </div>
-            </div>
-            </div>
-
-            !-->
-
-
         <h3>Niveau :</h3>
 
         <div class="row " th:each="myLvl : ${modelLevel}">
@@ -170,16 +143,6 @@
                     </label>
                 </div>
             </div>
-
-            <!--
-            <div class="col">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                           th:field="*{level}" th:value="${myLvl}"/>
-                    <label class="form-check-label" for="inlineRadio2">Confirmé</label>
-                </div>
-            </div>
-                !-->
         </div>
 
         <h3>Antécédents médicaux : </h3>
