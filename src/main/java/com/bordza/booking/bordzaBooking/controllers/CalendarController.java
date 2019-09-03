@@ -28,6 +28,7 @@ public class CalendarController {
 
     @RequestMapping(value="/calendar", method=RequestMethod.GET)
     public ModelAndView calendar() {
+
         return new ModelAndView("calendar");
     }
 

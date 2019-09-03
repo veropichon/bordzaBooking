@@ -1,6 +1,6 @@
 package com.bordza.booking.bordzaBooking.repositories;
 
-import com.bordza.booking.bordzaBooking.entities.Event;
+import com.bordza.booking.bordzaBooking.domain.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
