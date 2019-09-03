@@ -10,14 +10,24 @@ import javax.validation.constraints.Size;
 public class UserEntity {
 
     @Id
-    @Column(name = "usr_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long usrId;
 
-    @Column(nullable = false)
     private String usrEmail;
 
-    @Size(min = 4, max = 15)
     private String usrPwd;
+
+    @Column(nullable = false)
+    private String usrRole;
+
+    /**
+     * Display Default values
+     * @return user entity with default role
+     */
+    public static UserEntity defaultValue() {
+        UserEntity userEntity = new UserEntity();
+        userEntity.usrRole = "CLIENT";
+        return userEntity;
+    }
 
 }
