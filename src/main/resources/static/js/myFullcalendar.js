@@ -1,26 +1,17 @@
-<script>
-<!--
-    $(document).ready(function() {
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            defaultDate: '2019-09-01', // TODO : en fonction de la date du jour
-            editable: true,
-            eventLimit: true, // allow "more" link when too many events
-            events: {
-                url: '/allevents',
-                type: 'GET',
-                error: function() {
-                    alert('there was an error while fetching events!');
-                },
-                //color: 'blue',   // a non-ajax option
-                //textColor: 'white' // a non-ajax option
-            }
-        });
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
 
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ 'dayGrid', 'timeGrid' ],
+        defaultView: 'timeGridWeek',
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: '/events',
+        eventColor: '#378006'
     });
--->
-</script>
+
+    calendar.render();
+});
