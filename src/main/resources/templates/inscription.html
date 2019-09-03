@@ -59,7 +59,7 @@
         <div class="row ">
             <div class="col">
                 <div class="input_group-identity">
-                    <input required class="form-control" type="text" name="postal_code" maxlength="5" pattern="[0-9]{5}"
+                    <input required class="form-control" type="text" name="postal_code" minlength="5" maxlength="5" pattern="[0-9]{5}"
                            th:field="*{cliZipcode}" placeholder="CP">
                 </div>
             </div>
@@ -80,15 +80,15 @@
             </div>
             <div class="col">
                 <div class="input_group-identity">
-                    <label class="label--desc">Taille</label>
-                    <input class="form-control" type="text" minlength="3" maxlength="3" pattern="[0 9]{3}"
+                    <label class="label--desc">Taille (cm)</label>
+                    <input class="form-control" type="number" min="100" max="250"
                            height="height" th:field="*{cliHeight}" placeholder="Hauteur">
                 </div>
             </div>
             <div class="col">
                 <div class="input_group-identity">
-                    <label class="label--desc">Poids</label>
-                    <input class="form-control" type="text" minlength="2" maxlength="3" pattern="[0 9]{3}"
+                    <label class="label--desc">Poids (kg)</label>
+                    <input class="form-control" type="number" min="30" max="200"
                            weight="weight" th:field="*{cliWeight}" placeholder="Poids">
                 </div>
             </div>
@@ -125,35 +125,6 @@
             </div>
         </div>
 
-        <!--
-        <hr/>
-        <h2>Informations complémentaires :</h2>
-        <div class="form-group">
-            <h3>Prêt de matériel :</h3>
-
-            <div class="row ">
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                               value="true">
-                        <label class="form-check-label" for="inlineRadio1">Oui</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                               value="false"
-                               checked>
-                        <label class="form-check-label" for="inlineRadio2">Non</label>
-
-                    </div>
-                </div>
-            </div>
-            </div>
-
-            !-->
-
-
         <h3>Niveau :</h3>
 
         <div class="row " th:each="myLvl : ${modelLevel}">
@@ -170,15 +141,6 @@
                 </div>
             </div>
 
-            <!--
-            <div class="col">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                           th:field="*{level}" th:value="${myLvl}"/>
-                    <label class="form-check-label" for="inlineRadio2">Confirmé</label>
-                </div>
-            </div>
-                !-->
         </div>
 
         <h3>Antécédents médicaux : </h3>
