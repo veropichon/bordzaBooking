@@ -5,15 +5,15 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Data
-@Entity(name = "discipline")
-public class DisciplineEntity {
+@Entity(name = "location")
+public class LocationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long disId;
+    private Long locId;
 
-    @ManyToOne
-    private PracticeEntity practice;
+    private String locLabel;
 
-    private String disLabel;
+    @Column(nullable = false)
+    private Boolean locDeleted;
 }
