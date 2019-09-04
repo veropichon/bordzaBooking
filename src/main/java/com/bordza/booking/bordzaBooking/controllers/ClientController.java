@@ -7,6 +7,7 @@ import com.bordza.booking.bordzaBooking.domain.UserEntity;
 import com.bordza.booking.bordzaBooking.repositories.ClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.LevelRepository;
 import com.bordza.booking.bordzaBooking.repositories.UserRepository;
+import com.bordza.booking.bordzaBooking.services.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class ClientController {
     @Autowired
     LevelRepository levelRepository;
 
+    @Autowired
+    ClientService clientService;
+
     private static final Logger log = LoggerFactory.getLogger("test Input");
 
     // Show user and client table on page index
@@ -52,6 +56,10 @@ public class ClientController {
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevel", levelsList);
 
+        UserEntity userEntity = new UserEntity();
+        //userEntity.defaultValue();
+
+
         model.addAttribute("modelUser", new UserEntity());
         model.addAttribute("modelClient", new ClientEntity());
 
@@ -64,36 +72,25 @@ public class ClientController {
                              @ModelAttribute("modelClient") ClientEntity clientEntity,
                              BindingResult result, ModelMap model) {
 
-        if (result.hasErrors()) {
+        /*if (result.hasErrors()) {
             return "error";
+        }*/
+
+        userEntity.defaultValue(userEntity);
+        clientEntity.defaultValue(clientEntity);
+
+        try {
+            clientService.saveClient(userEntity, clientEntity);
         }
+        catch (IllegalArgumentException e) {
 
-        String clientlvl = clientEntity.getLevel().getLevClientLabel();
-        String usrEmail = userEntity.getUsrEmail();
-        String usrPwd = userEntity.getUsrPwd();
 
-        log.info("clientlvl : " + clientlvl);
-        log.info("usrEmail : " + usrEmail);
-        log.info("usrPwd : " + usrPwd);
-
-        if (usrEmail != null && usrEmail.length() > 0
-                && usrPwd != null && usrPwd.length() > 0) {
-            userRepository.save(userEntity);
-
-            saveClient(clientEntity, userEntity);
-
-            return "redirect:/index";
+            return "inscription";
         }
-        return "inscription";
+        return "redirect:/index";
     }
 
 
-    public void saveClient(ClientEntity clientEntity, UserEntity userEntity){
-
-        clientEntity.setUser(userEntity);
-        clientRepository.save(clientEntity);
-
-    }
 
 }
 

@@ -5,15 +5,15 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Data
-@Entity (name = "level")
-public class LevelEntity {
+@Entity(name = "discipline")
+public class DisciplineEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long levId;
+    private Long disId;
 
-    private String levClientLabel;
-    private String levCourseLabel;
+    @ManyToOne
+    private PracticeEntity practice;
 
-
+    private String disLabel;
 }

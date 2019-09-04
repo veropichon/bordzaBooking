@@ -3,25 +3,31 @@ package com.bordza.booking.bordzaBooking.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 @Data
 @Entity (name = "user")
 public class UserEntity {
 
     @Id
-    @Column(name = "usr_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long usrId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String usrEmail;
 
-    @Column(nullable = false)
-    @Size(min = 4, max = 15)
+    @Column(nullable = false, length = 100)
     private String usrPwd;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(10) default 'CLIENT'")
+    @Column(nullable = false, length = 20)
     private String usrRole;
+
+    /**
+     * Display Default values
+     * @return user entity with default role
+     */
+    public static UserEntity defaultValue(UserEntity userEntity) {
+        userEntity.usrRole = "CLIENT";
+        return userEntity;
+    }
 
 }

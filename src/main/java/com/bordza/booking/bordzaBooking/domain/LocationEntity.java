@@ -5,15 +5,15 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Data
-@Entity (name = "level")
-public class LevelEntity {
+@Entity(name = "location")
+public class LocationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long levId;
+    private Long locId;
 
-    private String levClientLabel;
-    private String levCourseLabel;
+    private String locLabel;
 
-
+    @Column(nullable = false)
+    private Boolean locDeleted;
 }

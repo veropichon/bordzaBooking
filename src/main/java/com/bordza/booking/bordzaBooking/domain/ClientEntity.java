@@ -1,9 +1,9 @@
 package com.bordza.booking.bordzaBooking.domain;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Data
@@ -20,37 +20,71 @@ public class ClientEntity {
     @ManyToOne
     private LevelEntity level;
 
-    // @Column(nullable = false)
+    @Basic
+    @Column(nullable = false, length = 100)
     private String cliFirstname;
 
-    // @Column(nullable = false)
+    @Basic
+    @Column(nullable = false, length = 100)
     private String cliLastname;
 
-    // @Column(nullable = false)
+    @Basic
+    @Column(nullable = false, length = 10)
     private String cliPhone;
 
-    // @Size(min = 5, max = 5)
+    @Basic
+    @Column(nullable = false, length = 5)
     private Integer cliZipcode;
+
+    @Basic
+    @Column(nullable = false, length = 100)
     private String cliCity;
 
-    // @Column(length = 3)
+    @Basic
+    @Column(length = 3)
     private Integer cliWeight;
-    // @Column(length = 3)
+
+    @Basic
+    @Column(length = 3)
     private Integer cliHeight;
 
-    // @Column(nullable = false)
+    @DateTimeFormat
     private Date cliBirthdate;
 
+    @Basic
+    @Column(length = 100)
     private String cliTutorFirstname;
+
+    @Basic
+    @Column(length = 100)
     private String cliTutorLastname;
+
+    @Basic
+    @Column(length = 100)
     private String cliTutorEmail;
+
+    @Basic
+    @Column(length = 100)
     private String cliTutorPhone;
+
+    @Basic
+    @Column(length = 255)
     private String cliComment;
 
-    @Column(nullable = false, columnDefinition="BOOLEAN DEFAULT false")
+    @Column(nullable = false)
     private Boolean cliValidated;
 
-    @Column(nullable = false, columnDefinition="BOOLEAN DEFAULT false")
+    @Column(nullable = false)
     private Boolean cliDeleted;
+
+    /**
+     * Display Default values
+     * @return client entity with default values
+     */
+    public static ClientEntity defaultValue(ClientEntity clientEntity) {
+        clientEntity.cliValidated = false;
+        clientEntity.cliDeleted = false;
+        return clientEntity;
+    }
 
 }
