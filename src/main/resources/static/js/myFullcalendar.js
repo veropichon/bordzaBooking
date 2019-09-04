@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
-        events: '/events',
+        events: '/courses',
         eventColor: '#378006'
     });
 
