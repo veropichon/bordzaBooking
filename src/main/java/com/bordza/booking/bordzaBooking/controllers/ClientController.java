@@ -56,6 +56,10 @@ public class ClientController {
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevel", levelsList);
 
+        UserEntity userEntity = new UserEntity();
+        //userEntity.defaultValue();
+
+
         model.addAttribute("modelUser", new UserEntity());
         model.addAttribute("modelClient", new ClientEntity());
 
@@ -68,17 +72,22 @@ public class ClientController {
                              @ModelAttribute("modelClient") ClientEntity clientEntity,
                              BindingResult result, ModelMap model) {
 
-        if (result.hasErrors()) {
+        /*if (result.hasErrors()) {
             return "error";
-        }
+        }*/
+
+        userEntity.defaultValue(userEntity);
+        clientEntity.defaultValue(clientEntity);
 
         try {
             clientService.saveClient(userEntity, clientEntity);
         }
         catch (IllegalArgumentException e) {
-            return "redirect:/index";
+
+
+            return "inscription";
         }
-        return "inscription";
+        return "redirect:/index";
     }
 
 
