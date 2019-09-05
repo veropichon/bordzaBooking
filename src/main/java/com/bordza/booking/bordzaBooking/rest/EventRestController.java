@@ -1,5 +1,10 @@
-package com.bordza.booking.bordzaBooking.controllers;
+package com.bordza.booking.bordzaBooking.rest;
 
+import com.bordza.booking.bordzaBooking.domain.CourseEntity;
+import com.bordza.booking.bordzaBooking.services.EventService;
+import com.bordza.booking.bordzaBooking.domain.Event;
+import com.bordza.booking.bordzaBooking.repositories.CourseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,20 +12,24 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class EventController {
+@RestController
+public class EventRestController {
 
-    @GetMapping("/cours")
-    @ResponseBody
-    public String cours() {
 
-        return "test";
-    }
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @Autowired
+    private EventService service;
+
 
     @RequestMapping("/courses")
-    public String getCourses(@RequestParam(value = "start", required = true) String start,
-                             @RequestParam(value = "end", required = true) String end) {
+    public List<Event> getCourses(@RequestParam(value = "start", required = true) String start,
+                                         @RequestParam(value = "end", required = true) String end) {
 
         Date startDate = null;
         Date endDate = null;
@@ -44,10 +53,10 @@ public class EventController {
         LocalDateTime endDateTime = LocalDateTime.ofInstant(endDate.toInstant(),
                 ZoneId.systemDefault());
 
-//        List<CourseEntity> tet = courseRepository.findByCrsFromDateGreaterThanEqualAndCrsToDateLessThanEqual(startDateTime, endDateTime);
-//        return courseRepository.findByCrsFromDateGreaterThanEqualAndCrsToDateLessThanEqual(startDateTime, endDateTime);
-
-        return "rere";
+        List<CourseEntity> courseList = courseRepository.findByCrsFromDateGreaterThanEqualAndCrsToDateLessThanEqual(startDateTime, endDateTime);
+        return service.courseToEvent(courseList);
+//        List<Event> eventList = service.courseToEvent(courseList);
+//        return eventList;
     }
 }
 

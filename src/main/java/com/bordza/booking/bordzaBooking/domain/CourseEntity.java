@@ -1,6 +1,7 @@
 package com.bordza.booking.bordzaBooking.domain;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,7 +26,9 @@ public class CourseEntity {
     @Column(nullable = false)
     private Boolean crsVip;
 
+    @DateTimeFormat
     private LocalDateTime crsFromDate;
+    @DateTimeFormat
     private LocalDateTime crsToDate;
     private String crsTitle;
     private String crsDesc;
@@ -54,5 +57,109 @@ public class CourseEntity {
         courseEntity.crsDeleted = false;
 
         return courseEntity;
+    }
+
+    public Long getCrsId() {
+        return crsId;
+    }
+
+    public void setCrsId(Long crsId) {
+        this.crsId = crsId;
+    }
+
+    public DisciplineEntity getDiscipline() {
+        return discipline;
+    }
+
+    public void setDiscipline(DisciplineEntity discipline) {
+        this.discipline = discipline;
+    }
+
+    public LocationEntity getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationEntity location) {
+        this.location = location;
+    }
+
+    public LevelEntity getLevel() {
+        return level;
+    }
+
+    public void setLevel(LevelEntity level) {
+        this.level = level;
+    }
+
+    public Boolean getCrsVip() {
+        return crsVip;
+    }
+
+    public void setCrsVip(Boolean crsVip) {
+        this.crsVip = crsVip;
+    }
+
+    public LocalDateTime getCrsFromDate() {
+        return crsFromDate;
+    }
+
+    public void setCrsFromDate(LocalDateTime crsFromDate) {
+        this.crsFromDate = crsFromDate;
+    }
+
+    public LocalDateTime getCrsToDate() {
+        return crsToDate;
+    }
+
+    public void setCrsToDate(LocalDateTime crsToDate) {
+        this.crsToDate = crsToDate;
+    }
+
+    public String getCrsTitle() {
+        return crsTitle;
+    }
+
+    public void setCrsTitle(String crsTitle) {
+        this.crsTitle = crsTitle;
+    }
+
+    public String getCrsDesc() {
+        return crsDesc;
+    }
+
+    public void setCrsDesc(String crsDesc) {
+        this.crsDesc = crsDesc;
+    }
+
+    public String getCrsComment() {
+        return crsComment;
+    }
+
+    public void setCrsComment(String crsComment) {
+        this.crsComment = crsComment;
+    }
+
+    public Boolean getCrsValidated() {
+        return crsValidated;
+    }
+
+    public void setCrsValidated(Boolean crsValidated) {
+        this.crsValidated = crsValidated;
+    }
+
+    public Boolean getCrsPublished() {
+        return crsPublished;
+    }
+
+    public void setCrsPublished(Boolean crsPublished) {
+        this.crsPublished = crsPublished;
+    }
+
+    public Boolean getCrsDeleted() {
+        return crsDeleted;
+    }
+
+    public void setCrsDeleted(Boolean crsDeleted) {
+        this.crsDeleted = crsDeleted;
     }
 }

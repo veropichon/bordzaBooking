@@ -53,6 +53,12 @@ body .fc {
   flex-direction: row-reverse;
 }
 
+.fc-toolbar { text-transform: capitalize; }
+
+.fc-head { text-transform: capitalize; }
+
+.fc-list-heading { text-transform: capitalize; }
+
 .fc-popover .fc-header .fc-title {
   margin: 0 2px;
 }
