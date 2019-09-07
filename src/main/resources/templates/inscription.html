@@ -37,12 +37,12 @@
             <div class="form-row" th:object="${modelUser}">
                 <div class="form-group col-md-6">
                     <label for="inputEmail">Email</label>
-                    <input type="email" class="form-control" th:field="*{usrEmail}" placeholder="Email"
+                    <input type="email" required class="form-control" th:field="*{usrEmail}" placeholder="Email"
                            id="inputEmail"/>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" th:field="*{usrPwd}" placeholder="Mot de passe"
+                    <input type="password" required class="form-control" th:field="*{usrPwd}" placeholder="Mot de passe"
                            id="inputPassword"/>
                 </div>
                 <input type = "hidden" th:field="*{usrRole}">
