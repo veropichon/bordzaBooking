@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Data
 @Entity(name = "client")
@@ -19,6 +20,9 @@ public class ClientEntity {
 
     @ManyToOne
     private LevelEntity level;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private Set<CourseClientEntity> courseClients;
 
     @Basic
     @Column(nullable = false, length = 100)
