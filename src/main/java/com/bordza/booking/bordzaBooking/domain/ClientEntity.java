@@ -21,11 +21,11 @@ public class ClientEntity {
     private LevelEntity level;
 
     @Basic
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 50)
     private String cliFirstname;
 
     @Basic
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 50)
     private String cliLastname;
 
     @Basic
@@ -34,10 +34,10 @@ public class ClientEntity {
 
     @Basic
     @Column(nullable = false, length = 5)
-    private Integer cliZipcode;
+    private String cliZipcode;
 
     @Basic
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 50)
     private String cliCity;
 
     @Basic
@@ -48,23 +48,24 @@ public class ClientEntity {
     @Column(length = 3)
     private Integer cliHeight;
 
-    @DateTimeFormat
+    //@DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(nullable = false)
     private Date cliBirthdate;
 
     @Basic
-    @Column(length = 100)
+    @Column(length = 50)
     private String cliTutorFirstname;
 
     @Basic
-    @Column(length = 100)
+    @Column(length = 50)
     private String cliTutorLastname;
 
     @Basic
-    @Column(length = 100)
+    @Column(length = 50)
     private String cliTutorEmail;
 
     @Basic
-    @Column(length = 100)
+    @Column(length = 10)
     private String cliTutorPhone;
 
     @Basic
