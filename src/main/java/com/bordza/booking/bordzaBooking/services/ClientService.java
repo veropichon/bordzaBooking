@@ -59,7 +59,7 @@ public class ClientService {
 
         String usrEmail = StringUtils.trim(userEntity.getUsrEmail());
         String usrPwd = userEntity.getUsrPwd();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         //final String Emailregex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         //boolean PatternEmail = PatternMatchUtils.simpleMatch(Emailregex, usrEmail);
@@ -135,18 +135,22 @@ public class ClientService {
             throw new IllegalArgumentException("Le nom ne peut pas contenir de chiffre");
         }
 
-        if( cliBirthdate != null){
-            if (dateValidator.isValid(dateFormat.format(cliBirthdate), "yyyy-mm-dd hh:mm:ss")){
-                throw new IllegalArgumentException("La date de naissance n'est pas valide");
-            }
-        }
+        /*String cliFirstname = StringUtils.trim(clientEntity.getCliFirstname());
+        String cliLastname = StringUtils.trim(clientEntity.getCliLastname());
+        String cliPhone = StringUtils.trim(clientEntity.getCliPhone());
+        Date cliBirthdate = clientEntity.getCliBirthdate();
 
+        String cliZipcode = StringUtils.trim(clientEntity.getCliZipcode());
+        String cliCity = StringUtils.trim(clientEntity.getCliCity());
+        Integer cliWeight = clientEntity.getCliWeight();
+        Integer cliHeight = clientEntity.getCliHeight();
+        String cliTutorFirstname = StringUtils.trim(clientEntity.getCliTutorFirstname());
+        String cliTutorLastname = StringUtils.trim(clientEntity.getCliTutorLastname());
+        String cliTutorEmail = StringUtils.trim(clientEntity.getCliTutorEmail());
+        String cliTutorPhone = StringUtils.trim(clientEntity.getCliTutorPhone());
+        String cliComment = StringUtils.trim(clientEntity.getCliComment());
 
-
-        // TODO birthdate verif!
-
-        log.info("User : " + userEntity.toString());
-        log.info("Client : " + clientEntity.toString());
+        String usrEmail = StringUtils.trim(userEntity.getUsrEmail());*/
 
         userRepository.save(userEntity);
 
