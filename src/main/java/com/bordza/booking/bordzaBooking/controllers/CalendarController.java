@@ -1,21 +1,15 @@
 package com.bordza.booking.bordzaBooking.controllers;
 
-import com.bordza.booking.bordzaBooking.repositories.EventJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class CalendarController {
 
     @Autowired
-    private EventJpaRepository eventRepository;
-
     // @RequestMapping(value="/", method= RequestMethod.GET)
     // public ModelAndView index() {
         // return new ModelAndView("index");
@@ -37,9 +31,5 @@ public class CalendarController {
         return new ModelAndView("jsoncalendar");
     }
 
-    @RequestMapping(value="/eventlist", method=RequestMethod.GET)
-    public String events(HttpServletRequest request, Model model) {
-        model.addAttribute("events", eventRepository.findAll());
-        return "events";
-    }
+
 }

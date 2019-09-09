@@ -56,9 +56,6 @@ public class ClientController {
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevel", levelsList);
 
-        UserEntity userEntity = new UserEntity();
-        //userEntity.defaultValue();
-
 
         model.addAttribute("modelUser", new UserEntity());
         model.addAttribute("modelClient", new ClientEntity());
@@ -76,6 +73,7 @@ public class ClientController {
             return "error";
         }*/
 
+        // Add
         userEntity.defaultValue(userEntity);
         clientEntity.defaultValue(clientEntity);
 

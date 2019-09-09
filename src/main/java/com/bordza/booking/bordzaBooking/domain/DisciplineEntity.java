@@ -16,4 +16,28 @@ public class DisciplineEntity {
     private PracticeEntity practice;
 
     private String disLabel;
+
+    public Long getDisId() {
+        return disId;
+    }
+
+    public void setDisId(Long disId) {
+        this.disId = disId;
+    }
+
+    public PracticeEntity getPractice() {
+        return practice;
+    }
+
+    public void setPractice(PracticeEntity practice) {
+        this.practice = practice;
+    }
+
+    public String getDisLabel() {
+        return disLabel;
+    }
+
+    public void setDisLabel(String disLabel) {
+        this.disLabel = disLabel;
+    }
 }
