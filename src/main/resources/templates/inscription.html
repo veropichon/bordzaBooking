@@ -15,6 +15,7 @@
     <h1>Inscription</h1>
 
     <form action="#" th:action="@{/inscription}" th:object="${modelClient}" method="post">
+
         <div class="form-group">
             <div class="row ">
                 <div class="col">
@@ -26,7 +27,7 @@
                 </div>
                 <div class="col">
                     <div class="input_group-identity">
-                        <label class="label--desc">Prénom<em class="important">*</em></label>
+                        <label class="label--desc">Prénom<span class="required-star">*</span></label>
                         <input required class="form-control" type="text" first_name="first_name"
                                th:field="*{cliFirstname}" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" placeholder="Prénom" >
                     </div>
@@ -44,6 +45,7 @@
                     <input required type="password" class="form-control" th:field="*{usrPwd}" placeholder="Mot de passe"
                            id="inputPassword"/>
                 </div>
+                <input type = "hidden" th:field="*{usrRole}">
             </div>
         </div>
 
