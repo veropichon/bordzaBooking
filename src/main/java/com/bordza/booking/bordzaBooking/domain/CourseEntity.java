@@ -35,6 +35,9 @@ public class CourseEntity {
     private String crsComment;
 
     @Column(nullable = false)
+    private Boolean crsIndisp;
+
+    @Column(nullable = false)
     private Boolean crsValidated;
 
     @Column(nullable = false)
@@ -55,6 +58,7 @@ public class CourseEntity {
         courseEntity.crsValidated = false;
         courseEntity.crsPublished = false;
         courseEntity.crsDeleted = false;
+        courseEntity.crsIndisp = false;
 
         return courseEntity;
     }
@@ -161,5 +165,13 @@ public class CourseEntity {
 
     public void setCrsDeleted(Boolean crsDeleted) {
         this.crsDeleted = crsDeleted;
+    }
+
+    public Boolean getCrsIndisp() {
+        return crsIndisp;
+    }
+
+    public void setCrsIndisp(Boolean crsIndisp) {
+        this.crsIndisp = crsIndisp;
     }
 }

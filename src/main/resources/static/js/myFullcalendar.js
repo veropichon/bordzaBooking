@@ -22,8 +22,20 @@ document.addEventListener('DOMContentLoaded', function() {
             day  : 'Jour',
             list : 'Liste',
         },
-        events: '/courses',
+        eventSources: [{
+                url: '/courses',
+            }],
+        events: [{
+            title:"Indisponible",
+            startTime: '15:00',
+            endTime: '20:00',
+            backgroundColor : "grey",
+            borderColor : "black",
+            textColor : "black",
+            daysOfWeek: [ 6 ]
+        }],
         dateClick: function(info) {
+            window.open("/courseNew?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"));
             alert('Clicked on: ' + info.dateStr);
             alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
             alert('Current view: ' + info.view.type);
