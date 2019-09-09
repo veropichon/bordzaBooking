@@ -1,10 +1,17 @@
-body{
-    background-color: khaki;
+body {
+    background-color:#242424;
+    font-family: 'Quicksand', sans-serif;
+    color : white;
 }
 
 .contenu{
+    padding: 20px 0;
     width: 60vw;
     margin: auto;
+}
+
+.bordza_green{
+    background-color: #44a194;
 }
 
 table, td{
@@ -14,5 +21,81 @@ table, td{
 }
 
 .required-star {
-    color: crimson;
+    color: #44a194;
 }
+
+h1 , #textBordza {
+    text-align: center;
+    font-family: 'Shadows Into Light', cursive;
+}
+
+#textBordza{
+    font-size: 20px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bordza_center{
+    text-align: center;
+}
+
+.header{
+    position: relative;
+}
+
+span {
+    font-weight: bold;
+}
+
+.box_text {
+    border: double;
+    border-color: #44a194;
+    border-width: 1px;
+}
+
+.bg-black{
+    background-color: black;
+}
+
+
+.listeinfo {
+    text-decoration: underline;
+}
+
+#logo{
+    width: 60px;
+}
+
+#logo img{
+    filter: invert();
+    width: 60px;
+}
+
+.icon_nav{
+    color: white;
+}
+
+a:hover{
+    font-weight: bold;
+    color: #44a194;
+}
+
+a{
+    font-weight: bold;
+    color: white;
+}
+.nav{
+
+    text-align: right;
+}
+.center{
+    text-align: center;
+}
+
+#calendar{
+    padding: 20px 0;
+}
+
