@@ -20,7 +20,7 @@ public class CourseService {
      * @throws IllegalArgumentException
      */
 
-    public void saveCourse(UserEntity userEntity, CourseEntity courseEntity) throws IllegalArgumentException {
+    public void saveCourse(CourseEntity courseEntity) throws IllegalArgumentException {
 
         //
     }

@@ -1,5 +1,6 @@
 package com.bordza.booking.bordzaBooking.controllers;
 
+import com.bordza.booking.bordzaBooking.config.ConfigTemplateEngine;
 import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.*;
 import org.slf4j.Logger;
@@ -9,20 +10,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 @Controller
 public class CourseController {
 
-    private static final Logger log = LoggerFactory.getLogger("test Course");
+    private static final Logger log = LoggerFactory.getLogger("log CourseController");
+
+    @Autowired
+    ConfigTemplateEngine configTemplateEngine;
 
     @Autowired
     CourseRepository courseRepository;
@@ -39,18 +36,31 @@ public class CourseController {
     // @Autowired
     // CourseService courseService;
 
-    // Send level, location, discipline, course model to "courseNew"
-    @GetMapping("/courseNew")
-    public String courseNew(Model model) {
+    // TODO Valérian -> passer la date sur laquelle on a cliqué dans le calendrier
+    @GetMapping("/newCourse")
+    public String newCourse(Model model) {
 
         List<LevelEntity> levelsList = levelRepository.findAll();
-        model.addAttribute("modelLevel", levelsList);
+        model.addAttribute("modelLevelsList", levelsList);
+
+        List<DisciplineEntity> disciplinesList = disciplineRepository.findAll();
+        model.addAttribute("modelDisciplinesList", disciplinesList);
+
+        List<LocationEntity> locationsList = locationRepository.findAll();
+        model.addAttribute("modelLocationsList", locationsList);
 
         model.addAttribute("modelLocation", new LocationEntity());
         model.addAttribute("modelDiscipline", new DisciplineEntity());
-        model.addAttribute("modelCourse", new CourseEntity());
 
-        return "courseNew";
+        CourseEntity course = new CourseEntity();
+        LocalDateTime dateTest = LocalDateTime.now();
+        course.setCrsFromDate(dateTest);
+        course.setCrsTitle("Titre par défaut"); // TODO : déterminer le titre par défaut
+        model.addAttribute("modelCourse", course);
+
+        // OK ** log.info("Date course.getCrsFromDate() : " + course.getCrsFromDate());
+
+        return "newCourse";
     }
 
 }

@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Entity(name = "course")
@@ -22,6 +23,9 @@ public class CourseEntity {
 
     @ManyToOne
     private LevelEntity level;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private Set<CourseClientEntity> courseClients;
 
     @Column(nullable = false)
     private Boolean crsVip;
