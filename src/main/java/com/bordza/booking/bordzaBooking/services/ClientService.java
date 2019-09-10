@@ -4,21 +4,12 @@ import com.bordza.booking.bordzaBooking.domain.ClientEntity;
 import com.bordza.booking.bordzaBooking.domain.UserEntity;
 import com.bordza.booking.bordzaBooking.repositories.ClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.UserRepository;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.validator.routines.DateValidator;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.PatternMatchUtils;
-
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
 
 
 @Slf4j
@@ -31,11 +22,10 @@ public class ClientService {
     @Autowired
     ClientRepository clientRepository;
 
-
-
     /**
      * Exception check when @POST from inscription form
-     * @param userEntity user input form inscription
+     *
+     * @param userEntity   user input form inscription
      * @param clientEntity client input form inscription
      * @throws IllegalArgumentException
      */
@@ -44,7 +34,6 @@ public class ClientService {
         String cliFirstname = clientEntity.getCliFirstname();
         String cliLastname = clientEntity.getCliLastname();
         String cliPhone = clientEntity.getCliPhone();
-        Date cliBirthdate = clientEntity.getCliBirthdate();
 
         String cliZipcode = clientEntity.getCliZipcode();
         String cliCity = clientEntity.getCliCity();
@@ -67,7 +56,6 @@ public class ClientService {
         if (StringUtils.isBlank(usrEmail) && !emailValidator.isValid(usrEmail) && usrEmail.length() > 50) {
             throw new IllegalArgumentException("Votre email n'est pas valide");
         }
-
 
         if (StringUtils.isEmpty(usrPwd) && usrEmail.length() <= 8 && usrEmail.length() > 50) {
             throw new IllegalArgumentException("Le mot de passe n'est pas valide. Vous devez utiliser au moins minimum 6 lettres, une majuscule et un nombre");
