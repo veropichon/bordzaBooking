@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 
-@Data
 @Slf4j
 @Service
 public class ClientService {
@@ -33,10 +32,10 @@ public class ClientService {
     ClientRepository clientRepository;
 
 
+
     /**
      * Exception check when @POST from inscription form
-     *
-     * @param userEntity   user input form inscription
+     * @param userEntity user input form inscription
      * @param clientEntity client input form inscription
      * @throws IllegalArgumentException
      */
