@@ -12,7 +12,6 @@ import org.springframework.util.PatternMatchUtils;
 
 import java.sql.Date;
 
-
 @Slf4j
 @Service
 public class ClientService {
@@ -22,7 +21,6 @@ public class ClientService {
 
     @Autowired
     ClientRepository clientRepository;
-
 
 
     /**
