@@ -1,5 +1,6 @@
 package com.bordza.booking.bordzaBooking.controllers;
 
+
 import com.bordza.booking.bordzaBooking.domain.ClientEntity;
 import com.bordza.booking.bordzaBooking.domain.LevelEntity;
 import com.bordza.booking.bordzaBooking.domain.UserEntity;
@@ -74,6 +75,7 @@ public class ClientController {
             return "error";
         }*/
 
+        // Add
         userEntity.defaultValue(userEntity);
         clientEntity.defaultValue(clientEntity);
 

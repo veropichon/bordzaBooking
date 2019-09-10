@@ -4,15 +4,60 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Inscription</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
+
+<body>
+
+<header>
+    <div class="navbar bg-black text-white row">
+        <div class=" col-4">
+            <div id="logo">
+                <a th:href="@{/index}">
+                    <img th:src="@{/images/logo.png}" alt="borza_logo">
+                    <h2 id="textBordza">Bordza</h2>
+                </a>
+            </div>
+        </div>
+        <div class="bordza_center col-4">
+            <h1>Inscription</h1>
+        </div>
+        <div class="col-4 col align-self-start">
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a th:href="@{/calendar}" class="nav-link">
+                        <i class="fa fa-fw  fa-calendar"></i>
+                        Agenda
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-fw fa-star"></i>
+                        Mes cours
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/inscription}" class="nav-link">
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                        Mon compte
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
 <body>
 
 <div class="contenu">
-
-    <h1>Inscription</h1>
 
     <form action="#" th:action="@{/inscription}" th:object="${modelClient}" method="post">
 
@@ -20,52 +65,55 @@
             <div class="row ">
                 <div class="col">
                     <div class="input_group-identity">
-                        <label class="label--desc">Nom<em class="important">*</em></label>
+                        <label class="label--desc">Nom<em class="required-star">*</em></label>
                         <input required class="form-control" type="text" name="name" th:field="*{cliLastname}"
-                               placeholder="Nom">
+                               placeholder="Nom" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input_group-identity">
-                        <label class="label--desc">Prénom<span class="required-star">*</span></label>
+                        <label class="label--desc">Prénom<em class="required-star">*</em></label>
                         <input required class="form-control" type="text" first_name="first_name"
-                               th:field="*{cliFirstname}" placeholder="Prénom">
+                               th:field="*{cliFirstname}" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+                               placeholder="Prénom">
                     </div>
                 </div>
             </div>
 
             <div class="form-row" th:object="${modelUser}">
                 <div class="form-group col-md-6">
-                    <label for="inputEmail">Email</label>
-                    <input type="email" required class="form-control" th:field="*{usrEmail}" placeholder="Email"
+                    <label for="inputEmail">Email<em class="required-star">*</em></label>
+                    <input required type="email" class="form-control" th:field="*{usrEmail}" placeholder="Email"
                            id="inputEmail"/>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" required class="form-control" th:field="*{usrPwd}" placeholder="Mot de passe"
+                    <label for="inputPassword">Password<em class="required-star">*</em></label>
+                    <input required type="password" class="form-control" th:field="*{usrPwd}" placeholder="Mot de passe"
                            id="inputPassword"/>
                 </div>
-                <input type = "hidden" th:field="*{usrRole}">
+                <input type="hidden" th:field="*{usrRole}">
             </div>
         </div>
 
 
-        <label for="phone">N° Téléphone : <em class="important">*</em></label>
-        <input type="tel" required class="form-control" id="phone" pattern="([0-9]{2}){5}" th:field="*{cliPhone}"
+        <label for="phone">N° Téléphone <em class="required-star">*</em></label>
+        <input type="tel" required class="form-control" id="phone" pattern="([0-9]{2}){5})" th:field="*{cliPhone}"
                name="phone"
                placeholder="N° téléphone">
 
-        <h3>Adresse :<em class="important">*</em></h3>
 
         <div class="row ">
             <div class="col">
                 <div class="input_group-identity">
-                    <input required class="form-control" type="text" name="postal_code" minlength="5" maxlength="5" pattern="[0-9]{5}"
+                    <label class="label--desc">Code Postal<em class="required-star">*</em></label>
+                    <input required class="form-control" type="text" name="postal_code" minlength="5" maxlength="5"
+                           pattern="[0-9]{5}"
                            th:field="*{cliZipcode}" placeholder="CP">
                 </div>
             </div>
             <div class="col">
                 <div class="input_group-identity">
+                    <label class="label--desc">Ville<em class="required-star">*</em></label>
                     <input class="form-control" type="text" town="town" th:field="*{cliCity}" placeholder="Ville">
                 </div>
             </div>
@@ -75,8 +123,8 @@
         <div class="row ">
             <div class="col">
                 <div class="input_group-identity">
-                    <label class="label--desc">Date de naissance<em>*</em></label>
-                    <input class="form-control" type="date" name="birthday_date" th:field="*{cliBirthdate}">
+                    <label class="label--desc">Date de naissance<em class="required-star">*</em></label>
+                    <input required class="form-control" type="date" name="birthday_date" th:field="*{cliBirthdate}">
                 </div>
             </div>
             <div class="col">
@@ -96,7 +144,7 @@
         </div>
         <hr/>
 
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+        <a class="btn btn-primary bordza_green" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
            aria-controls="collapseExample">
             Si mineur
         </a>
@@ -119,20 +167,28 @@
                         </div>
                     </div>
                 </div>
-
-                <label for="tutor_phone">N° Téléphone du Tuteur : </label>
-                <input type="tel" class="form-control" id="tutor_phone" name="tutor_phone" th:field="*{cliTutorPhone}"
-                       placeholder="N° téléphone">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="tutor_phone">N° Téléphone du Tuteur : </label>
+                        <input type="tel" class="form-control" id="tutor_phone" name="tutor_phone"
+                               th:field="*{cliTutorPhone}"
+                               placeholder="N° téléphone">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputTutorEmail">Email du tuteur</label>
+                        <input type="email" class="form-control" th:field="*{cliTutorEmail}" placeholder="Email"
+                               id="inputTutorEmail"/>
+                    </div>
+                </div>
             </div>
         </div>
 
         <hr/>
         <h2>Informations complémentaires :</h2>
-        <h3>Niveau :</h3>
+        <p>Niveau :</p>
 
-        <div class="row " th:each="myLvl : ${modelLevel}">
-
-            <div class="col">
+        <div class="row ">
+            <div class="col" th:each="myLvl : ${modelLevel}">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio"
                            th:field="*{level}"
@@ -144,8 +200,8 @@
                 </div>
             </div>
         </div>
-
-        <h3>Antécédents médicaux : </h3>
+        <br>
+        <p>Antécédents médicaux : </p>
         <div class="row">
             <div class="col">
                     <textarea id="medical_information" class="form-control" rows="3"
@@ -154,7 +210,7 @@
         </div>
         <hr>
 
-        <button type="submit" class="btn btn-primary">Valider</button>
+        <button type="submit" class="btn btn-primary bordza_green">Valider</button>
 
 
     </form>

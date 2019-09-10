@@ -35,10 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
             daysOfWeek: [ 6 ]
         }],
         dateClick: function(info) {
-            window.open("/courseNew?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"));
-            alert('Clicked on: ' + info.dateStr);
-            alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-            alert('Current view: ' + info.view.type);
+            window.open("/newCourse?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"),"_self");
         }
     });
 
