@@ -41,30 +41,25 @@ public class ClientService {
      */
     public void saveClient(UserEntity userEntity, ClientEntity clientEntity) throws IllegalArgumentException {
 
-        String cliFirstname = StringUtils.trim(clientEntity.getCliFirstname());
-        String cliLastname = StringUtils.trim(clientEntity.getCliLastname());
-        String cliPhone = StringUtils.trim(clientEntity.getCliPhone());
+        String cliFirstname = clientEntity.getCliFirstname();
+        String cliLastname = clientEntity.getCliLastname();
+        String cliPhone = clientEntity.getCliPhone();
         Date cliBirthdate = clientEntity.getCliBirthdate();
 
-        String cliZipcode = StringUtils.trim(clientEntity.getCliZipcode());
-        String cliCity = StringUtils.trim(clientEntity.getCliCity());
+        String cliZipcode = clientEntity.getCliZipcode();
+        String cliCity = clientEntity.getCliCity();
         Integer cliWeight = clientEntity.getCliWeight();
         Integer cliHeight = clientEntity.getCliHeight();
-        String cliTutorFirstname = StringUtils.trim(clientEntity.getCliTutorFirstname());
-        String cliTutorLastname = StringUtils.trim(clientEntity.getCliTutorLastname());
-        String cliTutorEmail = StringUtils.trim(clientEntity.getCliTutorEmail());
-        String cliTutorPhone = StringUtils.trim(clientEntity.getCliTutorPhone());
-        String cliComment = StringUtils.trim(clientEntity.getCliComment());
+        String cliTutorFirstname = clientEntity.getCliTutorFirstname();
+        String cliTutorLastname = clientEntity.getCliTutorLastname();
+        String cliTutorEmail = clientEntity.getCliTutorEmail();
+        String cliTutorPhone = clientEntity.getCliTutorPhone();
+        String cliComment = clientEntity.getCliComment();
 
         String usrEmail = StringUtils.trim(userEntity.getUsrEmail());
         String usrPwd = userEntity.getUsrPwd();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        //final String Emailregex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        //boolean PatternEmail = PatternMatchUtils.simpleMatch(Emailregex, usrEmail);
 
         EmailValidator emailValidator = EmailValidator.getInstance();
-        DateValidator dateValidator = DateValidator.getInstance();
 
         /**
          * User Validator
@@ -133,23 +128,6 @@ public class ClientService {
         if (cliComment.length() > 255) {
             throw new IllegalArgumentException("Le nom ne peut pas contenir de chiffre");
         }
-
-        /*String cliFirstname = StringUtils.trim(clientEntity.getCliFirstname());
-        String cliLastname = StringUtils.trim(clientEntity.getCliLastname());
-        String cliPhone = StringUtils.trim(clientEntity.getCliPhone());
-        Date cliBirthdate = clientEntity.getCliBirthdate();
-
-        String cliZipcode = StringUtils.trim(clientEntity.getCliZipcode());
-        String cliCity = StringUtils.trim(clientEntity.getCliCity());
-        Integer cliWeight = clientEntity.getCliWeight();
-        Integer cliHeight = clientEntity.getCliHeight();
-        String cliTutorFirstname = StringUtils.trim(clientEntity.getCliTutorFirstname());
-        String cliTutorLastname = StringUtils.trim(clientEntity.getCliTutorLastname());
-        String cliTutorEmail = StringUtils.trim(clientEntity.getCliTutorEmail());
-        String cliTutorPhone = StringUtils.trim(clientEntity.getCliTutorPhone());
-        String cliComment = StringUtils.trim(clientEntity.getCliComment());
-
-        String usrEmail = StringUtils.trim(userEntity.getUsrEmail());*/
 
         userRepository.save(userEntity);
 
