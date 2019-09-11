@@ -127,22 +127,16 @@ public class CourseController {
 
         @RequestMapping("/courseSummary")
         public String courseSummary(Model model) {
-            /*Long bookingId = (2L);
+          Long bookingId = (1L);
             CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
-            model.addAttribute("modelCousreClient", booking);
-            ClientEntity client = new ClientEntity();
-            model.addAttribute("modelClient", client);
-            LevelEntity level = new LevelEntity();
-            model.addAttribute("modelLevel", level);
-            DisciplineEntity discipline = new DisciplineEntity();
-            model.addAttribute("modelDiscipline", discipline);
-            LocationEntity location =new LocationEntity();
-            model.addAttribute("modelLocation",  location);
-            CourseEntity course =new CourseEntity();
-            model.addAttribute("modelCourse",  course);
-            */
 
-              LocationEntity location = new LocationEntity();
+           // log.info("id cours : " + booking.getCourse().getCrsFromDate());
+            model.addAttribute("modelCourseClient", booking);
+
+
+
+
+      /*     LocationEntity location = new LocationEntity();
                 location.setLocId(1L);
                 location.setLocLabel("Darwin");
                 model.addAttribute("modelLocation",  location);
@@ -175,7 +169,7 @@ public class CourseController {
                 //model.addAttribute("modelClient", client);
 
                 // OK ** log.info("Date course.getCrsFromDate() : " + course.getCrsFromDate());
-
+    */
                 return "courseSummary";
             }
 
