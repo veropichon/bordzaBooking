@@ -24,6 +24,9 @@ public class CourseEntity {
     @ManyToOne
     private LevelEntity level;
 
+    @ManyToOne
+    private DurationEntity duration;
+
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Set<CourseClientEntity> courseClients;
 
