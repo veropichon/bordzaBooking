@@ -41,7 +41,11 @@ public class CourseController {
     LocationRepository locationRepository;
 
     @Autowired
+    CourseClientRepository courseClientRepository;
+
+    @Autowired
     CourseService courseService;
+
 
     private static final Logger log = LoggerFactory.getLogger("log CourseController");
 
@@ -82,6 +86,7 @@ public class CourseController {
         return "newCourse";
     }
 
+
     // Save Course and Booking
     @PostMapping("/newCourse")
     public String saveCourseAndBooking(@ModelAttribute("modelCourse") CourseEntity courseEntity,
@@ -99,13 +104,68 @@ public class CourseController {
 
         try {
             courseService.saveCourse(courseEntity, clientEntity, courseClientEntity);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
 
 
             return "newCourse";
         }
         return "redirect:/calendar";
     }
+        // Récapitulatif du cours créé
 
-}
+        @RequestMapping("/courseSummary")
+        public String courseSummary(Model model) {
+            /*Long bookingId = (2L);
+            CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
+            model.addAttribute("modelCousreClient", booking);
+            ClientEntity client = new ClientEntity();
+            model.addAttribute("modelClient", client);
+            LevelEntity level = new LevelEntity();
+            model.addAttribute("modelLevel", level);
+            DisciplineEntity discipline = new DisciplineEntity();
+            model.addAttribute("modelDiscipline", discipline);
+            LocationEntity location =new LocationEntity();
+            model.addAttribute("modelLocation",  location);
+            CourseEntity course =new CourseEntity();
+            model.addAttribute("modelCourse",  course);
+            */
+
+              LocationEntity location = new LocationEntity();
+                location.setLocId(1L);
+                location.setLocLabel("Darwin");
+                model.addAttribute("modelLocation",  location);
+                DisciplineEntity discipline = new DisciplineEntity();
+                discipline.setDisId(3L);
+                discipline.setDisLabel("Longboard dancing");
+                model.addAttribute("modelDiscipline", discipline);
+                LevelEntity level = new LevelEntity();
+                level.setLevCourseLabel("débutant");
+                model.addAttribute("modelLevel" , level);
+
+                CourseEntity course = new CourseEntity();
+                LocalDateTime fromDate = LocalDateTime.now();
+               // LocalDateTime fromDate = LocalDateTime.parse(start);
+                course.setCrsFromDate(fromDate);
+                LocalDateTime toDate = fromDate.plusHours(1); // Par défaut : durée = 1 heure
+                course.setCrsToDate(toDate);
+                //course.setCrsTitle("Titre par défaut"); // TODO : déterminer le titre par défautcourseclient
+                //course.setCrsDesc("Description par défaut"); // TODO : déterminer la description par défaut
+
+                course.setCrsVip(false);
+                model.addAttribute("modelCourse", course);
+
+                CourseClientEntity booking = new CourseClientEntity();
+                booking.setBkMat(false);
+                model.addAttribute("modelCourseClient", booking);
+                // TODO récupérer l'ID client courant (cookie)
+                // Pour l'instant : on suppose que le client est connecté et que c'est le client avec cliId = 1
+                // ClientEntity client = clientRepository.findById(1L).get();
+                //model.addAttribute("modelClient", client);
+
+                // OK ** log.info("Date course.getCrsFromDate() : " + course.getCrsFromDate());
+
+                return "courseSummary";
+            }
+
+
+    }

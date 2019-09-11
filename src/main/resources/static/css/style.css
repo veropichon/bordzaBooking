@@ -53,7 +53,8 @@ span {
 .box_text {
     border: double;
     border-color: #44a194;
-    border-width: 1px;
+    border-width: 2px;
+    border-width: thick ;
 }
 
 .bg-black{

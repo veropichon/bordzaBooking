@@ -66,6 +66,7 @@
         <tr th:each="myUser : ${usersList}">
             <td th:utext="${myUser.getUsrId()}">...</td>
             <td th:utext="${myUser.getUsrEmail()}">...</td>
+
             <td th:utext="${myUser.getUsrPwd()}">...</td>
         </tr>
     </table>
@@ -109,6 +110,7 @@
     <!--<li><a th:href="@{/allevents}">Liste des évènements</a></li>
     <li><a th:href="@{https://gist.github.com/mariehelene/0dadc76e704cc82bc85174fe5256f87b}">event.sql</a></li>!-->
     <li><a th:href="@{/api/clients}">Tous les clients</a></li>
+    <li><a th:href="@{/courseSummary}">Récapitulatif Cours</a></li>
 </ul>
 
 </body>
