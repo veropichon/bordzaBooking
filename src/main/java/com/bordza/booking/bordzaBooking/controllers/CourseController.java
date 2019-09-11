@@ -5,6 +5,7 @@ import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.*;
 import com.bordza.booking.bordzaBooking.services.CourseService;
 import com.bordza.booking.bordzaBooking.services.ClientService;
+import com.bordza.booking.bordzaBooking.utils.duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,8 +67,19 @@ public class CourseController {
         CourseEntity course = new CourseEntity();
         LocalDateTime fromDate = LocalDateTime.parse(start);
         course.setCrsFromDate(fromDate);
+
         LocalDateTime toDate = fromDate.plusHours(1); // Par défaut : durée = 1 heure
         course.setCrsToDate(toDate);
+
+        ArrayList<duration> durationsArray = new ArrayList<>();
+        duration duration1 = new duration(1, "1 heure");
+        duration duration2 = new duration(2, "2 heures");
+        duration duration3 = new duration(3, "3 heures");
+        durationsArray.add(0, duration1);
+        durationsArray.add(1, duration2);
+        durationsArray.add(2, duration3);
+        model.addAttribute("durationsArray", durationsArray);
+
         course.setCrsTitle("Titre par défaut"); // TODO : déterminer le titre par défaut
         course.setCrsDesc("Description par défaut"); // TODO : déterminer la description par défaut
         course.setCrsVip(false);
@@ -96,8 +109,11 @@ public class CourseController {
         courseEntity.defaultValue(courseEntity);
         courseClientEntity.defaultValue(courseClientEntity);
 
-
         try {
+
+            log.info("Date course.getCrsFromDate() : " + courseEntity.getCrsFromDate());
+            log.info("Date course.getCrsToDate() : " + courseEntity.getCrsToDate());
+
             courseService.saveCourse(courseEntity, clientEntity, courseClientEntity);
         }
         catch (IllegalArgumentException e) {
