@@ -1,27 +1,17 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.springframework.org/tags/form">
 <head>
-    <meta charset='utf-8' content="Cory Sanoy" name="Author" />
+    <meta charset="UTF-8">
+    <title>Récapitulatif cours</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
 
-    <link href='fullcalendar/core/main.css' rel='stylesheet' />
-    <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
-    <link href='fullcalendar/timegrid/main.css' rel='stylesheet' />
-    <link href='fullcalendar/list/main.css' rel='stylesheet' />
-    <script src='fullcalendar/core/main.js'></script>
-    <script src='fullcalendar/daygrid/main.js'></script>
-    <script src='fullcalendar/timegrid/main.js'></script>
-    <script src='fullcalendar/list/main.js'></script>
-    <script src='fullcalendar/interaction/main.js'></script>
-    <script src='fullcalendar/core/locales/fr.js'></script>
-    <script src="/js/myFullcalendar.js"></script>
 <body>
 
 <header>
@@ -35,7 +25,7 @@
             </div>
         </div>
         <div class="bordza_center col-4">
-            <h1>Agenda</h1>
+            <h1>Récapitulatif du cours</h1>
         </div>
         <div class="col-4 col align-self-start">
             <ul class="nav justify-content-end">
@@ -61,7 +51,33 @@
         </div>
     </div>
 </header>
+<div class="container">
+    <form action="#" th:action="@{/courseSummary}" th:object="${modelCourse}" method="post">
 
-<div id='calendar'></div>
+            <ul class="list-unstyled">
+            <li>Date du cours :</li>
+            <li>Horaires : de </li>
+            <li>Pratique et discipline : </li>
+            <li>Niveau : </li>
+            <br>
+            <li>Lieu souhaité : </li>
+            <li>Prêt de matériel : </li>
+        </ul>
+
+        <hr>
+
+        <p>Votre demande a bien été envoyée. Vous recevrez un Email après validation.</p>
+        <div class="box_text" >
+            S'il s'agit de votre premier cours, merci de contacter le formateur à ce numéro : <span>06 10 66 02 46</span>, afin qu'il puisse valider.
+
+        </div>
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
 </body>
 </html>

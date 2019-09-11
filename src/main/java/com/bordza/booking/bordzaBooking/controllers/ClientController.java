@@ -57,7 +57,6 @@ public class ClientController {
         model.addAttribute("modelLevel", levelsList);
 
         UserEntity userEntity = new UserEntity();
-        //userEntity.defaultValue();
 
 
         model.addAttribute("modelUser", new UserEntity());
@@ -76,6 +75,7 @@ public class ClientController {
             return "error";
         }*/
 
+        // Add
         userEntity.defaultValue(userEntity);
         clientEntity.defaultValue(clientEntity);
 

@@ -3,18 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:form="http://www.springframework.org/tags/form">
 
-    <head>
-        <title>Réservation</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="css/style.css" />   <!-- th:href="@{/css/style.css}" -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<head>
+    <title>Création de cours</title>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 
     </head>
 
@@ -24,7 +23,7 @@
                 <p class="bg-dark text-white">Création de cours</p>
             </h2>
 
-            <form action="#" th:action="@{/creation_cours}" th:object="${modelCourse}" method="post">
+            <form action="#" th:action="@{/newCourse}" th:object="${modelCourse}" method="post">
                 <div class="form-group">
                     <div class ="row">
                         <div class="col">
@@ -35,6 +34,7 @@
                             <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span></big>
 
                             <!-- <span th:text="${#temporals.format(modelCourse.getCrsFromDate(), 'dd/MM/yyyy')}"></span> -->
+                            <input type="hidden" th:field="*{crsFromDate}" th:value="${modelCourse.getCrsFromDate()}">
                         </div>
                     </div>
                 </div>
@@ -43,12 +43,12 @@
                     <label><strong>Cours particulier VIP <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            <input type="radio" id="particulier" name="vip" value="1" checked>
-                            <label for="particulier">Oui</label>
+                            <input th:field="*{crsVip}" th:type="radio" th:id="particulier" th:name="vip" th:value="1">
+                            <label th:for="particulier">Oui</label>
                         </div>
                         <div class="col">
-                            <input type="radio" id="collectif" name="vip" value="0">
-                            <label for="collectif">Non</label>
+                            <input th:field="*{crsVip}" th:type="radio" th:id="collectif" th:name="vip" th:value="0">
+                            <label th:for="collectif">Non</label>
                         </div>
                     </div>
                 </div>
@@ -58,8 +58,9 @@
                     <label><strong>Horaires <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            De <input type="time" id="fromTime" name="fromTime" min="09:00" max="18:00" required value="10:00">
-                            à <input type="time" id="toTime" name="fromTime" min="09:00" max="18:00" required value="11:00">
+                            De <input type="time" th:id="fromTime" th:name="fromTime" min="09:00" max="18:00" required th:value="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}">
+                            à <input type="time" th:id="toTime" th:name="toTime" min="09:00" max="18:00" required th:value="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}">
+
                         </div>
                     </div>
                     <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
@@ -90,25 +91,31 @@
                     <label><strong>Niveau souhaité <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col" th:each="myLev: ${modelLevelsList}">
-                            <input type="radio" th:field="*{level}" th:value="${myLev.getLevId()}" >
+                            <input type="radio" th:field="*{level}" th:value="${myLev.getLevId()}">
                             <label th:for="${#ids.prev('level')}" th:text="${myLev.getLevCourseLabel()}"></label>
+                            <!-- th:checked="${flag} ? 'checked'" -->
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group" >
+                <div class="form-group" th:object="${modelCourseClient}">
                     <label><strong>Prêt de matériel <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            <input type="radio" id="oui" name="booking_mat" value="1" checked>
+                            <input type="radio" th:field="*{bkMat}" id="oui" th:value="0" checked>
                             <label for="oui">Oui</label>
                         </div>
                         <div class="col">
-                            <input type="radio" id="non" name="booking_mat" value="0">
+                            <input type="radio" th:field="*{bkMat}" id="non" th:value="1">
                             <label for="non">Non</label>
                         </div>
                     </div>
                 </div>
+                <div class="form-row" th:object="${modelClient}">
+                    <input type="hidden" th:field="*{cliId}">
+                </div>
+                <input type="hidden" th:field="*{crsUnavailable}">
+                <input type="hidden" th:field="*{crsTitle}">
 
                 <button type="submit" class="btn btn-primary">Valider</button>
                 <button type="button" class="btn btn-secondary">Annuler</button>

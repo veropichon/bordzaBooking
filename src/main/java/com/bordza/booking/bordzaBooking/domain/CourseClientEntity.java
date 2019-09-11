@@ -11,16 +11,30 @@ import java.io.Serializable;
 public class CourseClientEntity implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long bkId;
+
+
     @ManyToOne
     @JoinColumn
     private ClientEntity client;
 
-    @Id
+
     @ManyToOne
     @JoinColumn
     private CourseEntity course;
 
     private Boolean bkVip;
     private Boolean bkMat;
+
+    /**
+     * Display Default values
+     * @return courseClient entity with default values
+     */
+    public static CourseClientEntity defaultValue(CourseClientEntity courseClientEntity) {
+        courseClientEntity.bkVip = false;
+        courseClientEntity.bkMat = false;
+        return courseClientEntity;
+    }
 
 }

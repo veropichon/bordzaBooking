@@ -1,9 +1,8 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerFiles">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset='utf-8' content="Cory Sanoy" name="Author" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
@@ -11,20 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 
-    <link href='fullcalendar/core/main.css' rel='stylesheet' />
-    <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
-    <link href='fullcalendar/timegrid/main.css' rel='stylesheet' />
-    <link href='fullcalendar/list/main.css' rel='stylesheet' />
-    <script src='fullcalendar/core/main.js'></script>
-    <script src='fullcalendar/daygrid/main.js'></script>
-    <script src='fullcalendar/timegrid/main.js'></script>
-    <script src='fullcalendar/list/main.js'></script>
-    <script src='fullcalendar/interaction/main.js'></script>
-    <script src='fullcalendar/core/locales/fr.js'></script>
-    <script src="/js/myFullcalendar.js"></script>
+</head>
+
 <body>
 
-<header>
+<header th:fragment="header">
     <div class="navbar bg-black text-white row">
         <div class=" col-4">
             <div id="logo">
@@ -35,7 +25,9 @@
             </div>
         </div>
         <div class="bordza_center col-4">
-            <h1>Agenda</h1>
+            <!--<h1 th:text=”${pageTitle}”></h1>!-->
+            <h1 ></h1>
+
         </div>
         <div class="col-4 col align-self-start">
             <ul class="nav justify-content-end">
@@ -62,6 +54,5 @@
     </div>
 </header>
 
-<div id='calendar'></div>
 </body>
 </html>
