@@ -583,7 +583,7 @@ TODO: more distinction between this file and common.css
 }
 
 .fc-unthemed td.fc-today {
-  background: #fcf8e3;
+  background: black;
 }
 
 .fc-unthemed .fc-disabled-day {
