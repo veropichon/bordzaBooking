@@ -38,33 +38,36 @@ public class CourseService {
 
     public void saveCourse(CourseEntity courseEntity, ClientEntity clientEntity, CourseClientEntity courseClientEntity) throws IllegalArgumentException {
 
-        // TODO : récupérer heures horaires pour mettre à jour les 2 dates (datetime)
-
         // String crsComment = courseEntity.getCrsComment();
         // boolean crsDeleted = courseEntity.getCrsDeleted();
          // String crsDesc = courseEntity.getCrsDesc();
         LocalDateTime crsFromDate = courseEntity.getCrsFromDate();
         // boolean crsPublished = courseEntity.getCrsPublished();
-        // String crsTitle = courseEntity.getCrsTitle();
-        LocalDateTime crsToDate = courseEntity.getCrsToDate();
-        boolean crsUnvailable = courseEntity.getCrsUnavailable();
+
+        Long crsDurId = courseEntity.getDuration().getDurId();
+        LocalDateTime crsToDate = crsFromDate.plusHours(crsDurId);
+
+        boolean crsUnavailable = courseEntity.getCrsUnavailable();
         // boolean crsValidated = courseEntity.getCrsValidated();
         boolean crsVip = courseEntity.getCrsVip();
         Long crsDisId = courseEntity.getDiscipline().getDisId();
         Long crsLvlId = courseEntity.getLevel().getLevId();
         Long crsLocId = courseEntity.getLocation().getLocId();
 
+        // Titre construit à partir de la discipline et du lieu
+        String crsTitle = courseEntity.getDiscipline().getDisLabel();
+        crsTitle += ' ' + courseEntity.getLocation().getLocLabel();
 
-        log.info("Cours : " + courseEntity.toString());
-        // log.info("Booking : " + courseClientEntity.toString());
-
+        courseEntity.setCrsTitle(crsTitle);
+        courseEntity.setCrsToDate(crsToDate);
         courseRepository.save(courseEntity);
 
         courseClientEntity.setCourse(courseEntity);
         courseClientEntity.setClient(clientEntity);
         courseClientRepository.save(courseClientEntity);
 
-
+        // log.info("Cours : " + courseEntity.toString());
+        // log.info("Booking : " + courseClientEntity.toString());
 
     }
 }

@@ -1,5 +1,6 @@
 package com.bordza.booking.bordzaBooking.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,11 +15,9 @@ public class CourseClientEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bkId;
 
-
     @ManyToOne
     @JoinColumn
     private ClientEntity client;
-
 
     @ManyToOne
     @JoinColumn

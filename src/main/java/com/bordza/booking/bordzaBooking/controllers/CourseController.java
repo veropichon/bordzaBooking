@@ -5,7 +5,6 @@ import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.*;
 import com.bordza.booking.bordzaBooking.services.CourseService;
 import com.bordza.booking.bordzaBooking.services.ClientService;
-import com.bordza.booking.bordzaBooking.utils.duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,9 @@ public class CourseController {
     DisciplineRepository disciplineRepository;
 
     @Autowired
+    DurationRepository durationRepository;
+
+    @Autowired
     LevelRepository levelRepository;
 
     @Autowired
@@ -55,6 +57,9 @@ public class CourseController {
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevelsList", levelsList);
 
+        List<DurationEntity> durationsList = durationRepository.findAll();
+        model.addAttribute("modelDurationsList", durationsList);
+
         List<DisciplineEntity> disciplinesList = disciplineRepository.findAll();
         model.addAttribute("modelDisciplinesList", disciplinesList);
 
@@ -70,15 +75,6 @@ public class CourseController {
 
         LocalDateTime toDate = fromDate.plusHours(1); // Par défaut : durée = 1 heure
         course.setCrsToDate(toDate);
-
-        ArrayList<duration> durationsArray = new ArrayList<>();
-        duration duration1 = new duration(1, "1 heure");
-        duration duration2 = new duration(2, "2 heures");
-        duration duration3 = new duration(3, "3 heures");
-        durationsArray.add(0, duration1);
-        durationsArray.add(1, duration2);
-        durationsArray.add(2, duration3);
-        model.addAttribute("durationsArray", durationsArray);
 
         course.setCrsTitle("Titre par défaut"); // TODO : déterminer le titre par défaut
         course.setCrsDesc("Description par défaut"); // TODO : déterminer la description par défaut
