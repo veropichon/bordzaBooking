@@ -14,14 +14,18 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                    .antMatchers("/calendar").permitAll()
-                    .antMatchers("/index").authenticated()
+                .authorizeRequests().anyRequest().permitAll()
+//                    .antMatchers("/calendar").permitAll()
+//                    .antMatchers("/newCourse**").authenticated()
+//                    .antMatchers("/index").authenticated()
+//                    .antMatchers("/admin**").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .and()
                 .httpBasic()
                 ;
+
+
 
 //        http.logout().logoutUrl("/my/logout")
 //                .logoutSuccessUrl("/my/index")
@@ -34,7 +38,8 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth.inMemoryAuthentication().withUser("user").password(encoder.encode("password")).roles("");
+        auth.inMemoryAuthentication().withUser("user").password(encoder.encode("password")).roles("ADMIN");
+        auth.inMemoryAuthentication().withUser("user2").password(encoder.encode("password")).roles("ADMIN");
     }
 
 }
