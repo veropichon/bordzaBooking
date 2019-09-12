@@ -120,27 +120,28 @@ public class CourseController {
 
         try {
 
-            log.info("CourseController : someBean.getFromTime() = " + someBean.getFromTime());
-            log.info("CourseController : someBean.getFromDateTime() = " + someBean.getFromDateTime());
+            // log.info("CourseController : someBean.getFromTime() = " + someBean.getFromTime());
+            // log.info("CourseController : someBean.getFromDateTime() = " + someBean.getFromDateTime());
 
             courseEntity.defaultValue(courseEntity);
             courseClientEntity.defaultValue(courseClientEntity);
 
             courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
 
+            // return "redirect:/calendar";
+            String url = "redirect:/courseSummary?bookingId=" + String.valueOf(courseClientEntity.getBkId());
+            return url;
         }
         catch (IllegalArgumentException e) {
 
-
             return "newCourse";
         }
-        return "redirect:/calendar";
     }
-        // Récapitulatif du cours créé
 
+    // Récapitulatif du cours créé
     @RequestMapping("/courseSummary")
-        public String courseSummary(Model model) {
-          Long bookingId = (1L);
+        public String courseSummary(Model model, @RequestParam Long bookingId) {
+          // Long bookingId = (1L);
             CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
 
            // log.info("id cours : " + booking.getCourse().getCrsFromDate());
