@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="headerFiles">
-
+<head th:fragment="headFiles">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -9,12 +8,13 @@
     <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-
 </head>
 
 <body>
 
-<header th:fragment="header">
+<!--  Header client !-->
+
+<header th:fragment="headerClient(myPageTitle)">
     <div class="navbar bg-black text-white row">
         <div class=" col-4">
             <div id="logo">
@@ -25,9 +25,7 @@
             </div>
         </div>
         <div class="bordza_center col-4">
-            <!--<h1 th:text=”${pageTitle}”></h1>!-->
-            <h1 ></h1>
-
+            <h1 th:text="${myPageTitle}"></h1>
         </div>
         <div class="col-4 col align-self-start">
             <ul class="nav justify-content-end">
@@ -53,6 +51,7 @@
         </div>
     </div>
 </header>
+
 
 </body>
 </html>
