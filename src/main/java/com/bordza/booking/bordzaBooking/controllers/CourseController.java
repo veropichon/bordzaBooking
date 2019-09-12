@@ -5,6 +5,7 @@ import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.*;
 import com.bordza.booking.bordzaBooking.services.CourseService;
 import com.bordza.booking.bordzaBooking.services.ClientService;
+import com.bordza.booking.bordzaBooking.utils.SomeBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,13 +52,14 @@ public class CourseController {
     @Autowired
     CourseService courseService;
 
-
     private static final Logger log = LoggerFactory.getLogger("log CourseController");
 
     @RequestMapping("/newCourse")
     public String newCourse(Model model, @RequestParam String start) {
 
-        model.addAttribute("modelCourseClient", new CourseClientEntity());
+        CourseClientEntity courseClientEntity = new CourseClientEntity();
+        courseClientEntity.defaultValue(courseClientEntity);
+        model.addAttribute("modelCourseClient", courseClientEntity);
 
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevelsList", levelsList);
@@ -74,15 +77,17 @@ public class CourseController {
         model.addAttribute("modelDiscipline", new DisciplineEntity());
 
         CourseEntity course = new CourseEntity();
+        course.defaultValue(course);
+
         LocalDateTime fromDate = LocalDateTime.parse(start);
         course.setCrsFromDate(fromDate);
-
         LocalDateTime toDate = fromDate.plusHours(1); // Par défaut : durée = 1 heure
         course.setCrsToDate(toDate);
+        course.setCrsTitle("Titre par défaut");
+        course.setCrsDesc("Description par défaut");
+        LevelEntity level = levelRepository.findById(1L).get();
+        course.setLevel(level);
 
-        course.setCrsTitle("Titre par défaut"); // TODO : déterminer le titre par défaut
-        course.setCrsDesc("Description par défaut"); // TODO : déterminer la description par défaut
-        course.setCrsVip(false);
         model.addAttribute("modelCourse", course);
 
         // TODO récupérer l'ID client courant (cookie)
@@ -90,40 +95,48 @@ public class CourseController {
         ClientEntity client = clientRepository.findById(1L).get();
         model.addAttribute("modelClient", client);
 
-        // OK ** log.info("Date course.getCrsFromDate() : " + course.getCrsFromDate());
+        SomeBean someBean = new SomeBean();
+        someBean.setFromTime(LocalTime.of(course.getCrsFromDate().getHour(), course.getCrsFromDate().getMinute()));
+        someBean.setFromDateTime(course.getCrsFromDate());
+        // String.valueOf(number)
+        model.addAttribute("someBean", someBean);
+
+        log.info("course.getCrsFromDate() : " + course.getCrsFromDate());
+        log.info("bean FromTime : " + someBean.getFromTime());
+        log.info("bean FromDateTime : " + someBean.getFromDateTime());
+
+        model.addAttribute("pageTitle", "Nouveau cours");
 
         return "newCourse";
     }
-
 
     // Save Course and Booking
     @PostMapping("/newCourse")
     public String saveCourseAndBooking(@ModelAttribute("modelCourse") CourseEntity courseEntity,
                                        @ModelAttribute("modelClient") ClientEntity clientEntity,
                                        @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
+                                       @ModelAttribute("someBean") SomeBean someBean,
                                        BindingResult result, ModelMap model) {
-
-        /*if (result.hasErrors()) {
-            return "error";
-        }*/
-
-        courseEntity.defaultValue(courseEntity);
-        courseClientEntity.defaultValue(courseClientEntity);
 
         try {
 
-            log.info("Date course.getCrsFromDate() : " + courseEntity.getCrsFromDate());
-            log.info("Date course.getCrsToDate() : " + courseEntity.getCrsToDate());
+            log.info("CourseController : someBean.getFromTime() = " + someBean.getFromTime());
+            log.info("CourseController : someBean.getFromDateTime() = " + someBean.getFromDateTime());
 
-            courseService.saveCourse(courseEntity, clientEntity, courseClientEntity);
-        } catch (IllegalArgumentException e) {
+            courseEntity.defaultValue(courseEntity);
+            courseClientEntity.defaultValue(courseClientEntity);
+
+            courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
+
+        }
+        catch (IllegalArgumentException e) {
 
 
             return "newCourse";
         }
         return "redirect:/calendar";
     }
-    // Récapitulatif du cours créé
+        // Récapitulatif du cours créé
 
     @RequestMapping("/courseSummary")
     public String courseSummary(Model model) {
