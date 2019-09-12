@@ -27,6 +27,12 @@ public class CalendarController {
         return new ModelAndView("calendar");
     }
 
+    @RequestMapping(value="/admincalendar", method=RequestMethod.GET)
+    public ModelAndView admincalendar() {
+
+        return new ModelAndView("admincalendar");
+    }
+
     @RequestMapping(value="/jsoncalendar", method=RequestMethod.GET)
     public ModelAndView jsoncalendar() {
         return new ModelAndView("jsoncalendar");

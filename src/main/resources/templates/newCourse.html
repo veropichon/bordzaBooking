@@ -35,6 +35,7 @@
 
                             <!-- <span th:text="${#temporals.format(modelCourse.getCrsFromDate(), 'dd/MM/yyyy')}"></span> -->
                             <input type="hidden" th:field="*{crsFromDate}" th:value="${modelCourse.getCrsFromDate()}">
+                            <input type="hidden" th:field="*{crsToDate}" th:value="${modelCourse.getCrsToDate()}">
                         </div>
                     </div>
                 </div>
@@ -55,17 +56,27 @@
 
 
                 <div class = "form-group">
-                    <label><strong>Horaires <span class="required-star">*</span></strong></label>
+                    <label><strong>Horaire <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            De <input type="time" th:id="fromTime" th:name="fromTime" min="09:00" max="18:00" required th:value="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}">
-                            à <input type="time" th:id="toTime" th:name="toTime" min="09:00" max="18:00" required th:value="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}">
-
+                            <input type="time" th:id="fromTime" th:name="fromTime" min="09:00" max="18:00" required th:value="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}">
+                            <!-- à <input type="time" th:id="toTime" th:name="toTime" min="09:00" max="18:00" required th:value="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"> -->
                         </div>
                     </div>
                     <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
                 </div>
 
+                <div class = "form-group">
+                    <label><strong>Durée souhaitée <span class="required-star">*</span></strong></label>
+                    <div class="row">
+                        <div class="col">
+                            <select id="dis-duration" th:field="*{duration}" class="custom-select">
+                                <option th:each="myDur : ${modelDurationsList}" th:value="${myDur.getDurId()}" th:text="${myDur.getDurLabel()}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
+                </div>
 
                 <div class = "form-group">
                     <label for="dis-select"><strong>Discipline <span class="required-star">*</span></strong></label>
@@ -116,6 +127,7 @@
                 </div>
                 <input type="hidden" th:field="*{crsUnavailable}">
                 <input type="hidden" th:field="*{crsTitle}">
+                <input type="hidden" th:field="*{crsDesc}">
 
                 <button type="submit" class="btn btn-primary">Valider</button>
                 <button type="button" class="btn btn-secondary">Annuler</button>

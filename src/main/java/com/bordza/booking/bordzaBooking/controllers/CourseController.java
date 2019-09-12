@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class CourseController {
 
     @Autowired
     DisciplineRepository disciplineRepository;
+
+    @Autowired
+    DurationRepository durationRepository;
 
     @Autowired
     LevelRepository levelRepository;
@@ -53,6 +57,9 @@ public class CourseController {
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevelsList", levelsList);
 
+        List<DurationEntity> durationsList = durationRepository.findAll();
+        model.addAttribute("modelDurationsList", durationsList);
+
         List<DisciplineEntity> disciplinesList = disciplineRepository.findAll();
         model.addAttribute("modelDisciplinesList", disciplinesList);
 
@@ -65,8 +72,10 @@ public class CourseController {
         CourseEntity course = new CourseEntity();
         LocalDateTime fromDate = LocalDateTime.parse(start);
         course.setCrsFromDate(fromDate);
+
         LocalDateTime toDate = fromDate.plusHours(1); // Par défaut : durée = 1 heure
         course.setCrsToDate(toDate);
+
         course.setCrsTitle("Titre par défaut"); // TODO : déterminer le titre par défaut
         course.setCrsDesc("Description par défaut"); // TODO : déterminer la description par défaut
         course.setCrsVip(false);
@@ -96,8 +105,11 @@ public class CourseController {
         courseEntity.defaultValue(courseEntity);
         courseClientEntity.defaultValue(courseClientEntity);
 
-
         try {
+
+            log.info("Date course.getCrsFromDate() : " + courseEntity.getCrsFromDate());
+            log.info("Date course.getCrsToDate() : " + courseEntity.getCrsToDate());
+
             courseService.saveCourse(courseEntity, clientEntity, courseClientEntity);
         }
         catch (IllegalArgumentException e) {
