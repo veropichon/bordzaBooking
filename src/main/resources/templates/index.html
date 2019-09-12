@@ -4,55 +4,13 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Accueil</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
 </head>
+
 <body>
 
-<header>
-    <div class="navbar bg-black text-white row">
-        <div class=" col-4">
-            <div id="logo">
-                <a th:href="@{/index}">
-                    <img th:src="@{/images/logo.png}" alt="borza_logo">
-                    <h2 id="textBordza">Bordza</h2>
-                </a>
-            </div>
-        </div>
-        <div class="bordza_center col-4">
-            <h1>Inscription</h1>
-        </div>
-        <div class="col-4 col align-self-start">
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a th:href="@{/calendar}" class="nav-link">
-                        <i class="fa fa-fw  fa-calendar"></i>
-                        Agenda
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fa fa-fw fa-star"></i>
-                        Mes cours
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/inscription}" class="nav-link">
-                        <i class="fa fa-fw fa-user-circle-o"></i>
-                        Mon compte
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</header>
-
+<header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
 
 <div class="contenu">
     <a th:href="@{/inscription}">Inscription</a>
@@ -62,15 +20,6 @@
             <th>Id user</th>
             <th>Login</th>
             <th>Password</th>
-        </tr>
-        <tr th:each="myUser : ${usersList}">
-            <td th:utext="${myUser.getUsrId()}">...</td>
-            <td th:utext="${myUser.getUsrEmail()}">...</td>
-            <td th:utext="${myUser.getUsrPwd()}">...</td>
-        </tr>
-    </table>
-    <table>
-        <tr>
             <th>Id client</th>
             <th>nom</th>
             <th>prenom</th>
@@ -86,6 +35,9 @@
             <th>antecedents</th>
         </tr>
         <tr th:each="myClient : ${clientsList}">
+            <td th:utext="${myClient.user.usrId}">...</td>
+            <td th:utext="${myClient.user.usrEmail}">...</td>
+            <td th:utext="${myClient.user.usrPwd}">...</td>
             <td th:utext="${myClient.cliId}">...</td>
             <td th:utext="${myClient.cliLastname}">...</td>
             <td th:utext="${myClient.cliFirstname}">...</td>
@@ -109,6 +61,8 @@
     <!--<li><a th:href="@{/allevents}">Liste des évènements</a></li>
     <li><a th:href="@{https://gist.github.com/mariehelene/0dadc76e704cc82bc85174fe5256f87b}">event.sql</a></li>!-->
     <li><a th:href="@{/api/clients}">Tous les clients</a></li>
+    <li><a th:href="@{/courseSummary}">Récapitulatif Cours</a></li>
+    <li><a th:href="@{/reservation}">Réservation d'un cours</a></li>
 </ul>
 
 </body>
