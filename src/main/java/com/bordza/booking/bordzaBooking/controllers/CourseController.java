@@ -83,8 +83,8 @@ public class CourseController {
         course.setCrsFromDate(fromDate);
         LocalDateTime toDate = fromDate.plusHours(1); // Par défaut : durée = 1 heure
         course.setCrsToDate(toDate);
-        course.setCrsTitle("Titre par défaut"); // TODO : déterminer le titre par défaut
-        course.setCrsDesc("Description par défaut"); // TODO : déterminer la description par défaut
+        course.setCrsTitle("Titre par défaut");
+        course.setCrsDesc("Description par défaut");
         LevelEntity level = levelRepository.findById(1L).get();
         course.setLevel(level);
 
@@ -101,8 +101,11 @@ public class CourseController {
         // String.valueOf(number)
         model.addAttribute("someBean", someBean);
 
-        log.info("Date course.getCrsFromDate() : " + course.getCrsFromDate());
-        log.info("bean : " + someBean.getFromTime());
+        log.info("course.getCrsFromDate() : " + course.getCrsFromDate());
+        log.info("bean FromTime : " + someBean.getFromTime());
+        log.info("bean FromDateTime : " + someBean.getFromDateTime());
+
+        model.addAttribute("pageTitle", "Nouveau cours");
 
         return "newCourse";
     }
@@ -117,8 +120,8 @@ public class CourseController {
 
         try {
 
-            log.info("CourseController : somebean Time = " + someBean.getFromTime());
-            log.info("CourseController : somebean DateTime = " + someBean.getFromDateTime());
+            log.info("CourseController : someBean.getFromTime() = " + someBean.getFromTime());
+            log.info("CourseController : someBean.getFromDateTime() = " + someBean.getFromDateTime());
 
             courseEntity.defaultValue(courseEntity);
             courseClientEntity.defaultValue(courseClientEntity);

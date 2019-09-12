@@ -53,11 +53,9 @@ public class CourseService {
         Long crsLocId = courseEntity.getLocation().getLocId();
 
         // FromDate = FromDate par défaut avec l'heure saisie
-        // TODO
-        // LocalDateTime crsFromDate = someBean.getFromDateTime();
+        LocalDateTime crsFromDate = LocalDateTime.of(courseEntity.getCrsFromDate().getYear(), courseEntity.getCrsFromDate().getMonth(), courseEntity.getCrsFromDate().getDayOfMonth(), someBean.getFromTime().getHour(), someBean.getFromTime().getMinute());
 
         // ToDate construit à partir de fromDate et Durée
-        LocalDateTime crsFromDate = courseEntity.getCrsFromDate();
         Long crsDurId = courseEntity.getDuration().getDurId();
         LocalDateTime crsToDate = crsFromDate.plusHours(crsDurId);
 
@@ -66,18 +64,19 @@ public class CourseService {
         crsTitle += ' ' + courseEntity.getLocation().getLocLabel();
 
         courseEntity.setCrsTitle(crsTitle);
+        courseEntity.setCrsFromDate(crsFromDate);
         courseEntity.setCrsToDate(crsToDate);
         courseEntity.setCrsVip(crsVip);
         courseRepository.save(courseEntity);
 
         courseClientEntity.setCourse(courseEntity);
         courseClientEntity.setClient(clientEntity);
-
+        //courseClientEntity.setLocation(locationEntity);
 
         courseClientRepository.save(courseClientEntity);
 
-        // log.info("Cours : " + courseEntity.toString());
-        // log.info("Booking : " + courseClientEntity.toString());
+        log.info("Cours : " + courseEntity.toString());
+        log.info("Booking : " + courseClientEntity.toString());
 
     }
 }
