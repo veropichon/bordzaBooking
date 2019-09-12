@@ -58,13 +58,14 @@ public class ClientController {
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevel", levelsList);
 
-        UserEntity userEntity = new UserEntity();
+        LevelEntity level = levelRepository.findById(1L).get();
+        ClientEntity clientEntity = new ClientEntity();
+        clientEntity.setLevel(level);
 
         model.addAttribute("modelUser", new UserEntity());
-        model.addAttribute("modelClient", new ClientEntity());
+        model.addAttribute("modelClient", clientEntity);
         model.addAttribute("pageTitle", "Inscription");
         model.addAttribute("formType", "inscription");
-
 
         return "inscription";
     }

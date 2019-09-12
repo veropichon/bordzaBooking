@@ -15,7 +15,7 @@
 
     <header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
 
-        <div class="container">
+        <div class="contenu">
 
             <form action="#" th:action="@{/newCourse}" th:object="${modelCourse}" method="post">
                 <div class="form-group">
@@ -122,7 +122,7 @@
                     <input type="hidden" th:field="*{cliId}">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Valider</button>
+                <button type="submit" class="btn btn-primary bordza_green">Valider</button>
                 <button type="button" class="btn btn-secondary">Annuler</button>
             </form>
         </div>
