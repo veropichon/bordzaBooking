@@ -26,7 +26,9 @@ public class UserEntity {
      * @return user entity with default role
      */
     public static UserEntity defaultValue(UserEntity userEntity) {
-        userEntity.usrRole = "CLIENT";
+        if(userEntity.usrRole == null){
+            userEntity.usrRole = "CLIENT";
+        }
         return userEntity;
     }
 

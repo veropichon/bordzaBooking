@@ -1,7 +1,7 @@
 
 -- Discipline --
 INSERT INTO skateschool.discipline (dis_id, dis_label) VALUES (1, 'Skateboard');
-INSERT INTO skateschool.discipline (dis_id, dis_label) VALUES (2, 'Longboard');
+INSERT INTO skateschool.discipline (dis_id, dis_label) VALUES (2, 'Longboard descente');
 INSERT INTO skateschool.discipline (dis_id, dis_label) VALUES (3, 'Longboard dancing');
 
 -- Level --

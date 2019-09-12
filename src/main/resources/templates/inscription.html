@@ -2,17 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Inscription</title>
-
-    <th:block th:include="fragments/general.html::headerFiles"></th:block>
-
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
 </head>
 
 <body>
 
-<header th:include="fragments/general.html::header(pageTitle = 'Inscription')"></header>
-
-<body>
+<header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
 
 <div class="contenu">
 
@@ -102,7 +98,8 @@
         </div>
         <hr/>
 
-        <a class="btn btn-primary bordza_green" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+        <a class="btn btn-primary bordza_green" data-toggle="collapse" href="#collapseExample" role="button"
+           aria-expanded="false"
            aria-controls="collapseExample">
             Si mineur
         </a>
@@ -121,7 +118,8 @@
                         <div class="input_group-identity">
                             <label class="label--desc">Prénom du Tuteur/Tutrice</label>
                             <input class="form-control" type="text" first_name="tutor_first_name"
-                                   th:field="*{cliTutorFirstname}" placeholder="Prénom"pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
+                                   th:field="*{cliTutorFirstname}" placeholder="Prénom"
+                                   pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
                         </div>
                     </div>
                 </div>
@@ -130,7 +128,7 @@
                         <label for="tutor_phone">N° Téléphone du Tuteur : </label>
                         <input type="tel" class="form-control" id="tutor_phone" name="tutor_phone"
                                th:field="*{cliTutorPhone}"
-                               placeholder="N° téléphone" >
+                               placeholder="N° téléphone">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputTutorEmail">Email du tuteur</label>
