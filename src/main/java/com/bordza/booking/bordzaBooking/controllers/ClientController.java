@@ -46,6 +46,8 @@ public class ClientController {
         List<ClientEntity> clientsList = clientRepository.findAll();
         model.addAttribute("clientsList", clientsList);
 
+        model.addAttribute("pageTitle", "Accueil");
+
         return "index";
     }
 
@@ -58,9 +60,10 @@ public class ClientController {
 
         UserEntity userEntity = new UserEntity();
 
-
         model.addAttribute("modelUser", new UserEntity());
         model.addAttribute("modelClient", new ClientEntity());
+
+        model.addAttribute("pageTitle", "Inscription");
 
         return "inscription";
     }
@@ -75,7 +78,7 @@ public class ClientController {
             return "error";
         }*/
 
-        // Add
+        // Add defeult values
         userEntity.defaultValue(userEntity);
         clientEntity.defaultValue(clientEntity);
 
@@ -89,8 +92,5 @@ public class ClientController {
         }
         return "redirect:/index";
     }
-
-
-
 }
 

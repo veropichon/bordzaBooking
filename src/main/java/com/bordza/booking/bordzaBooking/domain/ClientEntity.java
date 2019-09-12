@@ -1,5 +1,6 @@
 package com.bordza.booking.bordzaBooking.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,6 +22,7 @@ public class ClientEntity {
     @ManyToOne
     private LevelEntity level;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private Set<CourseClientEntity> courseClients;
 
@@ -84,12 +86,16 @@ public class ClientEntity {
 
     /**
      * Display Default values
+     *
      * @return client entity with default values
      */
     public static ClientEntity defaultValue(ClientEntity clientEntity) {
-        clientEntity.cliValidated = false;
-        clientEntity.cliDeleted = false;
+        if (clientEntity.cliValidated == null) {
+            clientEntity.cliValidated = false;
+        }
+        if (clientEntity.cliDeleted == null) {
+            clientEntity.cliDeleted = false;
+        }
         return clientEntity;
     }
-
 }
