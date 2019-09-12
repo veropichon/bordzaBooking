@@ -3,112 +3,71 @@
       xmlns:form="http://www.springframework.org/tags/form">
 <head>
     <meta charset="UTF-8">
-    <title>Récapitulatif cours</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
 </head>
 
 <body>
 
-<header>
-    <div class="navbar bg-black text-white row">
-        <div class=" col-4">
-            <div id="logo">
-                <a th:href="@{/index}">
-                    <img th:src="@{/images/logo.png}" alt="borza_logo">
-                    <h2 id="textBordza">Bordza</h2>
-                </a>
-            </div>
-        </div>
-        <div class="bordza_center col-4">
-            <h1>Récapitulatif du cours</h1>
-        </div>
-        <div class="col-4 col align-self-start">
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a th:href="@{/calendar}" class="nav-link">
-                        <i class="fa fa-fw  fa-calendar"></i>
-                        Agenda
-                    </a>
+<header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
+
+<div class="contenu">
+
+    <div class="center" th:object="${modelCourse}">
+
+        <ul class="list-unstyled">
+
+            <li>Date du cours : <span
+                    th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourseClient.getCourse().getCrsFromDate()))}"></span>
+                <span th:utext="${#temporals.day(modelCourseClient.getCourse().getCrsFromDate())}"></span>
+                <span th:utext="${#temporals.monthName(modelCourseClient.getCourse().getCrsFromDate())}"></span>
+                <span th:text="${#temporals.year(modelCourseClient.getCourse().getCrsFromDate())}"></span></li>
+
+            <li>Horaires : de <span
+                    th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsFromDate(), 'HH:mm')}"></span>
+                à <span th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsToDate(), 'HH:mm')}"></span>
+            </li>
+
+            <li>Pratique et discipline : <span th:utext="${modelCourseClient.course.discipline.disLabel}"></span></li>
+            <li>Niveau : <span th:utext="${modelCourseClient.course.level.levCourseLabel}"></span></li>
+            <br>
+            <li>Lieu souhaité : <span th:utext="${modelCourseClient.course.location.locLabel}"></span></li>
+            <li>Prêt de matériel : <span th:text="${modelCourseClient.bkMat} ? 'Oui' : 'Non'"/></span></li>
+
+
+            <!--    <li>Date du cours : <span
+                        th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
+                    <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
+                    <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
+                    <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span></li>
+
+                <li>Horaires : de <span th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
+                    à <span th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
+                    <input type="hidden" th:field="*{crsFromDate}" th:value="${modelCourse.getCrsFromDate()}">
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fa fa-fw fa-star"></i>
-                        Mes cours
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/inscription}" class="nav-link">
-                        <i class="fa fa-fw fa-user-circle-o"></i>
-                        Mon compte
-                    </a>
-                </li>
-            </ul>
+                <li>Pratique et discipline : <span th:object="${modelDiscipline}" th:utext="*{disLabel}"></span></li>
+                <li>Niveau : <span th:object="${modelLevel}" th:utext="*{levCourseLabel}"></span></li>
+                <br>
+                <li>Lieu souhaité : <span th:object="${modelLocation}" th:utext="*{LocLabel}"></span></li>
+             !-->
+            <!--<li>Prêt de matériel : <span th:object="${modelCourseClient}" th:if="${*{bkMat} == false}">non</span>
+                                   <span th:object="${modelCourseClient}" th:unless="${*{bkMat} == true}">oui</span>
+                                   !-->
+            <!--
+              <li>Prêt de matériel : <span th:text="${modelCourseClient.bkMat} ? 'Oui' : 'Non'"/></span></li>
+            !-->
+
+        </ul>
+
+        <hr>
+
+        <p>Votre demande a bien été envoyée. Vous recevrez un Email après validation.</p>
+        <div class="box_text">
+            S'il s'agit de votre premier cours, merci de contacter le formateur à ce numéro :
+            <strong>06 10 66 02 46</strong>, afin qu'il puisse valider.
+
         </div>
     </div>
-</header>
-<div class="container">
-    <form action="#" th:action="@{/courseSummary}" th:object="${modelCourse}">
-
-        <div class="center">
-
-            <ul class="list-unstyled">
-
-                <li>Date du cours : <span
-                      th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourseClient.getCourse().getCrsFromDate()))}"></span>
-                  <span th:utext="${#temporals.day(modelCourseClient.getCourse().getCrsFromDate())}"></span>
-                  <span th:utext="${#temporals.monthName(modelCourseClient.getCourse().getCrsFromDate())}"></span>
-                  <span th:text="${#temporals.year(modelCourseClient.getCourse().getCrsFromDate())}"></span></li>
-
-              <li>Horaires : de <span th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsFromDate(), 'HH:mm')}"></span>
-                  à <span th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsToDate(), 'HH:mm')}"></span>
-              </li>
-
-              <li>Pratique et discipline : <span  th:utext="${modelCourseClient.course.discipline.disLabel}"></span></li>
-              <li>Niveau : <span th:utext="${modelCourseClient.course.level.levCourseLabel}"></span></li>
-              <br>
-              <li>Lieu souhaité : <span  th:utext="${modelCourseClient.course.location.locLabel}"></span></li>
-              <li>Prêt de matériel : <span th:text="${modelCourseClient.bkMat} ? 'Oui' : 'Non'"/></span></li>
-
-
-                <!--    <li>Date du cours : <span
-                            th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
-                        <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
-                        <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
-                        <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span></li>
-
-                    <li>Horaires : de <span th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
-                        à <span th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
-                        <input type="hidden" th:field="*{crsFromDate}" th:value="${modelCourse.getCrsFromDate()}">
-                    </li>
-                    <li>Pratique et discipline : <span th:object="${modelDiscipline}" th:utext="*{disLabel}"></span></li>
-                    <li>Niveau : <span th:object="${modelLevel}" th:utext="*{levCourseLabel}"></span></li>
-                    <br>
-                    <li>Lieu souhaité : <span th:object="${modelLocation}" th:utext="*{LocLabel}"></span></li>
-                 !-->
-                <!--<li>Prêt de matériel : <span th:object="${modelCourseClient}" th:if="${*{bkMat} == false}">non</span>
-                                       <span th:object="${modelCourseClient}" th:unless="${*{bkMat} == true}">oui</span>
-                                       !-->
-             <!--
-               <li>Prêt de matériel : <span th:text="${modelCourseClient.bkMat} ? 'Oui' : 'Non'"/></span></li>
-             !-->
-
-            </ul>
-
-            <hr>
-
-            <p>Votre demande a bien été envoyée. Vous recevrez un Email après validation.</p>
-            <div class="box_text">
-                S'il s'agit de votre premier cours, merci de contacter le formateur à ce numéro :
-                <strong>06 10 66 02 46</strong>, afin qu'il puisse valider.
-
-            </div>
-        </div>
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
