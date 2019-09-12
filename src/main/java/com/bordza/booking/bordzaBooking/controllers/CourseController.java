@@ -134,6 +134,7 @@ public class CourseController {
         }
         catch (IllegalArgumentException e) {
 
+
             return "newCourse";
         }
     }
@@ -144,47 +145,15 @@ public class CourseController {
           // Long bookingId = (1L);
             CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
 
-           // log.info("id cours : " + booking.getCourse().getCrsFromDate());
-            model.addAttribute("modelCourseClient", booking);
 
-      /*     LocationEntity location = new LocationEntity();
-                location.setLocId(1L);
-                location.setLocLabel("Darwin");
-                model.addAttribute("modelLocation",  location);
-                DisciplineEntity discipline = new DisciplineEntity();
-                discipline.setDisId(3L);
-                discipline.setDisLabel("Longboard dancing");
-                model.addAttribute("modelDiscipline", discipline);
-                LevelEntity level = new LevelEntity();
-                level.setLevCourseLabel("débutant");
-                model.addAttribute("modelLevel" , level);
+        // log.info("id cours : " + booking.getCourse().getCrsFromDate());
+        model.addAttribute("modelCourseClient", booking);
 
-                CourseEntity course = new CourseEntity();
-                LocalDateTime fromDate = LocalDateTime.now();
-               // LocalDateTime fromDate = LocalDateTime.parse(start);
-                course.setCrsFromDate(fromDate);
-                LocalDateTime toDate = fromDate.plusHours(1); // Par défaut : durée = 1 heure
-                course.setCrsToDate(toDate);
-                //course.setCrsTitle("Titre par défaut"); // TODO : déterminer le titre par défautcourseclient
-                //course.setCrsDesc("Description par défaut"); // TODO : déterminer la description par défaut
+        model.addAttribute("pageTitle", "Récapitulatif");
+        return "courseSummary";
+    }
 
-                course.setCrsVip(false);
-                model.addAttribute("modelCourse", course);
-
-                CourseClientEntity booking = new CourseClientEntity();
-                booking.setBkMat(false);
-                model.addAttribute("modelCourseClient", booking);
-                // TODO récupérer l'ID client courant (cookie)
-                // Pour l'instant : on suppose que le client est connecté et que c'est le client avec cliId = 1
-                // ClientEntity client = clientRepository.findById(1L).get();
-                //model.addAttribute("modelClient", client);
-
-                // OK ** log.info("Date course.getCrsFromDate() : " + course.getCrsFromDate());
-    */
-                return "courseSummary";
-            }
-
-     // reservation d'un cours
+    // reservation d'un cours
     @RequestMapping("/reservation")
     public String reservation(Model model) {
 
@@ -198,6 +167,7 @@ public class CourseController {
 
         model.addAttribute("modelLocation", new LocationEntity());
         model.addAttribute("modelDiscipline", new DisciplineEntity());
+        model.addAttribute("pageTitle", "Réservation d'un cours");
 
         return "reservation";
     }
