@@ -7,6 +7,7 @@ import com.bordza.booking.bordzaBooking.repositories.ClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.CourseClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.CourseRepository;
 
+import com.bordza.booking.bordzaBooking.utils.SomeBean;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Slf4j
 @Service
@@ -36,23 +38,28 @@ public class CourseService {
      * @throws IllegalArgumentException
      */
 
-    public void saveCourse(CourseEntity courseEntity, ClientEntity clientEntity, CourseClientEntity courseClientEntity) throws IllegalArgumentException {
+    public void saveCourse(CourseEntity courseEntity, ClientEntity clientEntity, CourseClientEntity courseClientEntity, SomeBean someBean) throws IllegalArgumentException {
 
         // String crsComment = courseEntity.getCrsComment();
         // boolean crsDeleted = courseEntity.getCrsDeleted();
-         // String crsDesc = courseEntity.getCrsDesc();
-        LocalDateTime crsFromDate = courseEntity.getCrsFromDate();
+        // String crsDesc = courseEntity.getCrsDesc();
         // boolean crsPublished = courseEntity.getCrsPublished();
-
-        Long crsDurId = courseEntity.getDuration().getDurId();
-        LocalDateTime crsToDate = crsFromDate.plusHours(crsDurId);
+        // boolean crsValidated = courseEntity.getCrsValidated();
 
         boolean crsUnavailable = courseEntity.getCrsUnavailable();
-        // boolean crsValidated = courseEntity.getCrsValidated();
         boolean crsVip = courseEntity.getCrsVip();
         Long crsDisId = courseEntity.getDiscipline().getDisId();
         Long crsLvlId = courseEntity.getLevel().getLevId();
         Long crsLocId = courseEntity.getLocation().getLocId();
+
+        // FromDate = FromDate par défaut avec l'heure saisie
+        // TODO
+        // LocalDateTime crsFromDate = someBean.getFromDateTime();
+
+        // ToDate construit à partir de fromDate et Durée
+        LocalDateTime crsFromDate = courseEntity.getCrsFromDate();
+        Long crsDurId = courseEntity.getDuration().getDurId();
+        LocalDateTime crsToDate = crsFromDate.plusHours(crsDurId);
 
         // Titre construit à partir de la discipline et du lieu
         String crsTitle = courseEntity.getDiscipline().getDisLabel();
@@ -60,10 +67,13 @@ public class CourseService {
 
         courseEntity.setCrsTitle(crsTitle);
         courseEntity.setCrsToDate(crsToDate);
+        courseEntity.setCrsVip(crsVip);
         courseRepository.save(courseEntity);
 
         courseClientEntity.setCourse(courseEntity);
         courseClientEntity.setClient(clientEntity);
+
+
         courseClientRepository.save(courseClientEntity);
 
         // log.info("Cours : " + courseEntity.toString());

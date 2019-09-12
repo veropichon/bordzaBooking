@@ -5,6 +5,7 @@ import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.*;
 import com.bordza.booking.bordzaBooking.services.CourseService;
 import com.bordza.booking.bordzaBooking.services.ClientService;
+import com.bordza.booking.bordzaBooking.utils.SomeBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +54,9 @@ public class CourseController {
     @RequestMapping("/newCourse")
     public String newCourse(Model model, @RequestParam String start) {
 
-        model.addAttribute("modelCourseClient", new CourseClientEntity());
+        CourseClientEntity courseClientEntity = new CourseClientEntity();
+        courseClientEntity.defaultValue(courseClientEntity);
+        model.addAttribute("modelCourseClient", courseClientEntity);
 
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevelsList", levelsList);
@@ -70,15 +74,17 @@ public class CourseController {
         model.addAttribute("modelDiscipline", new DisciplineEntity());
 
         CourseEntity course = new CourseEntity();
+        course.defaultValue(course);
+
         LocalDateTime fromDate = LocalDateTime.parse(start);
         course.setCrsFromDate(fromDate);
-
         LocalDateTime toDate = fromDate.plusHours(1); // Par défaut : durée = 1 heure
         course.setCrsToDate(toDate);
-
         course.setCrsTitle("Titre par défaut"); // TODO : déterminer le titre par défaut
         course.setCrsDesc("Description par défaut"); // TODO : déterminer la description par défaut
-        course.setCrsVip(false);
+        LevelEntity level = levelRepository.findById(1L).get();
+        course.setLevel(level);
+
         model.addAttribute("modelCourse", course);
 
         // TODO récupérer l'ID client courant (cookie)
@@ -86,7 +92,14 @@ public class CourseController {
         ClientEntity client = clientRepository.findById(1L).get();
         model.addAttribute("modelClient", client);
 
-        // OK ** log.info("Date course.getCrsFromDate() : " + course.getCrsFromDate());
+        SomeBean someBean = new SomeBean();
+        someBean.setFromTime(LocalTime.of(course.getCrsFromDate().getHour(), course.getCrsFromDate().getMinute()));
+        someBean.setFromDateTime(course.getCrsFromDate());
+        // String.valueOf(number)
+        model.addAttribute("someBean", someBean);
+
+        log.info("Date course.getCrsFromDate() : " + course.getCrsFromDate());
+        log.info("bean : " + someBean.getFromTime());
 
         return "newCourse";
     }
@@ -95,25 +108,21 @@ public class CourseController {
     @PostMapping("/newCourse")
     public String saveCourseAndBooking(@ModelAttribute("modelCourse") CourseEntity courseEntity,
                                        @ModelAttribute("modelClient") ClientEntity clientEntity,
-                                    @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
-                                    BindingResult result, ModelMap model) {
-
-        /*if (result.hasErrors()) {
-            return "error";
-        }*/
-
-        courseEntity.defaultValue(courseEntity);
-        courseClientEntity.defaultValue(courseClientEntity);
+                                       @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
+                                       @ModelAttribute("someBean") SomeBean someBean,
+                                       BindingResult result, ModelMap model) {
 
         try {
 
-            log.info("Date course.getCrsFromDate() : " + courseEntity.getCrsFromDate());
-            log.info("Date course.getCrsToDate() : " + courseEntity.getCrsToDate());
+            log.info("CourseController : somebean Time = " + someBean.getFromTime());
+            log.info("CourseController : somebean DateTime = " + someBean.getFromDateTime());
 
-            courseService.saveCourse(courseEntity, clientEntity, courseClientEntity);
-        }
-        catch (IllegalArgumentException e) {
+            courseEntity.defaultValue(courseEntity);
+            courseClientEntity.defaultValue(courseClientEntity);
 
+            courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
+
+        } catch (IllegalArgumentException e) {
 
             return "newCourse";
         }

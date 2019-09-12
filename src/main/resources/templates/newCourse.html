@@ -44,27 +44,27 @@
                     <label><strong>Cours particulier VIP <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            <input th:field="*{crsVip}" th:type="radio" th:id="particulier" th:name="vip" th:value="1">
+                            <input th:field="*{crsVip}" th:type="radio" th:id="particulier" th:name="crsVip" th:value="1">
                             <label th:for="particulier">Oui</label>
                         </div>
                         <div class="col">
-                            <input th:field="*{crsVip}" th:type="radio" th:id="collectif" th:name="vip" th:value="0">
+                            <input th:field="*{crsVip}" th:type="radio" th:id="collectif" th:name="crsVip" th:value="0">
                             <label th:for="collectif">Non</label>
                         </div>
                     </div>
                 </div>
 
 
-                <div class = "form-group">
+                <div class = "form-group" th:object="${someBean}">
                     <label><strong>Horaire <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            <input type="time" th:id="fromTime" th:name="fromTime" min="09:00" max="18:00" required th:value="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}">
-                            <!-- à <input type="time" th:id="toTime" th:name="toTime" min="09:00" max="18:00" required th:value="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"> -->
+                            <input th:field="*{fromTime}" type="time" min="09:00" max="18:00" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH:mm')}">
                         </div>
                     </div>
                     <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
                 </div>
+                <!-- th:id="fromTime" th:name="fromTime" th:field="*{fromTime}"  th:value="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"   -->
 
                 <div class = "form-group">
                     <label><strong>Durée souhaitée <span class="required-star">*</span></strong></label>
@@ -113,11 +113,11 @@
                     <label><strong>Prêt de matériel <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            <input type="radio" th:field="*{bkMat}" id="oui" th:value="0" checked>
+                            <input type="radio" th:field="*{bkMat}" id="oui" th:value="1" checked>
                             <label for="oui">Oui</label>
                         </div>
                         <div class="col">
-                            <input type="radio" th:field="*{bkMat}" id="non" th:value="1">
+                            <input type="radio" th:field="*{bkMat}" id="non" th:value="0">
                             <label for="non">Non</label>
                         </div>
                     </div>
@@ -125,9 +125,6 @@
                 <div class="form-row" th:object="${modelClient}">
                     <input type="hidden" th:field="*{cliId}">
                 </div>
-                <input type="hidden" th:field="*{crsUnavailable}">
-                <input type="hidden" th:field="*{crsTitle}">
-                <input type="hidden" th:field="*{crsDesc}">
 
                 <button type="submit" class="btn btn-primary">Valider</button>
                 <button type="button" class="btn btn-secondary">Annuler</button>

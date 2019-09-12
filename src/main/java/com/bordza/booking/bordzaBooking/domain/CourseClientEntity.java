@@ -31,8 +31,10 @@ public class CourseClientEntity implements Serializable {
      * @return courseClient entity with default values
      */
     public static CourseClientEntity defaultValue(CourseClientEntity courseClientEntity) {
-        courseClientEntity.bkVip = false;
-        courseClientEntity.bkMat = false;
+
+        if (courseClientEntity.bkVip == null) { courseClientEntity.bkVip = false; }
+        if (courseClientEntity.bkMat == null) { courseClientEntity.bkMat = false; }
+
         return courseClientEntity;
     }
 
