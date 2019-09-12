@@ -125,16 +125,13 @@ public class CourseController {
     }
         // Récapitulatif du cours créé
 
-        @RequestMapping("/courseSummary")
+    @RequestMapping("/courseSummary")
         public String courseSummary(Model model) {
           Long bookingId = (1L);
             CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
 
            // log.info("id cours : " + booking.getCourse().getCrsFromDate());
             model.addAttribute("modelCourseClient", booking);
-
-
-
 
       /*     LocationEntity location = new LocationEntity();
                 location.setLocId(1L);
@@ -173,5 +170,22 @@ public class CourseController {
                 return "courseSummary";
             }
 
+     // reservation d'un cours
+    @RequestMapping("/reservation")
+    public String reservation(Model model) {
 
+        CourseEntity course = courseRepository.findById(1L).get();
+        model.addAttribute("modelCourse", course);
+
+        model.addAttribute("modelCourseClient", new CourseClientEntity());
+
+        List<LocationEntity> locationsList = locationRepository.findAll();
+        model.addAttribute("modelLocationsList", locationsList);
+
+        model.addAttribute("modelLocation", new LocationEntity());
+        model.addAttribute("modelDiscipline", new DisciplineEntity());
+
+        return "reservation";
     }
+
+}
