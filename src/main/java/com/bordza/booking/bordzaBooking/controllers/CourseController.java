@@ -134,15 +134,14 @@ public class CourseController {
         }
         catch (IllegalArgumentException e) {
 
-
             return "newCourse";
         }
     }
 
     // Récapitulatif du cours créé
+    // Paramètre : ID du booking (table booking)
     @RequestMapping("/courseSummary")
         public String courseSummary(Model model, @RequestParam Long bookingId) {
-          // Long bookingId = (1L);
             CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
 
 
@@ -153,11 +152,13 @@ public class CourseController {
         return "courseSummary";
     }
 
-    // reservation d'un cours
+    // Demande d'inscription à un cours existant
+    // Paramètre : ID du cours (table course)
     @RequestMapping("/reservation")
-    public String reservation(Model model) {
+    public String reservation(Model model, @RequestParam Long courseId) {
 
-        CourseEntity course = courseRepository.findById(1L).get();
+        // CourseEntity course = courseRepository.findById(1L).get();
+        CourseEntity course = courseRepository.findById(courseId).get();
         model.addAttribute("modelCourse", course);
 
         model.addAttribute("modelCourseClient", new CourseClientEntity());
@@ -167,7 +168,7 @@ public class CourseController {
 
         model.addAttribute("modelLocation", new LocationEntity());
         model.addAttribute("modelDiscipline", new DisciplineEntity());
-        model.addAttribute("pageTitle", "Réservation d'un cours");
+        model.addAttribute("pageTitle", "Réservation");
 
         return "reservation";
     }
