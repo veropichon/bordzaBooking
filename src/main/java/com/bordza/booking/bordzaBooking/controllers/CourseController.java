@@ -147,7 +147,6 @@ public class CourseController {
 
         // log.info("id cours : " + booking.getCourse().getCrsFromDate());
         model.addAttribute("modelCourseClient", booking);
-
         model.addAttribute("pageTitle", "Récapitulatif");
         return "courseSummary";
     }
