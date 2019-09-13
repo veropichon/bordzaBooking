@@ -11,9 +11,7 @@
 <header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
 
 <div class="contenu">
-
-    <form action="#" th:action="@{/inscription}" th:object="${modelClient}" method="post">
-
+    <form action="#" th:action="@{/} + ${formType}" th:object="${modelClient}" method="post">
         <div class="form-group">
             <div class="row ">
                 <div class="col">
@@ -41,7 +39,9 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword">Password<em class="required-star">*</em></label>
-                    <input required type="password" class="form-control" th:field="*{usrPwd}" placeholder="Mot de passe"
+                    <input th:if="${formType} == 'inscription'" required type="password" class="form-control" th:field="*{usrPwd}" placeholder="Mot de passe"
+                           id="inputPassword"/>
+                    <input th:if="${formType} == 'modifProfil'" type="password" class="form-control" th:field="*{usrPwd}" placeholder="Mot de passe"
                            id="inputPassword"/>
                 </div>
                 <input type="hidden" th:field="*{usrRole}">
@@ -166,16 +166,12 @@
             </div>
         </div>
         <hr>
-
+        <input type="hidden" th:field="*{cliId}">
         <button type="submit" class="btn btn-primary bordza_green">Valider</button>
 
 
     </form>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </body>
 

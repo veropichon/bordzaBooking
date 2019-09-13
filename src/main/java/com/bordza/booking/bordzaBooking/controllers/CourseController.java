@@ -120,31 +120,31 @@ public class CourseController {
 
         try {
 
-            log.info("CourseController : someBean.getFromTime() = " + someBean.getFromTime());
-            log.info("CourseController : someBean.getFromDateTime() = " + someBean.getFromDateTime());
+            // log.info("CourseController : someBean.getFromTime() = " + someBean.getFromTime());
+            // log.info("CourseController : someBean.getFromDateTime() = " + someBean.getFromDateTime());
 
             courseEntity.defaultValue(courseEntity);
             courseClientEntity.defaultValue(courseClientEntity);
 
             courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
 
+            // return "redirect:/calendar";
+            String url = "redirect:/courseSummary?bookingId=" + String.valueOf(courseClientEntity.getBkId());
+            return url;
         }
         catch (IllegalArgumentException e) {
 
 
             return "newCourse";
         }
-        return "redirect:/calendar";
     }
-        // Récapitulatif du cours créé
 
+    // Récapitulatif du cours créé
     @RequestMapping("/courseSummary")
-    public String courseSummary(Model model) {
+        public String courseSummary(Model model, @RequestParam Long bookingId) {
+          // Long bookingId = (1L);
+            CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
 
-        // pour l'instant connexion à un booking à modifier  --- récupérer l'info Id booking suite création cours
-
-        Long bookingId = (1L);
-        CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
 
         // log.info("id cours : " + booking.getCourse().getCrsFromDate());
         model.addAttribute("modelCourseClient", booking);
@@ -153,16 +153,10 @@ public class CourseController {
     }
 
     // reservation d'un cours
-
     @RequestMapping("/reservation")
     public String reservation(Model model) {
 
-
-    // Connection au booking Id = 1L à modifier --> récupérer cet Id à partir du calendrier
-    // récuperer id Client dans les cookies  à faire
-
         CourseEntity course = courseRepository.findById(1L).get();
-
         model.addAttribute("modelCourse", course);
 
         model.addAttribute("modelCourseClient", new CourseClientEntity());
@@ -175,29 +169,6 @@ public class CourseController {
         model.addAttribute("pageTitle", "Réservation d'un cours");
 
         return "reservation";
-    }
-
-
-    // Save  Booking
-
-    @PostMapping("/reservation")
-    public String saveBooking(@ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
-                              BindingResult result, ModelMap model) {
-
-
-        try {
-
-            courseClientEntity.defaultValue(courseClientEntity);
-
-        //    courseClientService.saveCourseClient(courseClientEntity);
-
-        }
-        catch (IllegalArgumentException e) {
-
-
-            return "reservation";
-        }
-        return "redirect:/calendar";
     }
 
 }

@@ -58,12 +58,32 @@ public class ClientController {
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevel", levelsList);
 
-        UserEntity userEntity = new UserEntity();
+        LevelEntity level = levelRepository.findById(1L).get();
+        ClientEntity clientEntity = new ClientEntity();
+        clientEntity.setLevel(level);
 
         model.addAttribute("modelUser", new UserEntity());
-        model.addAttribute("modelClient", new ClientEntity());
-
+        model.addAttribute("modelClient", clientEntity);
         model.addAttribute("pageTitle", "Inscription");
+        model.addAttribute("formType", "inscription");
+
+        return "inscription";
+    }
+
+    //Send lvl, User and Client model to "Inscription"
+    @GetMapping("/modifProfil")
+    public String viewProfil(Model model) {
+
+        List<LevelEntity> levelsList = levelRepository.findAll();
+        model.addAttribute("modelLevel", levelsList);
+
+        ClientEntity clientEntity = clientRepository.findById(4L).get();
+        UserEntity userEntity = userRepository.findById(clientEntity.getUser().getUsrId()).get();
+
+        model.addAttribute("modelUser", userEntity);
+        model.addAttribute("modelClient", clientEntity);
+        model.addAttribute("pageTitle", "Mon profil");
+        model.addAttribute("formType", "modifProfil");
 
         return "inscription";
     }
@@ -71,8 +91,8 @@ public class ClientController {
     //Save User and Client
     @PostMapping("/inscription")
     public String saveUserAndClient(@ModelAttribute("modelUser") UserEntity userEntity,
-                             @ModelAttribute("modelClient") ClientEntity clientEntity,
-                             BindingResult result, ModelMap model) {
+                                    @ModelAttribute("modelClient") ClientEntity clientEntity,
+                                    BindingResult result, ModelMap model) {
 
         /*if (result.hasErrors()) {
             return "error";
@@ -83,14 +103,37 @@ public class ClientController {
         clientEntity.defaultValue(clientEntity);
 
         try {
-            clientService.saveClient(userEntity, clientEntity);
-        }
-        catch (IllegalArgumentException e) {
+            clientService.save(userEntity, clientEntity);
+        } catch (IllegalArgumentException e) {
 
 
             return "inscription";
         }
         return "redirect:/index";
     }
+
+    @PostMapping("/modifProfil")
+    public String updateProfil(@ModelAttribute("modelUser") UserEntity userEntity,
+                               @ModelAttribute("modelClient") ClientEntity clientEntity,
+                               BindingResult result, ModelMap model) {
+
+        /*if (result.hasErrors()) {
+            return "error";
+        }*/
+
+        // Add defeult values
+        userEntity.defaultValue(userEntity);
+        clientEntity.defaultValue(clientEntity);
+
+        try {
+            clientService.update(userEntity, clientEntity);
+        } catch (IllegalArgumentException e) {
+
+
+            return "inscription";
+        }
+        return "redirect:/index";
+    }
+
 }
 

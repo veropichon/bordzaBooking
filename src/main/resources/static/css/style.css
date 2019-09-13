@@ -14,11 +14,11 @@ body {
     background-color: #44a194;
 }
 
-table, td {
+/*table, td {
     border: 1px solid;
     border-collapse: collapse;
     padding: 5px;
-}
+}*/
 
 h1, #textBordza {
     text-align: center;
@@ -72,6 +72,12 @@ a {
     color: white;
 }
 
+
+
+.dropdown_black{
+    background-color:black ;
+    border: 1px solid #44a194;
+}
 /*--------------------------------------------------*/
 
 .bordza_center {
@@ -83,6 +89,7 @@ a {
     border-color: #44a194;
     border-width: 2px;
     border-width: thick ;
+    padding: 20px;
 }
 
 .bg-black {
@@ -100,5 +107,28 @@ a {
 
 #calendar {
     padding: 20px 20px;
+}
+
+/*------------------------- Course Summary -----------------*/
+
+.course_summary_banner{
+    width: 100vw;
+}
+
+.course_summary_flex{
+    display: flex;
+    justify-content: center;
+}
+
+.course_summary_td_left{
+    padding-right: 5px;
+    width: 20vw;
+    text-align: right;
+    text-decoration: underline;
+}
+.course_summary_td_right{
+    padding-left: 5px;
+    width: 20vw;
+    text-align: left;
 }
 

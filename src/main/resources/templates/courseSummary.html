@@ -11,29 +11,107 @@
 
 <header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
 
+<div><img th:src="@{/images/recap_banniere01.jpg}" class="course_summary_banner" alt="borza_banniere"></div>
+
 <div class="contenu">
 
-    <div class="center" th:object="${modelCourse}">
+    <div class="center">
 
+        <!--
         <ul class="list-unstyled">
-
-            <li><strong>Date du cours : </strong><span
+            <li>Date du cours : <span
                     th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourseClient.getCourse().getCrsFromDate()))}"></span>
                 <span th:utext="${#temporals.day(modelCourseClient.getCourse().getCrsFromDate())}"></span>
                 <span th:utext="${#temporals.monthName(modelCourseClient.getCourse().getCrsFromDate())}"></span>
                 <span th:text="${#temporals.year(modelCourseClient.getCourse().getCrsFromDate())}"></span></li>
 
-            <li><strong>Horaires : de </strong><span
-                    th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsFromDate(), 'HH:mm')}"></span><strong>
-                à </strong><span th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsToDate(), 'HH:mm')}"></span>
+            <li>Horaires : de <span
+                    th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsFromDate(), 'HH:mm')}"></span>
+                à <span th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsToDate(), 'HH:mm')}"></span>
             </li>
 
-            <li><strong>Pratique et discipline : </strong>strong><span th:utext="${modelCourseClient.course.discipline.disLabel}"></span></li>
-            <li><strong>Niveau : </strong><span th:utext="${modelCourseClient.course.level.levCourseLabel}"></span></li>
+            <li>Pratique et discipline : <span th:utext="${modelCourseClient.course.discipline.disLabel}"></span></li>
+            <li>Niveau : <span th:utext="${modelCourseClient.course.level.levCourseLabel}"></span></li>
             <br>
-            <li><strong>Lieu souhaité : </strong><span th:utext="${modelCourseClient.course.location.locLabel}"></span></li>
-            <li><strong>Prêt de matériel : </strong><span th:text="${modelCourseClient.bkMat} ? 'Oui' : 'Non'"/></span></li>
+            <li>Lieu souhaité : <span th:utext="${modelCourseClient.course.location.locLabel}"></span></li>
+            <li>Prêt de matériel : <span th:text="${modelCourseClient.bkMat} ? 'Oui' : 'Non'"/></span></li>
         </ul>
+        !-->
+
+        <div class="course_summary_flex" th:object="${modelCourse}">
+            <table>
+                <tr>
+                    <td class="course_summary_td_left">Date du cours</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourseClient.getCourse().getCrsFromDate()))}"></span>
+                        <span th:utext="${#temporals.day(modelCourseClient.getCourse().getCrsFromDate())}"></span>
+                        <span th:utext="${#temporals.monthName(modelCourseClient.getCourse().getCrsFromDate())}"></span>
+                        <span th:text="${#temporals.year(modelCourseClient.getCourse().getCrsFromDate())}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Horaires</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        de <span
+                            th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsFromDate(), 'HH:mm')}"></span>
+                        à <span
+                            th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsToDate(), 'HH:mm')}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Discipline</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        <span th:utext="${modelCourseClient.course.discipline.disLabel}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Niveau</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        <span th:utext="${modelCourseClient.course.level.levCourseLabel}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Lieu souhaité</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        <span th:utext="${modelCourseClient.course.location.locLabel}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Prêt de matériel</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        <span th:text="${modelCourseClient.bkMat} ? 'Oui' : 'Non'"/></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--    <li>Date du cours : <span
+                    th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
+                <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
+                <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
+                <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span></li>
+
+            <li>Horaires : de <span th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
+                à <span th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
+                <input type="hidden" th:field="*{crsFromDate}" th:value="${modelCourse.getCrsFromDate()}">
+            </li>
+            <li>Pratique et discipline : <span th:object="${modelDiscipline}" th:utext="*{disLabel}"></span></li>
+            <li>Niveau : <span th:object="${modelLevel}" th:utext="*{levCourseLabel}"></span></li>
+            <br>
+            <li>Lieu souhaité : <span th:object="${modelLocation}" th:utext="*{LocLabel}"></span></li>
+         !-->
+        <!--<li>Prêt de matériel : <span th:object="${modelCourseClient}" th:if="${*{bkMat} == false}">non</span>
+                               <span th:object="${modelCourseClient}" th:unless="${*{bkMat} == true}">oui</span>
+                               !-->
+        <!--
+          <li>Prêt de matériel : <span th:text="${modelCourseClient.bkMat} ? 'Oui' : 'Non'"/></span></li>
+        !-->
+
 
         <hr>
 

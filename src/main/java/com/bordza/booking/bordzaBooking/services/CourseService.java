@@ -71,12 +71,11 @@ public class CourseService {
 
         courseClientEntity.setCourse(courseEntity);
         courseClientEntity.setClient(clientEntity);
-        //courseClientEntity.setLocation(locationEntity);
 
         courseClientRepository.save(courseClientEntity);
 
-        log.info("Cours : " + courseEntity.toString());
-        log.info("Booking : " + courseClientEntity.toString());
+        // log.info("Cours : " + courseEntity.toString());
+        // log.info("Booking : " + courseClientEntity.toString());
 
     }
 }
