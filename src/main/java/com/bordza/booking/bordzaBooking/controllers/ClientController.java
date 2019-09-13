@@ -109,7 +109,7 @@ public class ClientController {
 
             return "inscription";
         }
-        return "redirect:/index";
+        return "redirect:/calendar";
     }
 
     @PostMapping("/modifProfil")

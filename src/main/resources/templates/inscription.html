@@ -18,14 +18,14 @@
                     <div class="input_group-identity">
                         <label class="label--desc">Nom<em class="required-star">*</em></label>
                         <input required class="form-control" type="text" name="name" th:field="*{cliLastname}"
-                               placeholder="Nom" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
+                               placeholder="Nom" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input_group-identity">
                         <label class="label--desc">Prénom<em class="required-star">*</em></label>
                         <input required class="form-control" type="text" first_name="first_name"
-                               th:field="*{cliFirstname}" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+                               th:field="*{cliFirstname}" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$"
                                placeholder="Prénom">
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                 <div class="input_group-identity">
                     <label class="label--desc">Ville<em class="required-star">*</em></label>
                     <input class="form-control" type="text" town="town" th:field="*{cliCity}"
-                           placeholder="Ville" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
+                           placeholder="Ville" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$">
                 </div>
             </div>
         </div>
@@ -105,14 +105,14 @@
             Si mineur
         </a>
 
-        <div class="collapse" id="collapseExample">
+        <div class="collapse collapse_bordza" id="collapseExample">
             <div class="card card-body">
                 <div class="row ">
                     <div class="col">
                         <div class="input_group-identity">
                             <label class="label--desc">Nom du Tuteur/Tutrice</label>
                             <input class="form-control" type="text" name="tutor_name" th:field="*{cliTutorLastname}"
-                                   placeholder="Nom" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
+                                   placeholder="Nom" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$">
                         </div>
                     </div>
                     <div class="col">
@@ -120,7 +120,7 @@
                             <label class="label--desc">Prénom du Tuteur/Tutrice</label>
                             <input class="form-control" type="text" first_name="tutor_first_name"
                                    th:field="*{cliTutorFirstname}" placeholder="Prénom"
-                                   pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$">
+                                   pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$">
                         </div>
                     </div>
                 </div>
