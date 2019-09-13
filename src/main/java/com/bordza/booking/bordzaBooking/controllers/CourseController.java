@@ -96,13 +96,17 @@ public class CourseController {
         model.addAttribute("modelClient", client);
 
         SomeBean someBean = new SomeBean();
-        someBean.setFromTime(LocalTime.of(course.getCrsFromDate().getHour(), course.getCrsFromDate().getMinute()));
+        // someBean.setFromTime(LocalTime.of(course.getCrsFromDate().getHour(), course.getCrsFromDate().getMinute()));
+        someBean.setFromTimeHour(course.getCrsFromDate().getHour());
+        someBean.setFromTimeMinutes(course.getCrsFromDate().getMinute());
         someBean.setFromDateTime(course.getCrsFromDate());
         // String.valueOf(number)
         model.addAttribute("someBean", someBean);
 
         log.info("course.getCrsFromDate() : " + course.getCrsFromDate());
-        log.info("bean FromTime : " + someBean.getFromTime());
+        // log.info("bean FromTime : " + someBean.getFromTime());
+        log.info("bean FromTimeHour : " + someBean.getFromTimeHour());
+        log.info("bean FromTimeMinutes : " + someBean.getFromTimeMinutes());
         log.info("bean FromDateTime : " + someBean.getFromDateTime());
 
         model.addAttribute("pageTitle", "Nouveau cours");

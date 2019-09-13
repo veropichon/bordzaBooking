@@ -9,5 +9,7 @@ import java.time.LocalTime;
 public class SomeBean {
 
     private LocalDateTime fromDateTime;
-    private LocalTime fromTime;
+    // private LocalTime fromTime;
+    private Integer fromTimeHour;
+    private Integer fromTimeMinutes;
 }

@@ -50,11 +50,25 @@
                 </div>
 
 
+                <!--
                 <div class = "form-group" th:object="${someBean}">
                     <label><strong>Horaire <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
                             <input th:field="*{fromTime}" type="time" min="09:00" max="18:00" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH:mm')}">
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
+                    <input type="hidden" th:field="*{fromDateTime}" th:value="${someBean.getFromDateTime()}">
+                </div>
+                -->
+
+                <div class = "form-group" th:object="${someBean}">
+                    <label><strong>Horaire <span class="required-star">*</span></strong></label>
+                    <div class="row">
+                        <div class="col">
+                            <input th:field="*{fromTimeHour}" type="number" min="09" max="18" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH')}">
+                            <input th:field="*{fromTimeMinutes}" type="number" min="00" max="30" step="30" required th:value="${#temporals.format(someBean.getFromDateTime(), 'mm')}">
                         </div>
                     </div>
                     <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
@@ -100,7 +114,6 @@
                         <div class="col" th:each="myLev: ${modelLevelsList}">
                             <input type="radio" th:field="*{level}" th:value="${myLev.getLevId()}">
                             <label th:for="${#ids.prev('level')}" th:text="${myLev.getLevCourseLabel()}"></label>
-                            <!-- th:checked="${flag} ? 'checked'" -->
                         </div>
                     </div>
                 </div>
