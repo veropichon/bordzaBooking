@@ -4,6 +4,8 @@
     <meta charset="UTF-8"/>
     <title th:text="${pageTitle}"></title>
     <th:block th:include="fragments/general.html::headFiles"></th:block>
+
+    <script th:src="@{functions.js}"></script>
 </head>
 
 <body>
@@ -79,7 +81,7 @@
             <div class="col">
                 <div class="input_group-identity">
                     <label class="label--desc">Date de naissance<em class="required-star">*</em></label>
-                    <input required class="form-control" type="date" name="birthday_date" th:field="*{cliBirthdate}">
+                    <input required class="form-control" type="date" name="birthday_date" th:field="*{cliBirthdate}" id="birthdate">
                 </div>
             </div>
             <div class="col">
@@ -99,14 +101,21 @@
         </div>
         <hr/>
 
-        <a class="btn btn-primary bordza_green" data-toggle="collapse" href="#collapseExample" role="button"
+        <a class="btn btn-primary bordza_green" data-toggle="collapse" href="#tutor" role="button"
            aria-expanded="false"
-           aria-controls="collapseExample">
+           aria-controls="tutor">
             Si mineur
         </a>
 
-        <div class="collapse collapse_bordza" id="collapseExample">
-            <div class="card card-body">
+        <script>
+            var birth = [[${cliBirthdate}]];
+            var cliAge = cliAge(birth);
+        </script>
+
+        <div th:field=""></div>
+
+        <!--<div class="collapse collapse_bordza" id="tutor">!-->
+            <div th:if="cliAge() > 18" class="card card-body" >
                 <div class="row ">
                     <div class="col">
                         <div class="input_group-identity">
@@ -138,7 +147,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        <!--</div>!-->
 
         <hr/>
         <h2>Informations complémentaires :</h2>

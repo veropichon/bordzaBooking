@@ -1,6 +1,7 @@
 package com.bordza.booking.bordzaBooking.controllers;
 
 
+import com.bordza.booking.bordzaBooking.domain.CliAge;
 import com.bordza.booking.bordzaBooking.domain.ClientEntity;
 import com.bordza.booking.bordzaBooking.domain.LevelEntity;
 import com.bordza.booking.bordzaBooking.domain.UserEntity;
@@ -66,6 +67,7 @@ public class ClientController {
         model.addAttribute("modelClient", clientEntity);
         model.addAttribute("pageTitle", "Inscription");
         model.addAttribute("formType", "inscription");
+        model.addAttribute("cliAge", new CliAge());
 
         return "inscription";
     }

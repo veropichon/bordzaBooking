@@ -45,11 +45,11 @@ public class ClientValidator {
         /**
          * Client validator
          */
-        if (StringUtils.isBlank((cliFirstname)) && !PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", cliFirstname) && cliFirstname.length() > 50) {
+        if (StringUtils.isBlank((cliFirstname)) && !PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$", cliFirstname) && cliFirstname.length() > 50) {
             throw new IllegalArgumentException("Le Prénom ne peut pas contenir de chiffre");
         }
 
-        if (StringUtils.isBlank((cliLastname)) && !PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", cliLastname) && cliLastname.length() > 50) {
+        if (StringUtils.isBlank((cliLastname)) && !PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$", cliLastname) && cliLastname.length() > 50) {
             throw new IllegalArgumentException("le nom ne peut pas contenir de chiffre");
         }
 
@@ -61,12 +61,12 @@ public class ClientValidator {
             throw new IllegalArgumentException("Le code postale n'est pas valide");
         }
 
-        if (!PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", cliCity) && cliCity.length() > 50) {
+        if (!PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$", cliCity) && cliCity.length() > 50) {
             throw new IllegalArgumentException("Le code postale n'est pas valide");
         }
 
         if (cliHeight != null) {
-            if (!PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", cliHeight.toString()) && cliHeight.toString().length() > 3) {
+            if (!PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$", cliHeight.toString()) && cliHeight.toString().length() > 3) {
                 throw new IllegalArgumentException("La taille n'est pas valide");
             }
         }
@@ -77,11 +77,11 @@ public class ClientValidator {
             }
         }
 
-        if (!PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", cliTutorFirstname) && cliTutorFirstname.length() > 50) {
+        if (!PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$", cliTutorFirstname) && cliTutorFirstname.length() > 50) {
             throw new IllegalArgumentException("Le Prénom ne peut pas contenir de chiffre");
         }
 
-        if (!PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", cliTutorLastname) && cliTutorLastname.length() > 50) {
+        if (!PatternMatchUtils.simpleMatch("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$", cliTutorLastname) && cliTutorLastname.length() > 50) {
             throw new IllegalArgumentException("Le nom ne peut pas contenir de chiffre");
         }
         if (cliTutorEmail != null) {
