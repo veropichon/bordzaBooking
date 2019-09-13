@@ -12,27 +12,25 @@
 <header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
 
 <div class="contenu">
-    <h2>
-        <p class="bg-dark text-white">Réservation cours</p>
-    </h2>
 
-    <div class="listeinfo" th:object="${modelCourse}">
+    <div class="liste" th:object="${modelCourse}">
         <ul class="list-unstyled">
-            <li>Date du cours : <span
+            <li><u><strong>Date du cours : </strong></u><span
                     th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
                 <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
                 <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
                 <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span></li>
 
-            <li>Horaires : de <span
-                    th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
+            <li><u><strong>Horaires : de </strong></u><span
+                    th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span><u><strong>
                 à
-                <span th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
+            </u></strong><span th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
             </li>
 
-            <li>Pratique et discipline : <span th:utext="${modelCourse.discipline.disLabel}"></span>
+            <li><u><strong>Pratique et discipline : </strong></u><span
+                    th:utext="${modelCourse.discipline.disLabel}"></span>
             </li>
-            <li>Niveau : <span th:utext="${modelCourse.level.levCourseLabel}"></span></li>
+            <li><u><strong>Niveau : </strong></u><span th:utext="${modelCourse.level.levCourseLabel}"></span></li>
         </ul>
     </div>
 
@@ -52,16 +50,17 @@
             <label><strong>Prêt de matériel <span class="required-star">*</span></strong></label>
             <div class="row">
                 <div class="col">
-                    <input type="radio" th:field="*{bkMat}" id="oui" th:value="0">
-                    <label for="oui">Oui</label>
+                    <input th:type="radio" th:field="*{bkMat}" th:id="oui" th:value="0">
+                    <label th:for="oui">Oui</label>
                 </div>
                 <div class="col">
-                    <input type="radio" th:field="*{bkMat}" id="non" th:value="1" th:checked>
-                    <label for="non">Non</label>
+                    <input th:type="radio" th:field="*{bkMat}" th:id="non" th:value="1" checked>
+                    <label th:for="non">Non</label>
                 </div>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Valider</button>
+        <button type="button" class="btn btn-secondary">Annuler</button>
     </form>
 
 </div>
