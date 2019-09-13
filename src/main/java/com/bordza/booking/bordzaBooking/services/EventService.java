@@ -34,7 +34,7 @@ public class EventService {
                         eventList.add(event);
                     }
                 } else if (course.getCrsVip() || course.getCrsUnavailable()) {
-                    Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), "nan", "Indisponible", "grey", "black", "black");
+                    Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), "Indisponible", "nan", "grey", "black", "black");
                     eventList.add(event);
                 }
             }

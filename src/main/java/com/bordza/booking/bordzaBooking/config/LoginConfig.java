@@ -14,13 +14,14 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().anyRequest().permitAll()
-//                    .antMatchers("/calendar").permitAll()
-//                    .antMatchers("/newCourse**").authenticated()
-//                    .antMatchers("/index").authenticated()
-//                    .antMatchers("/admin**").hasRole("ADMIN")
+                .csrf().disable()
+                .authorizeRequests()
+                    .antMatchers("/calendar").permitAll()
+                    .antMatchers("/newCourse**").authenticated()
+                    .antMatchers("/login").permitAll()
+                    .antMatchers("/admin**").hasRole("ADMIN")
                 .and()
-                .formLogin()
+                .formLogin().loginPage("/login")
                 .and()
                 .httpBasic()
                 ;
