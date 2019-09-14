@@ -130,3 +130,9 @@ a {
     text-align: left;
 }
 
+/*------------------------- newCourse.html -----------------*/
+
+input#fromTimeHour, input#fromTimeMinutes {
+    width:55px;
+}
+

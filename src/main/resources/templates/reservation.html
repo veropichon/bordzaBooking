@@ -15,22 +15,35 @@
 
     <div class="liste" th:object="${modelCourse}">
         <ul class="list-unstyled">
-            <li><u><strong>Date du cours : </strong></u><span
-                    th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
+            <li>
+                <strong><u>Date du cours</u> : </strong>
+                <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
                 <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
                 <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
-                <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span></li>
-
-            <li><u><strong>Horaires : de </strong></u><span
-                    th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span><u><strong>
-                à
-            </u></strong><span th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
+                <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span>
             </li>
 
-            <li><u><strong>Pratique et discipline : </strong></u><span
-                    th:utext="${modelCourse.discipline.disLabel}"></span>
+            <li>
+                <strong><u>Horaires</u> : de </strong>
+                <span th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
+                <strong> à </strong>
+                <span th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
             </li>
-            <li><u><strong>Niveau : </strong></u><span th:utext="${modelCourse.level.levCourseLabel}"></span></li>
+
+            <li>
+                <strong><u>Discipline</u> : </strong>
+                <span th:utext="${modelCourse.discipline.disLabel}"></span>
+            </li>
+
+            <li>
+                <strong><u>Lieu</u> : </strong>
+                <span th:utext="${modelCourse.location.locLabel}"></span>
+            </li>
+
+            <li>
+                <strong><u>Niveau</u> : </strong>
+                <span th:utext="${modelCourse.level.levCourseLabel}"></span>
+            </li>
         </ul>
     </div>
 
@@ -39,27 +52,28 @@
             <label><strong>Prêt de matériel <span class="required-star">*</span></strong></label>
             <div class="row">
                 <div class="col">
-                    <input th:type="radio" th:field="*{bkMat}" th:id="oui" th:value="0">
+                    <input th:type="radio" th:field="*{bkMat}" th:id="oui" th:value="1">
                     <label th:for="oui">Oui</label>
                 </div>
                 <div class="col">
-                    <input th:type="radio" th:field="*{bkMat}" th:id="non" th:value="1" checked>
+                    <input th:type="radio" th:field="*{bkMat}" th:id="non" th:value="0">
                     <label th:for="non">Non</label>
                 </div>
             </div>
         </div>
+
+         <div class="form-row" th:object="${modelCourse}">
+             <input type="hidden" th:field="*{crsId}">
+         </div>
+         <div class="form-row" th:object="${modelClient}">
+             <input type="hidden" th:field="*{cliId}">
+         </div>
+
         <button type="submit" class="btn btn-primary">Valider</button>
         <button type="button" class="btn btn-secondary">Annuler</button>
     </form>
 
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 
 </body>
 </html>

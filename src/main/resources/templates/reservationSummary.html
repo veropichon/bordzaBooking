@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.springframework.org/tags/form">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
+</head>
+
+<body>
+
+<header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
+
+<div><img th:src="@{/images/recap_banniere01.jpg}" class="course_summary_banner" alt="borza_banniere"></div>
+
+<div class="contenu">
+
+    <div class="center">
+
+        <div class="course_summary_flex" th:object="${modelCourse}">
+            <table>
+                <tr>
+                    <td class="course_summary_td_left">Date du cours</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourseClient.getCourse().getCrsFromDate()))}"></span>
+                        <span th:utext="${#temporals.day(modelCourseClient.getCourse().getCrsFromDate())}"></span>
+                        <span th:utext="${#temporals.monthName(modelCourseClient.getCourse().getCrsFromDate())}"></span>
+                        <span th:text="${#temporals.year(modelCourseClient.getCourse().getCrsFromDate())}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Horaires</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        de <span
+                            th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsFromDate(), 'HH:mm')}"></span>
+                        à <span
+                            th:utext="${#temporals.format(modelCourseClient.getCourse().getCrsToDate(), 'HH:mm')}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Discipline</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        <span th:utext="${modelCourseClient.course.discipline.disLabel}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Niveau</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        <span th:utext="${modelCourseClient.course.level.levCourseLabel}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Lieu</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        <span th:utext="${modelCourseClient.course.location.locLabel}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Prêt de matériel</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right">
+                        <span th:text="${modelCourseClient.bkMat} ? 'Oui' : 'Non'"/></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <hr>
+
+        <p>Votre demande de participation à ce cours a bien été envoyée. Vous recevrez un Email après validation.</p>
+        <div class="box_text">
+            S'il s'agit de votre premier cours, merci de contacter le formateur à ce numéro :
+            <strong>06 10 66 02 46</strong>, afin qu'il puisse valider votre participation.
+
+        </div>
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

@@ -9,7 +9,7 @@ import java.time.LocalTime;
 public class SomeBean {
 
     private LocalDateTime fromDateTime;
-    // private LocalTime fromTime;
+    // private LocalTime fromTime; // on utilise le format input number
     private Integer fromTimeHour;
     private Integer fromTimeMinutes;
 }

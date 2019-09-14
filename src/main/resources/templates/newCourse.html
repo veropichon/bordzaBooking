@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:form="http://www.springframework.org/tags/form">
+      xmlns:form="http://www.springframework.org/tags/form" xmlns:width="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
 
     <title th:text="${pageTitle}"></title>
     <th:block th:include="fragments/general.html::headFiles"></th:block>
+
+    <script src="/js/functions.js"></script>
 
     </head>
 
@@ -55,7 +57,7 @@
                     <label><strong>Horaire <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            <input th:field="*{fromTime}" type="time" min="09:00" max="18:00" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH:mm')}">
+                            <input th:field="*{fromTime}" type="time" min="09:00" max="18:00" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH:mm')}" step="1800">
                         </div>
                     </div>
                     <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
@@ -64,14 +66,16 @@
                 -->
 
                 <div class = "form-group" th:object="${someBean}">
-                    <label><strong>Horaire <span class="required-star">*</span></strong></label>
+                    <label><strong>Horaire <span class="required-star">*</span>  &nbsp; </strong></label>
+                    <span id="resultHH" name="resultHH" th:text="${#temporals.format(someBean.getFromDateTime(), 'HH')}" ></span>
+                    :
+                    <span id="resultMM" name="resultMM" th:text="${#temporals.format(someBean.getFromDateTime(), 'mm')}" ></span>
                     <div class="row">
                         <div class="col">
-                            <input th:field="*{fromTimeHour}" type="number" min="09" max="18" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH')}">
-                            <input th:field="*{fromTimeMinutes}" type="number" min="00" max="30" step="30" required th:value="${#temporals.format(someBean.getFromDateTime(), 'mm')}">
+                            <input id="fromTimeHour" th:field="*{fromTimeHour}" type="number" min="09" max="18" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH')}" onchange="putResultHH(this.value)">
+                            <input id="fromTimeMinutes" th:field="*{fromTimeMinutes}" type="number" min="00" max="30" step="30" required th:value="${#temporals.format(someBean.getFromDateTime(), 'mm')}" onchange="putResultMM(this.value)">
                         </div>
                     </div>
-                    <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
                     <input type="hidden" th:field="*{fromDateTime}" th:value="${someBean.getFromDateTime()}">
                 </div>
                 <!-- th:id="fromTime" th:name="fromTime" th:field="*{fromTime}"  th:value="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"   -->
