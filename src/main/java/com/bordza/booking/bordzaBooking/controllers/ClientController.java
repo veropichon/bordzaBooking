@@ -9,6 +9,7 @@ import com.bordza.booking.bordzaBooking.repositories.ClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.LevelRepository;
 import com.bordza.booking.bordzaBooking.repositories.UserRepository;
 import com.bordza.booking.bordzaBooking.services.ClientService;
+import com.bordza.booking.bordzaBooking.services.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.Registration;
 import java.util.List;
 
 @Controller
@@ -34,6 +38,13 @@ public class ClientController {
 
     @Autowired
     ClientService clientService;
+
+    private final StorageService storageService;
+
+    @Autowired
+    public ClientController(StorageService storageService) {
+        this.storageService = storageService;
+    }
 
     private static final Logger log = LoggerFactory.getLogger("test Input");
 
@@ -94,30 +105,50 @@ public class ClientController {
     @PostMapping("/inscription")
     public String saveUserAndClient(@ModelAttribute("modelUser") UserEntity userEntity,
                                     @ModelAttribute("modelClient") ClientEntity clientEntity,
-                                    BindingResult result, ModelMap model) {
+                                    BindingResult result, ModelMap model,
+                                    @RequestParam("file") MultipartFile file,
+                                    RedirectAttributes redirectAttributes) {
 
         /*if (result.hasErrors()) {
             return "error";
         }*/
 
-        // Add defeult values
-        userEntity.defaultValue(userEntity);
-        clientEntity.defaultValue(clientEntity);
+        List<UserEntity> EmailsList = userRepository.findByUsrEmailContaining(userEntity.getUsrEmail());
 
-        try {
-            clientService.save(userEntity, clientEntity);
-        } catch (IllegalArgumentException e) {
+        if( EmailsList.isEmpty()){
+            // Add defeult values
+            userEntity.defaultValue(userEntity);
+            clientEntity.defaultValue(clientEntity);
+
+            // TODO url locale
+            //Save picture
+            String urlPicture = storageService.store(file,redirectAttributes);
+            if(urlPicture != null){
+                clientEntity.setCliUrlPicture("File://" + urlPicture);
+            }
+
+            try {
+                clientService.save(userEntity, clientEntity);
+            } catch (IllegalArgumentException e) {
 
 
-            return "inscription";
+                return "inscription";
+            }
+            return "redirect:/calendar";
         }
-        return "redirect:/calendar";
+        else {
+            return "redirect:/_error";
+        }
+
+
     }
 
     @PostMapping("/modifProfil")
     public String updateProfil(@ModelAttribute("modelUser") UserEntity userEntity,
-                               @ModelAttribute("modelClient") ClientEntity clientEntity,
-                               BindingResult result, ModelMap model) {
+                               @ModelAttribute("modelClient") ClientEntity inputClientEntity,
+                               BindingResult result, ModelMap model,
+                               @RequestParam("file") MultipartFile file,
+                               RedirectAttributes redirectAttributes) {
 
         /*if (result.hasErrors()) {
             return "error";
@@ -125,7 +156,24 @@ public class ClientController {
 
         // Add defeult values
         userEntity.defaultValue(userEntity);
-        clientEntity.defaultValue(clientEntity);
+        inputClientEntity.defaultValue(inputClientEntity);
+
+
+        ClientEntity clientEntity = clientRepository.findById(inputClientEntity.getCliId()).get();
+
+        log.info("id input client : " + inputClientEntity.getCliId());
+        log.info("url picture : " + clientEntity.getCliUrlPicture());
+
+        if(clientEntity.getCliUrlPicture() != null){
+            storageService.deleteFile(clientEntity.getCliUrlPicture());
+            clientEntity.setCliUrlPicture(null);
+            clientRepository.save(clientEntity);
+        }
+
+        // TODO url locale
+        //Save picture
+        String urlPicture = storageService.store(file,redirectAttributes);
+        clientEntity.setCliUrlPicture(urlPicture);
 
         try {
             clientService.update(userEntity, clientEntity);

@@ -130,8 +130,15 @@ a {
     text-align: left;
 }
 
-.collapse_bordza{
+#tutor {
+    display: none;
     background-color:black ;
     border: 1px solid #44a194;
-    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.bordza_input_picture{
+    width: 100px;
+    margin-bottom: 20px;
 }
