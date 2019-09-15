@@ -132,3 +132,18 @@ a {
     text-align: left;
 }
 
+/*------------------------- Footer -----------------*/
+
+.footer_bordza{
+    padding: 20px;
+}
+
+.footer_bordza.fa{
+    font-size: 30px;
+}
+
+/*-------------------- Validation Course ------------*/
+
+.line{
+    color: white;
+}

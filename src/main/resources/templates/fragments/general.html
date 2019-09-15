@@ -60,46 +60,57 @@
     </div>
 </header>
 
-<!--  Header client !-->
-<!--
-<header>
-    <div class="navbar bg-black text-white row">
-        <div class=" col-4">
-            <div id="logo">
-                <a th:href="@{/index}">
-                    <img th:src="@{/images/logo.png}" alt="borza_logo">
-                    <h2 id="textBordza">Bordza</h2>
+
+<!--  Footer client !-->
+
+<footer th:fragment="footerClient">
+    <div class="page-footer bg-black text-white">
+        <div class="row" >
+            <!-- Footer -->
+            <br>
+            <div class="col text-right">
+                <a href="conditions_generales_de_vente.html" ><h6>Nos Conditions générales de vente</h6></a>
+            </div>
+            <div class="col nav align-self-start" footer_bordza >
+                <p>Suivez-nous </p>
+
+                <!-- Facebook -->
+
+                <a href="https://www.facebook.com/bordzalongboards/" class="nav-link">
+                    <i class="fa fa-w fa-facebook-square "> </i>
                 </a>
+
+                <!--Instagram-->
+
+                <a href="https://www.instagram.com/bordzalongboard/" class="nav-link">
+                    <i class="fa fa-instagram "> </i>
+                </a>
+
+
+                <!--Vimeo -->
+                <a  href="https://vimeo.com/user5674470" class="nav-link">
+                    <i class="fa fa-w fa-vimeo-square "> </i>
+                </a>
+
+                <!--You Tube -->
+
+                <a  href="#" class="nav-link">
+                    <i class="fa fa-w fa-youtube "> </i>
+                </a>
+
             </div>
         </div>
-        <div class="bordza_center col-4">
-            <h1 th:text="${myPageTitle}"></h1>
+
+        <!-- Grid column -->
+        <br>
+        <div class=" footer-copyright text-center">
+            <h6>- BORDZA Marque déposée -   -Tous droits réservés -</h6>
         </div>
-        <div class="col-4 col align-self-start">
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a th:href="@{/calendar}" class="nav-link">
-                        <i class="fa fa-fw  fa-calendar"></i>
-                        Agenda
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fa fa-fw fa-star"></i>
-                        Mes cours
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/inscription}" class="nav-link">
-                        <i class="fa fa-fw fa-user-circle-o"></i>
-                        Mon compte
-                    </a>
-                </li>
-            </ul>
-        </div>
+
+
     </div>
-</header>
-!-->
+</footer>
+
 
 </body>
 </html>

@@ -170,5 +170,5 @@ public class CourseController {
 
         return "reservation";
     }
-
+    // reservation d'un cours
 }
