@@ -159,7 +159,7 @@ public class ClientController {
         inputClientEntity.defaultValue(inputClientEntity);
 
 
-        ClientEntity clientEntity = clientRepository.findById(inputClientEntity.getCliId()).get();
+        /*ClientEntity clientEntity = clientRepository.findById(inputClientEntity.getCliId()).get();
 
         log.info("id input client : " + inputClientEntity.getCliId());
         log.info("url picture : " + clientEntity.getCliUrlPicture());
@@ -174,9 +174,9 @@ public class ClientController {
         //Save picture
         String urlPicture = storageService.store(file,redirectAttributes);
         clientEntity.setCliUrlPicture(urlPicture);
-
+*/
         try {
-            clientService.update(userEntity, clientEntity);
+            clientService.update(userEntity, inputClientEntity);
         } catch (IllegalArgumentException e) {
 
 

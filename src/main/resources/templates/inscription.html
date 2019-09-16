@@ -139,6 +139,9 @@
             <div class="form-group col-md-6">
                 <label for="cliUrlPhoto">Photo</label>
                 <input type="file" class="form-control-file" name="file" id="cliUrlPhoto">
+                <button type="button" name="saveBtn" class="btn btn-primary bordza_green" id="saveBtn"
+                        value="/savePicture">Rafraichir ma photo
+                </button>
             </div>
             <div class="form-group col-md-6">
                 <div class="bordza_center">
@@ -164,12 +167,15 @@
             };
 
             document.getElementById("deletebtn").onclick = function () {
-                //alert(document.getElementById("deletebtn").value);
-
-                deleteForm(document.getElementById("deletebtn").value);
+                actionForm(document.getElementById("deletebtn").value);
             };
 
-            function deleteForm(action) {
+            document.getElementById("saveBtn").onclick = function () {
+                //actionForm(document.getElementById("saveBtn").value);
+                alert("Action");
+            };
+
+            function actionForm(action) {
                 alert("coucou delete");
                 document.getElementById('form1').action = action;
                 document.getElementById('form1').submit();

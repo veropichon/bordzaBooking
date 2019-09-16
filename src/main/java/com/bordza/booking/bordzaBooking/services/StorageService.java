@@ -18,8 +18,7 @@ public class StorageService {
 
     private static final Logger log = LoggerFactory.getLogger("test Input");
 
-
-    private static String UPLOADED_FOLDER = "/home/laetitia/bordza_pictures/";
+    private static String UPLOADED_FOLDER = "/home/laetitia/bordza_pictures/images/";
 
     public String store(@RequestParam("file") MultipartFile file,
                         RedirectAttributes redirectAttributes) {
