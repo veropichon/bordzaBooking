@@ -25,6 +25,7 @@ public class CourseClientEntity implements Serializable {
 
     private Boolean bkVip;
     private Boolean bkMat;
+    private Boolean bkValidated;
 
     /**
      * Display Default values
@@ -34,6 +35,7 @@ public class CourseClientEntity implements Serializable {
 
         if (courseClientEntity.bkVip == null) { courseClientEntity.bkVip = false; }
         if (courseClientEntity.bkMat == null) { courseClientEntity.bkMat = false; }
+        if (courseClientEntity.bkValidated == null) { courseClientEntity.bkValidated = false; }
 
         return courseClientEntity;
     }
