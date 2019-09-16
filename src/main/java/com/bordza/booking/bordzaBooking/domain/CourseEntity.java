@@ -1,5 +1,6 @@
 package com.bordza.booking.bordzaBooking.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -27,6 +28,7 @@ public class CourseEntity {
     @ManyToOne
     private DurationEntity duration;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Set<CourseClientEntity> courseClients;
 

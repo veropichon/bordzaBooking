@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:form="http://www.springframework.org/tags/form">
-<html lang="en">
+      xmlns:form="http://www.springframework.org/tags/form" lang="fr">
 <head>
+    <meta charset="UTF-8">
     <title th:text="${pageTitle}"></title>
     <th:block th:include="fragments/general.html::headFiles"></th:block>
 </head>
@@ -12,66 +12,68 @@
 <header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
 
 <div class="contenu">
-    <h2>
-        <p class="bg-dark text-white">Réservation cours</p>
-    </h2>
 
-    <div class="listeinfo" th:object="${modelCourse}">
+    <div class="liste" th:object="${modelCourse}">
         <ul class="list-unstyled">
-            <li>Date du cours : <span
-                    th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
+            <li>
+                <strong><u>Date du cours</u> : </strong>
+                <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
                 <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
                 <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
-                <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span></li>
+                <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span>
+            </li>
 
-            <li>Horaires : de <span
-                    th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
-                à
+            <li>
+                <strong><u>Horaires</u> : de </strong>
+                <span th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
+                <strong> à </strong>
                 <span th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
             </li>
 
-            <li>Pratique et discipline : <span th:utext="${modelCourse.discipline.disLabel}"></span>
+            <li>
+                <strong><u>Discipline</u> : </strong>
+                <span th:utext="${modelCourse.discipline.disLabel}"></span>
             </li>
-            <li>Niveau : <span th:utext="${modelCourse.level.levCourseLabel}"></span></li>
+
+            <li>
+                <strong><u>Lieu</u> : </strong>
+                <span th:utext="${modelCourse.location.locLabel}"></span>
+            </li>
+
+            <li>
+                <strong><u>Niveau</u> : </strong>
+                <span th:utext="${modelCourse.level.levCourseLabel}"></span>
+            </li>
         </ul>
     </div>
 
-    <!--<div class="form-group">
-        <label for="loc-select"><strong>Lieu souhaité <span class="required-star">*</span></strong></label>
-        <select id="loc-select" th:field="*{location}" class="custom-select">
-            <option th:each="myLoc : ${modelLocationsList}" th:value="${myLoc.getLocId()}"
-                    th:text="${myLoc.getLocLabel()}"></option>
-        </select>
-
-        <small class="form-text text-muted">Ce lieu n'est pas définitif, il sera validé ou non par votre
-            formateur</small>
-    </div>!-->
-
-    <form action="#" th:action="@{/reservation}" th:object="${modelCourseClient}" method="post">
+     <form action="#" th:action="@{/reservation}" th:object="${modelCourseClient}" method="post">
         <div class="form-group">
             <label><strong>Prêt de matériel <span class="required-star">*</span></strong></label>
             <div class="row">
                 <div class="col">
-                    <input type="radio" th:field="*{bkMat}" id="oui" th:value="0">
-                    <label for="oui">Oui</label>
+                    <input th:type="radio" th:field="*{bkMat}" th:id="oui" th:value="1">
+                    <label th:for="oui">Oui</label>
                 </div>
                 <div class="col">
-                    <input type="radio" th:field="*{bkMat}" id="non" th:value="1" th:checked>
-                    <label for="non">Non</label>
+                    <input th:type="radio" th:field="*{bkMat}" th:id="non" th:value="0">
+                    <label th:for="non">Non</label>
                 </div>
             </div>
         </div>
+
+         <div class="form-row" th:object="${modelCourse}">
+             <input type="hidden" th:field="*{crsId}">
+         </div>
+         <div class="form-row" th:object="${modelClient}">
+             <input type="hidden" th:field="*{cliId}">
+         </div>
+
         <button type="submit" class="btn btn-primary">Valider</button>
+        <button type="button" class="btn btn-secondary">Annuler</button>
     </form>
 
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 
 </body>
 </html>

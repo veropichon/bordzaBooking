@@ -34,6 +34,9 @@ public class CourseRestController {
         return courseClientRepository.findAll();
     }
 
-
+    @GetMapping("/api/courses")
+    public List<CourseEntity> showAllCourses(){
+        return courseRepository.findAll();
+    }
 
 }
