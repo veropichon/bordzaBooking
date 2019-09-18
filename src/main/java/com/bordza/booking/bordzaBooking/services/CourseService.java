@@ -7,12 +7,16 @@ import com.bordza.booking.bordzaBooking.repositories.ClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.CourseClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.CourseRepository;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import com.bordza.booking.bordzaBooking.utils.SomeBean;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.MimeMessage;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -30,6 +34,9 @@ public class CourseService {
     @Autowired
     CourseClientRepository courseClientRepository;
 
+    @Autowired
+    MailService mailService;
+
     /**
      * Exception check when @POST from newCourse form
      * @param courseEntity course input form newCourse
@@ -38,13 +45,12 @@ public class CourseService {
      * @throws IllegalArgumentException
      */
 
-    public void saveCourse(CourseEntity courseEntity, ClientEntity clientEntity, CourseClientEntity courseClientEntity, SomeBean someBean) throws IllegalArgumentException {
+    public void saveCourse(CourseEntity courseEntity, ClientEntity clientEntity, CourseClientEntity courseClientEntity, SomeBean someBean) throws IllegalArgumentException, MessagingException {
 
         // String crsComment = courseEntity.getCrsComment();
         // boolean crsDeleted = courseEntity.getCrsDeleted();
         // String crsDesc = courseEntity.getCrsDesc();
         // boolean crsPublished = courseEntity.getCrsPublished();
-        // boolean crsValidated = courseEntity.getCrsValidated();
 
         boolean crsUnavailable = courseEntity.getCrsUnavailable();
         boolean crsVip = courseEntity.getCrsVip();
@@ -75,8 +81,8 @@ public class CourseService {
 
         courseClientRepository.save(courseClientEntity);
 
-        // log.info("Cours : " + courseEntity.toString());
-        // log.info("Booking : " + courseClientEntity.toString());
+        log.info("Cours : " + courseEntity.toString());
+        log.info("Booking : " + courseClientEntity.toString());
 
     }
 
