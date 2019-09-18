@@ -32,6 +32,7 @@
             <th>telephone tuteur</th>
             <th>antecedents</th>
         </tr>
+
         <tr th:each="myClient : ${clientsList}">
             <td th:utext="${myClient.user.usrId}">...</td>
             <td th:utext="${myClient.user.usrEmail}">...</td>
@@ -62,8 +63,8 @@
     <li><a th:href="@{/courseSummary}">Récapitulatif Cours</a></li>
     <li><a th:href="@{/reservation}">Réservation d'un cours</a></li>
     <li><a th:href="@{/modifProfil}">Modif profil</a></li>
-    <li><a th:href="@{/waitingForValidation}">Validation en attente</a></li>
-
+    <li><a th:href="@{/adminWaiting}">Validation en attente Admin</a></li>
+    <li><a th:href="@{/adminSummary}">Récapitulatif Admin </a></li>
 
 
 </ul>

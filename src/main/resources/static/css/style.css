@@ -43,7 +43,9 @@ a {
     display: flex;
     justify-content: space-between;
 }
-
+.collapse{
+    background-color: #242424;
+}
 /*-------------------- HEADER -----------------*/
 
 .header {
@@ -136,14 +138,56 @@ a {
 
 .footer_bordza{
     padding: 20px;
+
+}
+.page_footer{
+    font-size: small;
 }
 
-.footer_bordza.fa{
+.icon_footer{
     font-size: 30px;
 }
 
+
 /*-------------------- Validation Course ------------*/
 
-.line{
+.list_validation{
     color: white;
+}
+.icon_validation{
+     font-size: 30px;
+ }
+.hr{
+    color: black;
+}
+
+/*--------------------  admin récapitulatif cours -----------*/
+
+.list_client{
+    color: white;
+}
+
+.table-hover{
+    background-color: grey;
+}
+
+/*--------------------  admin validation en attente -----------*/
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content{
+    display :none;
+    position : absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content{
+    display: block;
 }

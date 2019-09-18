@@ -55,6 +55,7 @@ public class EventRestController {
 
         List<CourseEntity> courseList = courseRepository.findByCrsFromDateGreaterThanEqualAndCrsToDateLessThanEqual(startDateTime, endDateTime);
         return service.courseToEvent(courseList);
+
     }
 }
 
