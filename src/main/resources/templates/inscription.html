@@ -5,7 +5,6 @@
     <title th:text="${pageTitle}"></title>
     <th:block th:include="fragments/general.html::headFiles"></th:block>
 
-    <script src="/js/functions.js"></script>
 </head>
 
 <body>
@@ -137,53 +136,48 @@
 
         <div class="row">
             <div class="form-group col-md-6">
-                <label for="cliUrlPhoto">Photo</label>
-                <input type="file" class="form-control-file" name="file" id="cliUrlPhoto">
-                <button type="button" name="saveBtn" class="btn btn-primary bordza_green" id="saveBtn"
-                        value="/savePicture">Rafraichir ma photo
+                <label for="file">Photo</label>
+                <input type="file" class="form-control-file" name="file" id="file">
+                <button type="button" name="saveBtn" class="btn btn-primary bordza_green" id="prevBtn"
+                        value="/prevPicture">Rafraichir ma photo
                 </button>
             </div>
             <div class="form-group col-md-6">
                 <div class="bordza_center">
                     <div>
-                        <img th:if=" *{cliUrlPicture} != null " th:src=" *{cliUrlPicture}" class="bordza_input_picture" alt="photo">
-                        <img th:if=" *{cliUrlPicture} == null " src="http://bordza.fr/images/logo.png" class="bordza_input_picture" alt="Photo">
+                        <div th:if=" *{cliUrlPicture} != null ">
+                            <img   th:src=" *{cliUrlPicture}" class="bordza_input_picture" alt="photo" id="myImg">
+                            <div>
+                                <button type="button" name="deletebtn" class="btn btn-primary bordza_green" id="deletebtn"
+                                        value="/deletePicture">Supprimer ma photo
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <button th:if=" *{cliUrlPicture} != null " type="button" name="deletebtn" class="btn btn-primary bordza_green" id="deletebtn"
-                                value="/deletePicture">Supprimer ma photo
-                        </button>
+                    <div th:if=" *{cliUrlPicture} == null ">
+                        <img src="http://bordza.fr/images/logo.png" class="bordza_input_picture" alt="Photo" id="myImg">
                     </div>
                 </div>
 
             </div>
         </div>
 
-
         <script th:inline="javascript">
+
             /*<![CDATA[*/
+
             document.getElementById("birthdate").onchange = function () {
                 cliAge(document.getElementById("birthdate").value);
             };
 
-            document.getElementById("deletebtn").onclick = function () {
-                actionForm(document.getElementById("deletebtn").value);
-            };
-
-            document.getElementById("saveBtn").onclick = function () {
-                //actionForm(document.getElementById("saveBtn").value);
-                alert("Action");
-            };
-
-            function actionForm(action) {
-                alert("coucou delete");
-                document.getElementById('form1').action = action;
-                document.getElementById('form1').submit();
+            if(document.getElementById("deletebtn")){
+                document.getElementById("deletebtn").onclick = function () {
+                    actionForm(document.getElementById("deletebtn").value);
+                };
             }
 
             /*]]>*/
         </script>
-
 
         <hr/>
         <h2>Informations complémentaires :</h2>
@@ -217,7 +211,8 @@
 
     </form>
 </div>
-
+<script src="/js/functions.js"></script>
+<script src="/js/pictureUpload.js"></script>
 </body>
 
 </html>

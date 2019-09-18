@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,11 +41,12 @@ public class PictureStorageController {
         return "redirect:/modifProfil";
     }
 
-    @PostMapping("/savePicture")
+    /*@PostMapping("/savePicture")
     public String savePicture(@ModelAttribute("modelClient") ClientEntity inputClientEntity,
                               BindingResult result, ModelMap model,
                               @RequestParam("file") MultipartFile file,
                               RedirectAttributes redirectAttributes) {
+
 
         ClientEntity clientEntity = clientRepository.findById(inputClientEntity.getCliId()).get();
 
@@ -54,19 +56,19 @@ public class PictureStorageController {
         /**
          * Delete file if not null
          */
+    /*
         if (clientEntity.getCliUrlPicture() != null) {
             storageService.deleteFile(clientEntity.getCliUrlPicture());
             clientEntity.setCliUrlPicture(null);
             clientRepository.save(clientEntity);
         }
 
-        // TODO url locale
         //Save picture
         String urlPicture = storageService.store(file, redirectAttributes);
         clientEntity.setCliUrlPicture(urlPicture);
 
         return "redirect:/modifProfil";
-    }
+    }*/
 
 
 }

@@ -22,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.Registration;
+import java.nio.file.Path;
 import java.util.List;
+
 
 @Controller
 public class ClientController {
@@ -39,12 +41,8 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    private final StorageService storageService;
-
     @Autowired
-    public ClientController(StorageService storageService) {
-        this.storageService = storageService;
-    }
+    StorageService storageService;
 
     private static final Logger log = LoggerFactory.getLogger("test Input");
 
@@ -90,7 +88,7 @@ public class ClientController {
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevel", levelsList);
 
-        ClientEntity clientEntity = clientRepository.findById(4L).get();
+        ClientEntity clientEntity = clientRepository.findById(1L).get();
         UserEntity userEntity = userRepository.findById(clientEntity.getUser().getUsrId()).get();
 
         model.addAttribute("modelUser", userEntity);
@@ -113,33 +111,28 @@ public class ClientController {
             return "error";
         }*/
 
+        log.info(file.getOriginalFilename());
+
         List<UserEntity> EmailsList = userRepository.findByUsrEmailContaining(userEntity.getUsrEmail());
 
-        if( EmailsList.isEmpty()){
+        if (EmailsList.isEmpty()) {
             // Add defeult values
             userEntity.defaultValue(userEntity);
             clientEntity.defaultValue(clientEntity);
 
-            // TODO url locale
             //Save picture
-            String urlPicture = storageService.store(file,redirectAttributes);
-            if(urlPicture != null){
-                clientEntity.setCliUrlPicture("File://" + urlPicture);
-            }
 
             try {
-                clientService.save(userEntity, clientEntity);
+                clientService.save(userEntity, clientEntity, file, redirectAttributes);
             } catch (IllegalArgumentException e) {
 
 
                 return "inscription";
             }
             return "redirect:/calendar";
-        }
-        else {
+        } else {
             return "redirect:/_error";
         }
-
 
     }
 
@@ -158,25 +151,21 @@ public class ClientController {
         userEntity.defaultValue(userEntity);
         inputClientEntity.defaultValue(inputClientEntity);
 
-
-        /*ClientEntity clientEntity = clientRepository.findById(inputClientEntity.getCliId()).get();
+        ClientEntity clientEntity = clientRepository.findById(inputClientEntity.getCliId()).get();
 
         log.info("id input client : " + inputClientEntity.getCliId());
-        log.info("url picture : " + clientEntity.getCliUrlPicture());
 
-        if(clientEntity.getCliUrlPicture() != null){
+        if (clientEntity.getCliUrlPicture() != null) {
             storageService.deleteFile(clientEntity.getCliUrlPicture());
             clientEntity.setCliUrlPicture(null);
             clientRepository.save(clientEntity);
         }
 
-        // TODO url locale
         //Save picture
-        String urlPicture = storageService.store(file,redirectAttributes);
-        clientEntity.setCliUrlPicture(urlPicture);
-*/
+        String urlPicture = storageService.store(file, redirectAttributes, clientEntity.getUser());
+
         try {
-            clientService.update(userEntity, inputClientEntity);
+            clientService.update(userEntity, inputClientEntity, urlPicture);
         } catch (IllegalArgumentException e) {
 
 
