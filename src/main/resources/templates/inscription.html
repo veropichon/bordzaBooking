@@ -58,7 +58,6 @@
                placeholder="N° téléphone">
 
 
-
         <div class="row ">
             <div class="col">
                 <div class="input_group-identity">
@@ -137,17 +136,18 @@
         </div>
 
         <div class="row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-5">
                 <label for="file">Photo</label>
                 <input type="file" class="form-control-file" name="file" id="file">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-3">
                 <div class="bordza_center">
                     <div>
                         <div th:if=" *{cliUrlPicture} != null ">
-                            <img   th:src=" *{cliUrlPicture}" class="bordza_input_picture" alt="photo" id="myImg">
+                            <img th:src=" *{cliUrlPicture}" class="bordza_input_picture" alt="photo" id="myImg">
                             <div>
-                                <button type="button" name="deletebtn" class="btn btn-primary bordza_green" id="deletebtn"
+                                <button type="button" name="deletebtn" class="btn btn-primary bordza_green"
+                                        id="deletebtn"
                                         value="/deletePicture">Supprimer ma photo
                                 </button>
                             </div>
@@ -169,12 +169,13 @@
                 cliAge(document.getElementById("birthdate").value);
             };
 
-            if(document.getElementById("deletebtn")){
+            if (document.getElementById("deletebtn")) {
                 document.getElementById("deletebtn").onclick = function () {
-                    actionForm(document.getElementById("deletebtn").value);
+                    //actionForm(document.getElementById("deletebtn").value);
+                    document.getElementById('form1').action = "/deletePicture";
+                    document.getElementById('form1').submit();
                 };
             }
-
             /*]]>*/
         </script>
 

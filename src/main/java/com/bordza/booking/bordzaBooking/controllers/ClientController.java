@@ -1,10 +1,7 @@
 package com.bordza.booking.bordzaBooking.controllers;
 
 
-import com.bordza.booking.bordzaBooking.domain.CliAge;
-import com.bordza.booking.bordzaBooking.domain.ClientEntity;
-import com.bordza.booking.bordzaBooking.domain.LevelEntity;
-import com.bordza.booking.bordzaBooking.domain.UserEntity;
+import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.ClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.LevelRepository;
 import com.bordza.booking.bordzaBooking.repositories.UserRepository;
@@ -21,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.Registration;
-import java.nio.file.Path;
 import java.util.List;
 
 
@@ -60,6 +55,21 @@ public class ClientController {
 
         return "index";
     }
+
+    @GetMapping("/clientProfil")
+    public String clientProfil(Model model, @RequestParam String clientId){
+
+        ClientEntity clientEntity = clientRepository.findById(Long.valueOf(clientId)).get();
+
+        model.addAttribute("clientProfil", clientEntity);
+        model.addAttribute("pageTitle", "Profil");
+
+        clientEntity.getCliBirthdate();
+
+        return "clientProfil";
+    }
+
+
 
     //Send lvl, User and Client model to "Inscription"
     @GetMapping("/inscription")
@@ -125,11 +135,13 @@ public class ClientController {
             try {
                 clientService.save(userEntity, clientEntity, file, redirectAttributes);
             } catch (IllegalArgumentException e) {
-
-
                 return "inscription";
             }
-            return "redirect:/calendar";
+
+            String url = "redirect:/clientProfil?clientId=" + String.valueOf(clientEntity.getCliId());
+            return url;
+
+            //return "redirect:/calendar";
         } else {
             return "redirect:/_error";
         }
@@ -167,11 +179,14 @@ public class ClientController {
         try {
             clientService.update(userEntity, inputClientEntity, urlPicture);
         } catch (IllegalArgumentException e) {
-
-
             return "inscription";
         }
-        return "redirect:/index";
+
+        log.info("avant profil client : " + clientEntity.getCliId());
+
+        String url = "redirect:/clientProfil?clientId=" + String.valueOf(clientEntity.getCliId());
+        return url;
+        //return "redirect:/index";
     }
 
 }

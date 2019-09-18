@@ -45,7 +45,7 @@
                         Mes cours
                     </a>
                 </li>
-                <li class="nav-item dropdown" >
+                <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-fw fa-user-circle-o"></i>
                         Mon Compte
@@ -64,14 +64,15 @@
 <!--  Footer client !-->
 
 <footer th:fragment="footerClient">
-    <div class="page_footer bg-black text-white">
-        <div class="row" >
+    <div class="footer_bordza bg-black text-white">
+        <div class="row">
             <!-- Footer -->
-            <br>
-            <div class="col text-right">
-                <a href="conditions_generales_de_vente.html" ><h6><p>Nos Conditions générales de vente</p></h6></a>
+            <div class="col-6 text-right">
+                <a href="conditions_generales_de_vente.html">
+                    <h6><p>Nos Conditions générales de vente</p></h6>
+                </a>
             </div>
-            <div class="col nav align-self-start" footer_bordza >
+            <div class="col-6 nav align-self-start">
                 <p>Suivez-nous </p>
 
                 <!-- Facebook -->
@@ -88,13 +89,13 @@
 
 
                 <!--Vimeo -->
-                <a  href="https://vimeo.com/user5674470" class="nav-link">
+                <a href="https://vimeo.com/user5674470" class="nav-link">
                     <i class="fa fa-w fa-vimeo-square icon_footer"> </i>
                 </a>
 
                 <!--You Tube -->
 
-                <a  href="#" class="nav-link">
+                <a href="#" class="nav-link">
                     <i class="fa fa-w fa-youtube icon_footer"> </i>
                 </a>
 
@@ -103,8 +104,12 @@
 
         <!-- Grid column -->
         <br>
-        <div class=" footer-copyright text-center">
-            <h6><p>- BORDZA Marque déposée -   -Tous droits réservés -</p></h6>
+        <div class="row footer-copyright text-center">
+            <div class="col-4"></div>
+            <div class="col-2"><a href="#"> - BORDZA Marque déposée - </a></div>
+            <div class="col-2"><a href="#"> - Tous droits réservés - </a></div>
+            <div class="col-4"></div>
+
         </div>
     </div>
 </footer>
