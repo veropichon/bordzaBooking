@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.springframework.org/tags/form">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
+</head>
+
+<body>
+
+<header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
+
+
+<div class="contenu">
+    <form action="#" th:action="@{/adminSummary}" th:object="${modelCourse}" method="post">
+
+        <div class="summary">
+            <div class="info_cours">
+                <table >
+                    <tr>
+                        <td class="info_date">Date du cours</td>
+                        <td>:</td>
+                        <td class="bookingline">
+                            <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
+                            <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
+                            <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
+                            <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="info_hour">Horaires</td>
+                        <td>:</td>
+                        <td class="bookingline">
+                            de <span
+                                th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
+                            à <span
+                                th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="info_discipline">Discipline</td>
+                        <td>:</td>
+                        <td class="bookingline">
+                            <span th:utext="${modelCourse.discipline.disLabel}"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="info_level">Niveau</td>
+                        <td>:</td>
+                        <td class="bookingline">
+                            <span th:utext="${modelCourse.level.levCourseLabel}"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="info_location">Lieu souhaité</td>
+                        <td>:</td>
+
+                        <td class="bookingline">
+                            <span th:utext="${modelCourse.location.locLabel}"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <button type="submit" class="btn btn-primary bordza_green pull-right">Modifier</button>
+        </div>
+        <hr>
+        <table class="table table-hover" th:object="${modelCourse}">
+            <thead class="thead-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Age</th>
+                <th>Niveau</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody class="list_client" >
+            <tr th:each="myBooking : ${courseClientsList}">
+                <td th:utext="${myBooking.client.cliLastname}+' '+${myBooking.client.cliFirstname}">...</td>
+                <td th:utext="${myBooking.client.cliBirthdate}">...</td>
+                 <!--- afficher toujours le niveau du client ????   !-->
+                <td th:utext="${modelCourse.level.levCourseLabel}"></td>
+
+                <!-- afficher le profil client !-->
+                <td><a href="#">
+                    <i class="fa fa-w fa-search icon_validation "> </i></a>
+                </td>
+
+                <!-- modifier sur href validation cours  !-->
+                <!---  tester si cours validé ===> icone vert + bloqué  !-->
+                <td><a href="#">
+                    <i class="fa fa-w fa-check-circle-o icon_validation"> </i></a>
+                </td>
+
+                <!-- modifier sur href suppression proposition cours !-->
+
+                <td><a href="#">
+                    <i class="fa fa-w fa-trash icon_validation"> </i></a>
+                </td>
+            </tr>
+
+            <hr>
+
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button>
+    </form>
+
+</div>
+
+<footer th:include="fragments/general.html::footerClient"></footer>
+
+<!--
+<script>
+function age(birthday)
+{
+birthday = new Date(birthday);
+return new Number((new Date().getTime() - birthday.getTime()) / 31536000000).toFixed(0);
+}</script>
+!-->
+
+</body>
+</html>

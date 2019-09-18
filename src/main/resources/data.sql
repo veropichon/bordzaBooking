@@ -35,7 +35,7 @@ INSERT INTO skateschool.course (crs_id, crs_comment, crs_deleted, crs_desc, crs_
 INSERT INTO skateschool.course (crs_id, crs_comment, crs_deleted, crs_desc, crs_from_date, crs_published, crs_title, crs_to_date, crs_unavailable, crs_validated, crs_vip, discipline_dis_id, level_lev_id, location_loc_id, duration_dur_id) VALUES (4, '', false, 'Un cours surprise rien que pour toi!', '2019-09-12 16:00:00', true, 'Longboard VIP', '2019-09-12 18:00:00', false, true, true, 3, 2, 2, 2);
 
 -- Booking --
-INSERT INTO skateschool.booking (bk_id, bk_mat, bk_vip, client_cli_id, course_crs_id) VALUES (1, false, false, 1, 2);
-INSERT INTO skateschool.booking (bk_id, bk_mat, bk_vip, client_cli_id, course_crs_id) VALUES (2, true, false, 2, 1);
-INSERT INTO skateschool.booking (bk_id, bk_mat, bk_vip, client_cli_id, course_crs_id) VALUES (3, false, false, 3, 1);
-INSERT INTO skateschool.booking (bk_id, bk_mat, bk_vip, client_cli_id, course_crs_id) VALUES (4, false, true, 1, 4);
+INSERT INTO skateschool.booking (bk_id, bk_mat, bk_vip, bk_validated, client_cli_id, course_crs_id) VALUES (1, false, false, true, 1, 2);
+INSERT INTO skateschool.booking (bk_id, bk_mat, bk_vip, bk_validated, client_cli_id, course_crs_id) VALUES (2, true, false, true, 2, 1);
+INSERT INTO skateschool.booking (bk_id, bk_mat, bk_vip, bk_validated, client_cli_id, course_crs_id) VALUES (3, false, false, true, 3, 1);
+INSERT INTO skateschool.booking (bk_id, bk_mat, bk_vip, bk_validated, client_cli_id, course_crs_id) VALUES (4, false, true, true, 1, 4);

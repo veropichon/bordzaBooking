@@ -4,7 +4,6 @@
     <meta charset="UTF-8"/>
     <title th:text="${pageTitle}"></title>
     <th:block th:include="fragments/general.html::headFiles"></th:block>
-
 </head>
 
 <body>
@@ -56,6 +55,8 @@
         <input type="tel" required class="form-control" id="phone" pattern="(^[0-9]{2}){5}$)" th:field="*{cliPhone}"
                name="phone"
                placeholder="N° téléphone">
+
+
 
         <div class="row ">
             <div class="col">
@@ -211,6 +212,7 @@
 
     </form>
 </div>
+<footer th:include="fragments/general.html::footerClient"></footer>
 <script src="/js/functions.js"></script>
 <script src="/js/pictureUpload.js"></script>
 </body>
