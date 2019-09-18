@@ -53,7 +53,8 @@ public class CourseService {
         Long crsLocId = courseEntity.getLocation().getLocId();
 
         // FromDate = FromDate par défaut avec l'heure saisie
-        LocalDateTime crsFromDate = LocalDateTime.of(courseEntity.getCrsFromDate().getYear(), courseEntity.getCrsFromDate().getMonth(), courseEntity.getCrsFromDate().getDayOfMonth(), someBean.getFromTime().getHour(), someBean.getFromTime().getMinute());
+        // LocalDateTime crsFromDate = LocalDateTime.of(courseEntity.getCrsFromDate().getYear(), courseEntity.getCrsFromDate().getMonth(), courseEntity.getCrsFromDate().getDayOfMonth(), someBean.getFromTime().getHour(), someBean.getFromTime().getMinute());
+        LocalDateTime crsFromDate = LocalDateTime.of(courseEntity.getCrsFromDate().getYear(), courseEntity.getCrsFromDate().getMonth(), courseEntity.getCrsFromDate().getDayOfMonth(), someBean.getFromTimeHour(), someBean.getFromTimeMinutes());
 
         // ToDate construit à partir de fromDate et Durée
         Long crsDurId = courseEntity.getDuration().getDurId();
@@ -76,6 +77,21 @@ public class CourseService {
 
         // log.info("Cours : " + courseEntity.toString());
         // log.info("Booking : " + courseClientEntity.toString());
+
+    }
+
+    public void saveCourseClient(CourseClientEntity courseClientEntity, CourseEntity courseEntity, ClientEntity clientEntity)
+            throws IllegalArgumentException {
+
+        boolean bkVip = courseClientEntity.getBkVip();
+        boolean bkMat = courseClientEntity.getBkMat();
+
+        courseClientEntity.setClient(clientEntity);
+        courseClientEntity.setCourse(courseEntity);
+        courseClientEntity.setBkVip(bkVip);
+        courseClientEntity.setBkMat(bkMat);
+
+        courseClientRepository.save(courseClientEntity);
 
     }
 }
