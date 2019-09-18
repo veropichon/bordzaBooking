@@ -8,9 +8,6 @@ $(":file").change(function () {
 });
 
 function imageIsLoaded(e) {
-
-    alert(e.target.result)
-
     $('#myImg').attr('src', e.target.result);
     $('#myImg').fadeIn();
 };

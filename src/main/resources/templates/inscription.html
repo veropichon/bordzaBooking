@@ -33,6 +33,7 @@
             </div>
 
             <div class="row" th:object="${modelUser}">
+                <input type="hidden" th:field="*{usrId}">
                 <div class="form-group col-md-6">
                     <label for="inputEmail">Email<em class="required-star">*</em></label>
                     <input required type="email" class="form-control" th:field="*{usrEmail}" placeholder="Email"
@@ -139,9 +140,6 @@
             <div class="form-group col-md-6">
                 <label for="file">Photo</label>
                 <input type="file" class="form-control-file" name="file" id="file">
-                <button type="button" name="saveBtn" class="btn btn-primary bordza_green" id="prevBtn"
-                        value="/prevPicture">Rafraichir ma photo
-                </button>
             </div>
             <div class="form-group col-md-6">
                 <div class="bordza_center">

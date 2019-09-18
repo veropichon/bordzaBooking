@@ -45,7 +45,7 @@ public class ClientService {
         String urlPicture = storageService.store(file, redirectAttributes, userEntity);
 
         if (urlPicture != null) {
-            clientEntity.setCliUrlPicture(UPLOADED_FOLDER_BDD + clientEntity.getCliId() + "_" + urlPicture);
+            clientEntity.setCliUrlPicture(UPLOADED_FOLDER_BDD + userEntity.getUsrId() + "_" + urlPicture);
         }
 
         clientEntity.setUser(userEntity);
@@ -69,11 +69,12 @@ public class ClientService {
         userEntity = inputUserEntity;
         clientEntity = inputClientEntity;
 
+        //userEntity.setUsrId(inputClientEntity.getUser().getUsrId());
         userRepository.save(userEntity);
 
         if (urlPicture != null) {
-            log.info("update urlPicture 2 : " + UPLOADED_FOLDER_BDD + clientEntity.getCliId() + "_" + urlPicture);
-            clientEntity.setCliUrlPicture(UPLOADED_FOLDER_BDD + clientEntity.getCliId() + "_" + urlPicture);
+            log.info("update urlPicture 2 : " + UPLOADED_FOLDER_BDD + userEntity.getUsrId() + "_" + urlPicture);
+            clientEntity.setCliUrlPicture(UPLOADED_FOLDER_BDD + userEntity.getUsrId() + "_" + urlPicture);
         }
 
         clientEntity.setUser(userEntity);
