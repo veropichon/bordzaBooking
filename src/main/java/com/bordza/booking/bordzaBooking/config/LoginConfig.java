@@ -62,7 +62,7 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/logout").permitAll()
-                .antMatchers("/admin**").hasRole("ADMIN")
+//                .antMatchers("/admin**").hasRole("ADMIN")
                 .anyRequest().permitAll();
     }
 
