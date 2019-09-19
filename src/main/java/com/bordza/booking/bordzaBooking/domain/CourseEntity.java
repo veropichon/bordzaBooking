@@ -47,9 +47,6 @@ public class CourseEntity {
     private String crsComment;
 
     @Column(nullable = false)
-    private Boolean crsValidated;
-
-    @Column(nullable = false)
     private Boolean crsPublished;
 
     @Column(nullable = false)
@@ -65,13 +62,11 @@ public class CourseEntity {
     public static CourseEntity defaultValue(CourseEntity courseEntity) {
 
         if (courseEntity.crsVip == null) { courseEntity.crsVip = false; }
-        if (courseEntity.crsValidated == null) { courseEntity.crsValidated = false; }
         if (courseEntity.crsPublished == null) { courseEntity.crsPublished = false; }
         if (courseEntity.crsDeleted == null) { courseEntity.crsDeleted = false; }
         if (courseEntity.crsUnavailable == null) { courseEntity.crsUnavailable = false; }
 
         // pour les tests // TODO à effacer plus tard
-        courseEntity.crsValidated = true;
         courseEntity.crsPublished = true;
 
         return courseEntity;
