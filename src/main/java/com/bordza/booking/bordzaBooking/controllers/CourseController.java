@@ -156,7 +156,7 @@ public class CourseController {
             // envoi de l'email à l'administrateur
             String adminEmail = userRepository.findUserEntityByUsrRoleIs("ADMIN").getUsrEmail();
             subject = "Nouveau cours";
-            contents = "Bonjour Eric Motard,\n\n";
+            contents = "Bonjour,\n\n";
             contents += "Un nouveau cours est à valider.\nDescriptif du cours...\n";
             msg = mailService.buildEmail(adminEmail, subject, contents, false);
             mailService.sendEmail(msg);
@@ -212,13 +212,35 @@ public class CourseController {
                               @ModelAttribute("modelCourse") CourseEntity courseEntity,
                               @ModelAttribute("modelClient") ClientEntity clientEntity,
 
-                              BindingResult result, ModelMap model) {
+                              BindingResult result, ModelMap model) throws MessagingException {
 
         try {
 
             courseClientEntity.defaultValue(courseClientEntity);
 
             courseService.saveCourseClient(courseClientEntity, courseEntity, clientEntity);
+
+            // envoi de l'email au client // TODO pout les tests : client 2 pour l'inscription à un cours existant
+            String clientEmail = clientRepository.findById(2L).get().getUser().getUsrEmail();
+            // log.info("clientEmail qui s'inscrit à un cours : " + clientEmail);
+            String clientLastname = clientRepository.findById(2L).get().getCliLastname();
+            String clientFirstname = clientRepository.findById(2L).get().getCliFirstname();
+            String subject = "Bordza - Votre demande d'inscription à un cours";
+            String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
+            contents += "Votre demande d'inscription à un cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validée.\n\n";
+            contents += "L'équipe Bordza";
+
+            MimeMessage msg = null;
+            msg = mailService.buildEmail(clientEmail, subject, contents, false);
+            mailService.sendEmail(msg);
+
+            // envoi de l'email à l'administrateur
+            String adminEmail = userRepository.findUserEntityByUsrRoleIs("ADMIN").getUsrEmail();
+            subject = "Demande d'inscription à un cours";
+            contents = "Bonjour,\n\n";
+            contents += "Une nouvelle demande d'inscription est à valider.\nDescriptif du cours...\n";
+            msg = mailService.buildEmail(adminEmail, subject, contents, false);
+            mailService.sendEmail(msg);
 
             String url = "redirect:/reservationSummary?bookingId=" + String.valueOf(courseClientEntity.getBkId());
             return url;
