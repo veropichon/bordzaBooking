@@ -22,6 +22,7 @@ INSERT INTO skateschool.duration (dur_id, dur_label) VALUES (3, '3 heures');
 INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, usr_role) VALUES (1, 'mariehelene.delteil@orange.fr', 'eeeeeeeee', 'CLIENT');
 INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, usr_role) VALUES (2, 'ltropas@gmail.com', 'RRRRRRR', 'CLIENT');
 INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, usr_role) VALUES (3, 'gilleshette@gmail.com', '4FFGYYYG', 'CLIENT');
+INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, usr_role) VALUES (4, 'mariehelene.delteil@gmail.com', 'adminadmin', 'ADMIN');
 
 -- Client --
 INSERT INTO skateschool.client (cli_id, cli_birthdate, cli_city, cli_comment, cli_deleted, cli_firstname, cli_height, cli_lastname, cli_phone, cli_tutor_email, cli_tutor_firstname, cli_tutor_lastname, cli_tutor_phone, cli_validated, cli_weight, cli_zipcode, level_lev_id, user_usr_id) VALUES (1, '1994-09-15', 'Bordeaux', 'Pizza', false, 'Paul', null, 'Smith', '0643267875', null, null, null, null, true, null, '33000', 2, 1);

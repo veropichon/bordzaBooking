@@ -141,17 +141,26 @@ public class CourseController {
             // création du cours
             courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
 
-            // Récupération email du client (table user)
-            // String emailClient = clientEntity.getUser().getUsrEmail();
-            // log.info("email client : " + emailClient);
-
-            // envoi de l'email au client
+            // envoi de l'email au client // TODO pout les tests : client 1 pour la création de cours
+            String clientEmail = clientRepository.findById(1L).get().getUser().getUsrEmail();
+            String clientLastname = clientRepository.findById(1L).get().getCliLastname();
+            String clientFirstname = clientRepository.findById(1L).get().getCliFirstname();
+            String subject = "Bordza - Votre demande de cours";
+            String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
+            contents += "Votre demande de cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validé.\n\n";
+            contents += "L'équipe Bordza";
             MimeMessage msg = null;
-            // msg = mailService.buildEmail(emailClient, "Votre nouveau cours", "blablatruc", false);
-            msg = mailService.buildEmail("mariehelene.delteil@gmail.com", "Votre nouveau cours", "blablatruc", false);
+            msg = mailService.buildEmail(clientEmail, subject, contents, false);
             mailService.sendEmail(msg);
 
             // envoi de l'email à l'administrateur
+            String adminEmail = userRepository.findUserEntityByUsrRoleIs("ADMIN").getUsrEmail();
+            subject = "Nouveau cours";
+            contents = "Bonjour Eric Motard,\n\n";
+            contents += "Un nouveau cours est à valider.\nDescriptif du cours...\n";
+            msg = mailService.buildEmail(adminEmail, subject, contents, false);
+            mailService.sendEmail(msg);
+
             String url = "redirect:/courseSummary?bookingId=" + String.valueOf(courseClientEntity.getBkId());
             return url;
 
