@@ -1,15 +1,11 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset='utf-8' content="Cory Sanoy" name="Author" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
 
     <link href='fullcalendar/core/main.css' rel='stylesheet' />
     <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
@@ -27,5 +23,8 @@
 <header th:include="fragments/general.html::headerAdmin(myPageTitle=${pageTitle})"></header>
 
 <div id='calendar'></div>
+
+<footer th:include="fragments/general.html::footerClient"></footer>
+
 </body>
 </html>

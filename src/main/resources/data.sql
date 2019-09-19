@@ -17,7 +17,7 @@ INSERT INTO skateschool.location (loc_id, loc_deleted, loc_label) VALUES (3, fal
 INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, role) VALUES (1, 'paul-smith@free.fr', 'eeeeeeeee', 'CLIENT');
 INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, role) VALUES (2, 'ltropas@gmail.com', 'RRRRRRR', 'CLIENT');
 INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, role) VALUES (3, 'gilleshette@gmail.com', '4FFGYYYG', 'CLIENT');
-INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, role) VALUES (4, 'admin', 'admin', 'ADMIN');
+INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, role) VALUES (4, 'manza33@gmail.com', 'admin', 'ADMIN');
 
 -- Duration --
 INSERT INTO skateschool.duration (dur_id, dur_label) VALUES (1, '1 heure');
