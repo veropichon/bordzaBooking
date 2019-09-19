@@ -72,9 +72,11 @@
 </div>
 
 !-->
+
 <!------------  methode avec dropdow       !------->
 <div class="contenu">
-    <form action="#" th:action="@{/adminWaiting}" method="post">
+<!--    <div class ="list-cli" th:if="${nbvalidation} == 0">   !-->
+
         <table class="table table-hover">
             <thead class="thead-dark">
             <tr>
@@ -126,11 +128,14 @@
                 </li>
                 </td>
                 <!-- modifier sur href validation cours  !-->
-                <td><a th:href="@{/api/clients}">
+                    <td>
+                     <a th:href="@{'/adminValidation?bookingId='+ ${booking.bkId}}">
+
                     <i class="fa fa-w fa-check-circle-o icon_validation "> </i></a>
+                    <span th:text="${booking.bkId}"></span>
                 </td>
                 <!-- modifier sur href suppression proposition cours !-->
-                <td><a th:href="@{/api/clients}">
+                <td><a th:href="@{'/adminDelete?bookingId='+ ${booking.bkId}}">
                     <i class="fa fa-w fa-trash icon_validation"> </i></a>
                 </td>
                 </ul>
@@ -141,8 +146,11 @@
 
             </tbody>
         </table>
-    </form>
+ <!--   </div>
+    <div class="list-message" th:if="${nbvalidation} == 0">  !-->
+
 </div>
+
 <footer th:include="fragments/general.html::footerClient"></footer>
 <!----
 <script>
