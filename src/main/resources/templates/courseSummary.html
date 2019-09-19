@@ -17,6 +17,7 @@
 
     <div class="center">
 
+
         <div class="course_summary_flex" th:object="${modelCourse}">
             <table>
                 <tr>
@@ -69,28 +70,6 @@
                 </tr>
             </table>
         </div>
-        <!--    <li>Date du cours : <span
-                    th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
-                <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
-                <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
-                <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span></li>
-
-            <li>Horaires : de <span th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
-                à <span th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
-                <input type="hidden" th:field="*{crsFromDate}" th:value="${modelCourse.getCrsFromDate()}">
-            </li>
-            <li>Pratique et discipline : <span th:object="${modelDiscipline}" th:utext="*{disLabel}"></span></li>
-            <li>Niveau : <span th:object="${modelLevel}" th:utext="*{levCourseLabel}"></span></li>
-            <br>
-            <li>Lieu souhaité : <span th:object="${modelLocation}" th:utext="*{LocLabel}"></span></li>
-         !-->
-        <!--<li>Prêt de matériel : <span th:object="${modelCourseClient}" th:if="${*{bkMat} == false}">non</span>
-                               <span th:object="${modelCourseClient}" th:unless="${*{bkMat} == true}">oui</span>
-                               !-->
-        <!--
-          <li>Prêt de matériel : <span th:text="${modelCourseClient.bkMat} ? 'Oui' : 'Non'"/></span></li>
-        !-->
-
 
         <hr>
 
@@ -103,6 +82,9 @@
     </div>
 
 </div>
+
+<footer th:include="fragments/general.html::footerClient"></footer>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

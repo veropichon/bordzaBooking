@@ -119,7 +119,7 @@ public class CourseController {
         // log.info("bean FromTimeMinutes : " + someBean.getFromTimeMinutes());
         // log.info("bean FromDateTime : " + someBean.getFromDateTime());
 
-        model.addAttribute("pageTitle", "Nouveau cours");
+        model.addAttribute("pageTitle", "Proposition de cours");
 
         return "newCourse";
     }

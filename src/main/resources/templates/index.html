@@ -19,6 +19,7 @@
             <th>Login</th>
             <th>Password</th>
             <th>Id client</th>
+            <th>Photo</th>
             <th>nom</th>
             <th>prenom</th>
             <th>telephone</th>
@@ -32,11 +33,13 @@
             <th>telephone tuteur</th>
             <th>antecedents</th>
         </tr>
+
         <tr th:each="myClient : ${clientsList}">
             <td th:utext="${myClient.user.usrId}">...</td>
             <td th:utext="${myClient.user.usrEmail}">...</td>
             <td th:utext="${myClient.user.usrPwd}">...</td>
             <td th:utext="${myClient.cliId}">...</td>
+            <td ><img th:src="${myClient.cliUrlPicture}" height="42" width="42" th:alt="${myClient.cliUrlPicture}"></td>
             <td th:utext="${myClient.cliLastname}">...</td>
             <td th:utext="${myClient.cliFirstname}">...</td>
             <td th:utext="${myClient.cliPhone}">...</td>
@@ -55,15 +58,20 @@
 <br>
 <ul>
     <li><a th:href="@{/calendar}">Calendrier</a></li>
-    <li><a th:href="@{/newCourse}">Nouveau Cours</a></li>
-    <!--<li><a th:href="@{/allevents}">Liste des évènements</a></li>
+    <!--<li><a th:href="@{/newCourse}">Nouveau Cours</a></li>
+    <li><a th:href="@{/allevents}">Liste des évènements</a></li>
     <li><a th:href="@{https://gist.github.com/mariehelene/0dadc76e704cc82bc85174fe5256f87b}">event.sql</a></li>!-->
     <li><a th:href="@{/api/clients}">Tous les clients</a></li>
     <li><a th:href="@{/courseSummary}">Récapitulatif Cours</a></li>
     <li><a th:href="@{/reservation}">Réservation d'un cours</a></li>
     <li><a th:href="@{/modifProfil}">Modif profil</a></li>
+    <li><a th:href="@{/adminWaiting}">Validation en attente Admin</a></li>
+    <li><a th:href="@{/adminSummary}">Récapitulatif Admin </a></li>
+
 
 </ul>
+<footer th:include="fragments/general.html::footerClient"></footer>
+
 
 </body>
 
