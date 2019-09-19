@@ -24,43 +24,7 @@
     <script src="/js/myFullcalendar.js"></script>
 <body>
 
-<header>
-    <div class="navbar bg-black text-white row">
-        <div class=" col-4">
-            <div id="logo">
-                <a th:href="@{/index}">
-                    <img th:src="@{/images/logo.png}" alt="borza_logo">
-                    <h2 id="textBordza">Bordza</h2>
-                </a>
-            </div>
-        </div>
-        <div class="bordza_center col-4">
-            <h1>Agenda</h1>
-        </div>
-        <div class="col-4 col align-self-start">
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a th:href="@{/calendar}" class="nav-link">
-                        <i class="fa fa-fw  fa-calendar"></i>
-                        Agenda
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fa fa-fw fa-star"></i>
-                        Mes cours
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/inscription}" class="nav-link">
-                        <i class="fa fa-fw fa-user-circle-o"></i>
-                        Mon compte
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</header>
+<header th:include="fragments/general.html::headerAdmin(myPageTitle=${pageTitle})"></header>
 
 <div id='calendar'></div>
 </body>

@@ -132,6 +132,10 @@ a {
     text-align: left;
 }
 
+.phone_block{
+    display: inline-block;
+}
+
 /*------------------------- newCourse.html -----------------*/
 
 input#fromTimeHour, input#fromTimeMinutes {
