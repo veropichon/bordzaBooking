@@ -149,20 +149,29 @@ input#fromTimeHour, input#fromTimeMinutes {
     font-size: 12px;
 }
 
-.footer_bordza div{
-    vertical-align: middle;
-    border: 1px pink;
-}
-
 .footer_bordza a{
-    font-size: 12px;
+    font-size: 13px;
+    padding: 0 20px;
 }
 
 .icon_footer{
     font-size: 30px;
 }
 
+.footer_bordza ul {
+    display: table-row;
+}
 
+.footer_bordza ul li , .footer_bordza a{
+    display: table-cell;
+    height: 50px;
+    vertical-align: middle;
+}
+
+.bordza_flex_center{
+    display: flex;
+    justify-content: center;
+}
 
 /*-------------------- Validation Course ------------*/
 
