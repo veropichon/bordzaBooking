@@ -19,6 +19,7 @@
             <th>Login</th>
             <th>Password</th>
             <th>Id client</th>
+            <th>Photo</th>
             <th>nom</th>
             <th>prenom</th>
             <th>telephone</th>
@@ -38,6 +39,7 @@
             <td th:utext="${myClient.user.usrEmail}">...</td>
             <td th:utext="${myClient.user.usrPwd}">...</td>
             <td th:utext="${myClient.cliId}">...</td>
+            <td ><img th:src="${myClient.cliUrlPicture}" height="42" width="42" th:alt="${myClient.cliUrlPicture}"></td>
             <td th:utext="${myClient.cliLastname}">...</td>
             <td th:utext="${myClient.cliFirstname}">...</td>
             <td th:utext="${myClient.cliPhone}">...</td>
@@ -68,6 +70,8 @@
 
 
 </ul>
+<footer th:include="fragments/general.html::footerClient"></footer>
+
 
 </body>
 

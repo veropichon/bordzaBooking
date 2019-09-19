@@ -78,6 +78,10 @@ public class ClientEntity {
     @Column(length = 255)
     private String cliComment;
 
+    @Basic
+    @Column(length = 255)
+    private String cliUrlPicture;
+
     @Column(nullable = false)
     private Boolean cliValidated;
 

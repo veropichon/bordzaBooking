@@ -108,6 +108,24 @@
 			<artifactId>thymeleaf-extras-java8time</artifactId>
 			<version>3.0.4.RELEASE</version>
 		</dependency>
+
+		<!-- Emails / méthode Fabien-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+		</dependency>
+
+		<!-- Emails / méthode https://www.baeldung.com/spring-email -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>2.1.8.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

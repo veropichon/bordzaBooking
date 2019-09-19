@@ -4,6 +4,7 @@ import com.bordza.booking.bordzaBooking.config.ConfigTemplateEngine;
 import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.*;
 import com.bordza.booking.bordzaBooking.services.CourseService;
+import com.bordza.booking.bordzaBooking.services.MailService;
 import com.bordza.booking.bordzaBooking.utils.SomeBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -50,6 +53,12 @@ public class CourseController {
 
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    MailService mailService;
 
     private static final Logger log = LoggerFactory.getLogger("log CourseController");
 
@@ -104,43 +113,57 @@ public class CourseController {
         // String.valueOf(number)
         model.addAttribute("someBean", someBean);
 
-        log.info("course.getCrsFromDate() : " + course.getCrsFromDate());
+        // log.info("course.getCrsFromDate() : " + course.getCrsFromDate());
         // log.info("bean FromTime : " + someBean.getFromTime());
-        log.info("bean FromTimeHour : " + someBean.getFromTimeHour());
-        log.info("bean FromTimeMinutes : " + someBean.getFromTimeMinutes());
-        log.info("bean FromDateTime : " + someBean.getFromDateTime());
+        // log.info("bean FromTimeHour : " + someBean.getFromTimeHour());
+        // log.info("bean FromTimeMinutes : " + someBean.getFromTimeMinutes());
+        // log.info("bean FromDateTime : " + someBean.getFromDateTime());
 
-        model.addAttribute("pageTitle", "Nouveau cours");
+        model.addAttribute("pageTitle", "Proposition de cours");
 
         return "newCourse";
     }
 
-    // Save Course and Booking
+    // Sauvegarde du cours (table Course) et de la réservation (table Booking)
     @PostMapping("/newCourse")
     public String saveCourseAndBooking(@ModelAttribute("modelCourse") CourseEntity courseEntity,
                                        @ModelAttribute("modelClient") ClientEntity clientEntity,
                                        @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
                                        @ModelAttribute("someBean") SomeBean someBean,
-                                       BindingResult result, ModelMap model) {
+                                       BindingResult result, ModelMap model
+                                       ) throws MessagingException  {
 
-        try {
 
-            // log.info("CourseController : someBean.getFromTime() = " + someBean.getFromTime());
-            // log.info("CourseController : someBean.getFromDateTime() = " + someBean.getFromDateTime());
 
             courseEntity.defaultValue(courseEntity);
             courseClientEntity.defaultValue(courseClientEntity);
 
+            // création du cours
             courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
 
-            // return "redirect:/calendar";
+            // envoi de l'email au client // TODO pout les tests : client 1 pour la création de cours
+            String clientEmail = clientRepository.findById(1L).get().getUser().getUsrEmail();
+            String clientLastname = clientRepository.findById(1L).get().getCliLastname();
+            String clientFirstname = clientRepository.findById(1L).get().getCliFirstname();
+            String subject = "Bordza - Votre demande de cours";
+            String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
+            contents += "Votre demande de cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validé.\n\n";
+            contents += "L'équipe Bordza";
+            MimeMessage msg = null;
+            msg = mailService.buildEmail(clientEmail, subject, contents, false);
+            mailService.sendEmail(msg);
+
+            // envoi de l'email à l'administrateur
+            String adminEmail = userRepository.findUserEntityByUsrRoleIs("ADMIN").getUsrEmail();
+            subject = "Nouveau cours";
+            contents = "Bonjour Eric Motard,\n\n";
+            contents += "Un nouveau cours est à valider.\nDescriptif du cours...\n";
+            msg = mailService.buildEmail(adminEmail, subject, contents, false);
+            mailService.sendEmail(msg);
+
             String url = "redirect:/courseSummary?bookingId=" + String.valueOf(courseClientEntity.getBkId());
             return url;
-        }
-        catch (IllegalArgumentException e) {
 
-            return "newCourse";
-        }
     }
 
     // Récapitulatif du cours créé

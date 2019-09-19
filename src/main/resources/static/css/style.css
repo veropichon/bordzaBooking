@@ -142,15 +142,22 @@ input#fromTimeHour, input#fromTimeMinutes {
 
 .footer_bordza{
     padding: 20px;
-
+    font-size: 12px;
 }
-.page_footer{
-    font-size: small;
+
+.footer_bordza div{
+    vertical-align: middle;
+    border: 1px pink;
+}
+
+.footer_bordza a{
+    font-size: 12px;
 }
 
 .icon_footer{
     font-size: 30px;
 }
+
 
 
 /*-------------------- Validation Course ------------*/
@@ -194,4 +201,19 @@ input#fromTimeHour, input#fromTimeMinutes {
 
 .dropdown:hover .dropdown-content{
     display: block;
+}
+
+/*-------------------------- inscription -----------------------*/
+
+#tutor {
+    display: none;
+    background-color:black ;
+    border: 1px solid #44a194;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.bordza_input_picture{
+    width: 150px;
+    margin-bottom: 20px;
 }
