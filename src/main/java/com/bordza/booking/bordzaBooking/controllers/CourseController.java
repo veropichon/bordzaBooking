@@ -154,7 +154,7 @@ public class CourseController {
             mailService.sendEmail(msg);
 
             // envoi de l'email à l'administrateur
-            String adminEmail = userRepository.findUserEntityByUsrRoleIs("ADMIN").getUsrEmail();
+            String adminEmail = userRepository.findUserEntityByRoleIs("ADMIN").getUsrEmail();
             subject = "Nouveau cours";
             contents = "Bonjour Eric Motard,\n\n";
             contents += "Un nouveau cours est à valider.\nDescriptif du cours...\n";
