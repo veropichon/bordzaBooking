@@ -114,10 +114,6 @@ public class CourseController {
         model.addAttribute("someBean", someBean);
 
         // log.info("course.getCrsFromDate() : " + course.getCrsFromDate());
-        // log.info("bean FromTime : " + someBean.getFromTime());
-        // log.info("bean FromTimeHour : " + someBean.getFromTimeHour());
-        // log.info("bean FromTimeMinutes : " + someBean.getFromTimeMinutes());
-        // log.info("bean FromDateTime : " + someBean.getFromDateTime());
 
         model.addAttribute("pageTitle", "Proposition de cours");
 
@@ -154,7 +150,7 @@ public class CourseController {
             mailService.sendEmail(msg);
 
             // envoi de l'email à l'administrateur
-            String adminEmail = userRepository.findUserEntityByUsrRoleIs("ADMIN").getUsrEmail();
+            String adminEmail = userRepository.findUserEntityByRoleIs("ADMIN").getUsrEmail();
             subject = "Nouveau cours";
             contents = "Bonjour,\n\n";
             contents += "Un nouveau cours est à valider.\nDescriptif du cours...\n";
@@ -171,7 +167,8 @@ public class CourseController {
     @RequestMapping("/courseSummary")
         public String courseSummary(Model model,
                                     @RequestParam Long bookingId) {
-            CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
+
+        CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
 
         // log.info("id cours : " + booking.getCourse().getCrsFromDate());
         model.addAttribute("modelCourseClient", booking);
@@ -235,7 +232,7 @@ public class CourseController {
             mailService.sendEmail(msg);
 
             // envoi de l'email à l'administrateur
-            String adminEmail = userRepository.findUserEntityByUsrRoleIs("ADMIN").getUsrEmail();
+            String adminEmail = userRepository.findUserEntityByRoleIs("ADMIN").getUsrEmail();
             subject = "Demande d'inscription à un cours";
             contents = "Bonjour,\n\n";
             contents += "Une nouvelle demande d'inscription est à valider.\nDescriptif du cours...\n";
