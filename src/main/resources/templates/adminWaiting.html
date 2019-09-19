@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
+</head>
+
+<body>
+
+<header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
+
+<!------------  methode avec tooltip       !------->
+<!--
+<div class="contenu">
+    <form action="#" th:action="@{/adminWaiting}" method="post">
+        <table class="table table-hover">
+
+            <thead class="thead-dark">"
+            <tr>
+                <th>Client</th>
+                <th>Cours</th>
+                <th>Participants</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody class="list_validation" th:object="${modelCourseClient}">
+
+            <tr th:each="booking : ${courseClientsList}" >
+                <td><li class ="listCli list-unstyled"><a href="#" class="tooltip-client" data-toggle="tooltip" >
+
+                    <span th:utext="${booking.client.cliLastname + booking.client.cliFirstname}"></span></a>
+
+                </li>
+                </td></th:utext>
+
+                <td><li class="list-unstyled"><a href="#" class="tooltip-course" data-toggle="tooltip"  >
+                         <ul class="listCours list-unstyled ">
+                             <li>
+                     <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(booking.course.getCrsFromDate()))}"></span>
+                     <span th:utext="${#temporals.day(booking.course.getCrsFromDate())}"></span>
+                     <span th:utext="${#temporals.monthName(booking.course.getCrsFromDate())}"></span>
+                     <span th:text="${#temporals.year(booking.course.getCrsFromDate())}"></span>
+                     <span th:utext="${#temporals.format(booking.course.getCrsFromDate(), 'HH:mm')}"></span>
+                         - <span th:utext="${#temporals.format(booking.course.getCrsToDate(), 'HH:mm')}"></span></li>
+                             <li th:text="${booking.course.discipline.disLabel}"></li>
+                             <li th:text="${booking.course.location.locLabel}"></li>
+                         </ul></a>
+
+
+                </li>
+                </td>
+
+                <td> 1
+                </td>
+
+                <td><a th:href="@{/api/clients}">
+                    <i class="fa fa-w fa-check-circle-o icon_validation "> </i></a>
+                </td>
+
+                <td><a th:href="@{/api/clients}">
+                    <i class="fa fa-w fa-trash icon_validation"> </i></a>"
+                </td>
+            </tr>
+
+            <hr>
+
+            </tbody>
+        </table>
+    </form></th:utext>
+</div>
+
+!-->
+
+<!------------  methode avec dropdow       !------->
+<div class="contenu">
+<!--    <div class ="list-cli" th:if="${nbvalidation} == 0">   !-->
+
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>Client</th>
+                <th>Cours</th>
+                <th>Participants</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody class="list_validation" th:object="${modelCourseClient}">
+
+            <tr th:each="booking : ${courseClientsList}" >
+                <ul class="nav navbar">
+                <td><li class ="dropdown"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" data-hover="dropdown" data-placement="top">
+                    <ul class="dropdown-content list-unstyled"><li th:utext="${booking.client.cliBirthdate}"></li>
+                    </ul>
+                    <span th:utext="${booking.client.cliLastname}+' '+${booking.client.cliFirstname}"></span></a>
+
+                </li>
+                </td>
+
+                <td><li class="dropdown list-unstyled"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" data-hover="dropdown" >
+                    <ul class="listCours list-unstyled ">
+                        <li>
+                            <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(booking.course.getCrsFromDate()))}"></span>
+                            <span th:utext="${#temporals.day(booking.course.getCrsFromDate())}"></span>
+                            <span th:utext="${#temporals.monthName(booking.course.getCrsFromDate())}"></span>
+                            <span th:text="${#temporals.year(booking.course.getCrsFromDate())}"></span>
+                            <span th:utext="${#temporals.format(booking.course.getCrsFromDate(), 'HH:mm')}"></span>
+                            - <span th:utext="${#temporals.format(booking.course.getCrsToDate(), 'HH:mm')}"></span></li>
+                           <li><span th:utext="${booking.course.discipline.disLabel}"></span></li>
+                            <li><span th:utext="${booking.course.level.levCourseLabel}"></span></li>
+
+                    </ul></a>
+                         <ul class="dropdown-content list-unstyled">
+                             <li th:text="${booking.course.level.levCourseLabel}"></li>
+                             <li th:text="${booking.course.crsDesc}"></li>
+                         </ul>
+
+                </li>
+                <!---  TODO liste des clients du cours  !-->
+                </td>
+                <td><li class="dropdown list-unstyled"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" data-hover="dropdown" >1</a>
+                <ul class="dropdown-content list-unstyled">
+                    <li th:text="${booking.client.cliLastname}"></li>
+                    <li th:text="${booking.client.cliFirstname}"></li>
+                </ul>
+                </li>
+                </td>
+                <!-- modifier sur href validation cours  !-->
+                    <td>
+                     <a th:href="@{'/adminValidation?bookingId='+ ${booking.bkId}}">
+
+                    <i class="fa fa-w fa-check-circle-o icon_validation "> </i></a>
+                    <span th:text="${booking.bkId}"></span>
+                </td>
+                <!-- modifier sur href suppression proposition cours !-->
+                <td><a th:href="@{'/adminDelete?bookingId='+ ${booking.bkId}}">
+                    <i class="fa fa-w fa-trash icon_validation"> </i></a>
+                </td>
+                </ul>
+            </tr>
+
+
+            <hr>
+
+            </tbody>
+        </table>
+ <!--   </div>
+    <div class="list-message" th:if="${nbvalidation} == 0">  !-->
+
+</div>
+
+<footer th:include="fragments/general.html::footerClient"></footer>
+<!----
+<script>
+      $(document).ready(function(){
+
+       $('.list1-unstyled').tooltip({title: "<ul><li th:utext=\"${booking.client.cliBirthdate}\"></li></ul>", content: "Blabla <br> <h2>Cool stuff!</h2>", html: true, placement: "top"});
+
+        $('.listCours').tooltip({title: "< text=\"${booking.course.level.levCourseLabel}\ + text=\"${booking.course.crsDesc}\ >", html: true, placement: "top"});
+    });
+</script>
+*/
+!--->
+</body>
+</html>

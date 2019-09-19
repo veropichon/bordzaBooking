@@ -17,7 +17,6 @@
 
     <div class="center">
 
-
         <div class="course_summary_flex" th:object="${modelCourse}">
             <table>
                 <tr>
@@ -55,7 +54,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="course_summary_td_left">Lieu souhaité</td>
+                    <td class="course_summary_td_left">Lieu</td>
                     <td>:</td>
                     <td class="course_summary_td_right">
                         <span th:utext="${modelCourseClient.course.location.locLabel}"></span>
@@ -73,10 +72,10 @@
 
         <hr>
 
-        <p>Votre demande a bien été envoyée. Vous recevrez un Email après validation.</p>
+        <p>Votre demande de participation à ce cours a bien été envoyée. Vous recevrez un Email après validation.</p>
         <div class="box_text">
             S'il s'agit de votre premier cours, merci de contacter le formateur à ce numéro :
-            <strong>06 10 66 02 46</strong>, afin qu'il puisse valider.
+            <strong>06 10 66 02 46</strong>, afin qu'il puisse valider votre participation.
 
         </div>
     </div>

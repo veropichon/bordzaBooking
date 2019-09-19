@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:form="http://www.springframework.org/tags/form">
+      xmlns:form="http://www.springframework.org/tags/form" xmlns:width="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Création de cours</title>
     <meta charset="utf-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <script src="/js/functions.js"></script>
 
     </head>
 
     <body>
-        <div class="container">
-            <h2>
-                <p class="bg-dark text-white">Création de cours</p>
-            </h2>
+
+    <header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
+
+        <div class="contenu">
 
             <form action="#" th:action="@{/newCourse}" th:object="${modelCourse}" method="post">
                 <div class="form-group">
@@ -36,6 +32,7 @@
                             <!-- <span th:text="${#temporals.format(modelCourse.getCrsFromDate(), 'dd/MM/yyyy')}"></span> -->
                             <input type="hidden" th:field="*{crsFromDate}" th:value="${modelCourse.getCrsFromDate()}">
                             <input type="hidden" th:field="*{crsToDate}" th:value="${modelCourse.getCrsToDate()}">
+
                         </div>
                     </div>
                 </div>
@@ -44,34 +41,51 @@
                     <label><strong>Cours particulier VIP <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            <input th:field="*{crsVip}" th:type="radio" th:id="particulier" th:name="vip" th:value="1">
+                            <input th:field="*{crsVip}" th:type="radio" th:id="particulier" th:name="crsVip" th:value="1">
                             <label th:for="particulier">Oui</label>
                         </div>
                         <div class="col">
-                            <input th:field="*{crsVip}" th:type="radio" th:id="collectif" th:name="vip" th:value="0">
+                            <input th:field="*{crsVip}" th:type="radio" th:id="collectif" th:name="crsVip" th:value="0">
                             <label th:for="collectif">Non</label>
                         </div>
                     </div>
                 </div>
 
 
-                <div class = "form-group">
+                <!--
+                <div class = "form-group" th:object="${someBean}">
                     <label><strong>Horaire <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            <input type="time" th:id="fromTime" th:name="fromTime" min="09:00" max="18:00" required th:value="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}">
-                            <!-- à <input type="time" th:id="toTime" th:name="toTime" min="09:00" max="18:00" required th:value="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"> -->
+                            <input th:field="*{fromTime}" type="time" min="09:00" max="18:00" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH:mm')}" step="1800">
                         </div>
                     </div>
                     <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
+                    <input type="hidden" th:field="*{fromDateTime}" th:value="${someBean.getFromDateTime()}">
                 </div>
+                -->
+
+                <div class = "form-group" th:object="${someBean}">
+                    <label><strong>Horaire <span class="required-star">*</span>  &nbsp; </strong></label>
+                    <span id="resultHH" name="resultHH" th:text="${#temporals.format(someBean.getFromDateTime(), 'HH')}" ></span>
+                    :
+                    <span id="resultMM" name="resultMM" th:text="${#temporals.format(someBean.getFromDateTime(), 'mm')}" ></span>
+                    <div class="row">
+                        <div class="col">
+                            <input id="fromTimeHour" th:field="*{fromTimeHour}" type="number" min="09" max="18" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH')}" onchange="putResultHH(this.value)">
+                            <input id="fromTimeMinutes" th:field="*{fromTimeMinutes}" type="number" min="00" max="30" step="30" required th:value="${#temporals.format(someBean.getFromDateTime(), 'mm')}" onchange="putResultMM(this.value)">
+                        </div>
+                    </div>
+                    <input type="hidden" th:field="*{fromDateTime}" th:value="${someBean.getFromDateTime()}">
+                </div>
+                <!-- th:id="fromTime" th:name="fromTime" th:field="*{fromTime}"  th:value="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"   -->
 
                 <div class = "form-group">
                     <label><strong>Durée souhaitée <span class="required-star">*</span></strong></label>
                     <div class="row">
-                        <div class="col" th:object="${durationsArray}">
-                            <select id="duration">
-                                <option th:each="duration : ${durationsArray}" th:value="${duration.value}" th:text="${duration.label}"></option>
+                        <div class="col">
+                            <select id="dis-duration" th:field="*{duration}" class="custom-select">
+                                <option th:each="myDur : ${modelDurationsList}" th:value="${myDur.getDurId()}" th:text="${myDur.getDurLabel()}"></option>
                             </select>
                         </div>
                     </div>
@@ -104,7 +118,6 @@
                         <div class="col" th:each="myLev: ${modelLevelsList}">
                             <input type="radio" th:field="*{level}" th:value="${myLev.getLevId()}">
                             <label th:for="${#ids.prev('level')}" th:text="${myLev.getLevCourseLabel()}"></label>
-                            <!-- th:checked="${flag} ? 'checked'" -->
                         </div>
                     </div>
                 </div>
@@ -113,11 +126,11 @@
                     <label><strong>Prêt de matériel <span class="required-star">*</span></strong></label>
                     <div class="row">
                         <div class="col">
-                            <input type="radio" th:field="*{bkMat}" id="oui" th:value="0" checked>
+                            <input type="radio" th:field="*{bkMat}" id="oui" th:value="1" checked>
                             <label for="oui">Oui</label>
                         </div>
                         <div class="col">
-                            <input type="radio" th:field="*{bkMat}" id="non" th:value="1">
+                            <input type="radio" th:field="*{bkMat}" id="non" th:value="0">
                             <label for="non">Non</label>
                         </div>
                     </div>
@@ -125,13 +138,12 @@
                 <div class="form-row" th:object="${modelClient}">
                     <input type="hidden" th:field="*{cliId}">
                 </div>
-                <input type="hidden" th:field="*{crsUnavailable}">
-                <input type="hidden" th:field="*{crsTitle}">
-                <input type="hidden" th:field="*{crsDesc}">
 
-                <button type="submit" class="btn btn-primary">Valider</button>
+                <button type="submit" class="btn btn-primary bordza_green">Valider</button>
                 <button type="button" class="btn btn-secondary">Annuler</button>
             </form>
         </div>
+
+    <footer th:include="fragments/general.html::footerClient"></footer>
     </body>
 </html>

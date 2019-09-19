@@ -1,5 +1,6 @@
 package com.bordza.booking.bordzaBooking.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,11 +15,9 @@ public class CourseClientEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bkId;
 
-
     @ManyToOne
     @JoinColumn
     private ClientEntity client;
-
 
     @ManyToOne
     @JoinColumn
@@ -26,14 +25,18 @@ public class CourseClientEntity implements Serializable {
 
     private Boolean bkVip;
     private Boolean bkMat;
+    private Boolean bkValidated;
 
     /**
      * Display Default values
      * @return courseClient entity with default values
      */
     public static CourseClientEntity defaultValue(CourseClientEntity courseClientEntity) {
-        courseClientEntity.bkVip = false;
-        courseClientEntity.bkMat = false;
+
+        if (courseClientEntity.bkVip == null) { courseClientEntity.bkVip = false; }
+        if (courseClientEntity.bkMat == null) { courseClientEntity.bkMat = false; }
+        if (courseClientEntity.bkValidated == null) { courseClientEntity.bkValidated = false; }
+
         return courseClientEntity;
     }
 

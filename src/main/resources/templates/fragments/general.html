@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="headerFiles">
-
+<head th:fragment="headFiles">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -10,11 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 
-<header th:fragment="header">
+<!--  Header client !-->
+
+<header th:fragment="headerClient(myPageTitle)">
     <div class="navbar bg-black text-white row">
         <div class=" col-4">
             <div id="logo">
@@ -25,9 +29,7 @@
             </div>
         </div>
         <div class="bordza_center col-4">
-            <!--<h1 th:text=”${pageTitle}”></h1>!-->
-            <h1 ></h1>
-
+            <h1 th:text="${myPageTitle}"></h1>
         </div>
         <div class="col-4 col align-self-start">
             <ul class="nav justify-content-end">
@@ -43,16 +45,75 @@
                         Mes cours
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a th:href="@{/inscription}" class="nav-link">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-fw fa-user-circle-o"></i>
-                        Mon compte
+                        Mon Compte
                     </a>
+                    <ul class="dropdown-menu dropdown_black">
+                        <li><a th:href="@{/inscription}" class="nav-link">Inscription</a></li>
+                        <li><a th:href="@{/modifProfil}" class="nav-link">Modifier Profil</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
     </div>
 </header>
+
+
+<!--  Footer client !-->
+
+<footer th:fragment="footerClient">
+    <div class="footer_bordza bg-black text-white">
+        <div class="row">
+            <!-- Footer -->
+            <div class="col-6 text-right">
+                <a href="conditions_generales_de_vente.html">
+                    <h6><p>Nos Conditions générales de vente</p></h6>
+                </a>
+            </div>
+            <div class="col-6 nav align-self-start">
+                <p>Suivez-nous </p>
+
+                <!-- Facebook -->
+
+                <a href="https://www.facebook.com/bordzalongboards/" class="nav-link">
+                    <i class="fa fa-w fa-facebook-square icon_footer "> </i>
+                </a>
+
+                <!--Instagram-->
+
+                <a href="https://www.instagram.com/bordzalongboard/" class="nav-link">
+                    <i class="fa fa-instagram icon_footer"> </i>
+                </a>
+
+
+                <!--Vimeo -->
+                <a href="https://vimeo.com/user5674470" class="nav-link">
+                    <i class="fa fa-w fa-vimeo-square icon_footer"> </i>
+                </a>
+
+                <!--You Tube -->
+
+                <a href="#" class="nav-link">
+                    <i class="fa fa-w fa-youtube icon_footer"> </i>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Grid column -->
+        <br>
+        <div class="row footer-copyright text-center">
+            <div class="col-4"></div>
+            <div class="col-2"><a href="#"> - BORDZA Marque déposée - </a></div>
+            <div class="col-2"><a href="#"> - Tous droits réservés - </a></div>
+            <div class="col-4"></div>
+
+        </div>
+    </div>
+</footer>
+
 
 </body>
 </html>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
+</head>
+<body>
+
+<header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
+
+<div class="contenu">
+    <div class="row center">
+        <div class="col-8" th:object="${clientProfil}">
+            <table>
+                <tr>
+                    <td class="course_summary_td_left">Identité</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right"
+                        th:utext="${clientProfil.cliFirstname} + ' ' + ${clientProfil.cliLastname}"></td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Email</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right"><a th:href="'mailto:' + ${clientProfil.user.usrEmail}"
+                                                           th:utext="${clientProfil.user.usrEmail}"> </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Téléphone</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right" th:utext="${clientProfil.cliPhone}"></td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Ville</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right" th:utext="${clientProfil.cliCity}"></td>
+                </tr>
+
+            </table>
+            <hr>
+            <table>
+                <tr>
+                    <td class="course_summary_td_left">Age</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right" id="clientAge"></td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Taille</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right" th:utext="${clientProfil.cliHeight}"></td>
+                </tr>
+                <tr>
+                    <td class="course_summary_td_left">Poids</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right" th:utext="${clientProfil.cliWeight}"></td>
+                </tr>
+            </table>
+            <div><!-- <div id="tutor">!-->
+                <table>
+                    <tr>
+                        <th>Tuteur</th>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="course_summary_td_left">Identité</td>
+                        <td>:</td>
+                        <td class="course_summary_td_right"
+                            th:utext="${clientProfil.cliTutorFirstname} + ' ' + ${clientProfil.cliTutorLastname}"></td>
+                    </tr>
+                    <tr>
+                        <td class="course_summary_td_left">Email</td>
+                        <td>:</td>
+                        <td class="course_summary_td_right"><a th:href="'mailto:' + ${clientProfil.cliTutorEmail}"
+                                                               th:utext="${clientProfil.cliTutorEmail}"> </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="course_summary_td_left">Téléphone</td>
+                        <td>:</td>
+                        <td class="course_summary_td_right" th:utext="${clientProfil.cliTutorPhone}"></td>
+                    </tr>
+                </table>
+            </div>
+            <hr>
+            <table>
+                <tr>
+                    <td class="course_summary_td_left">Blessures</td>
+                    <td>:</td>
+                    <td class="course_summary_td_right"
+                        th:utext="${clientProfil.cliComment}"></td>
+                </tr>
+            </table>
+        </div>
+        <!---- TODO afficher l'image en grand ---------!-->
+
+        <div class="col-2 ">
+            <img th:src="${clientProfil.cliUrlPicture}" th:alt="${clientProfil.cliUrlPicture}" class="bordza_input_picture">
+        </div>
+
+    </div>
+</div>
+
+<!---- TODO diviser la fonction cliAge ---------!-->
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    onload = function () {
+        var age = cliAge( /*[[${clientProfil.cliBirthdate}]]*/);
+        //document.getElementById('clientAge').innerHTML = age;
+    };
+
+    /*]]>*/
+
+</script>
+<script src="/js/functions.js"></script>
+
+
+<footer th:include="fragments/general.html::footerClient"></footer>
+
+</body>
+</html>

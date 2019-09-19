@@ -1,5 +1,6 @@
 package com.bordza.booking.bordzaBooking.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,6 +25,10 @@ public class CourseEntity {
     @ManyToOne
     private LevelEntity level;
 
+    @ManyToOne
+    private DurationEntity duration;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Set<CourseClientEntity> courseClients;
 
@@ -42,9 +47,6 @@ public class CourseEntity {
     private String crsComment;
 
     @Column(nullable = false)
-    private Boolean crsValidated;
-
-    @Column(nullable = false)
     private Boolean crsPublished;
 
     @Column(nullable = false)
@@ -58,14 +60,13 @@ public class CourseEntity {
      * @return course entity with default values
      */
     public static CourseEntity defaultValue(CourseEntity courseEntity) {
-        courseEntity.crsVip = false;
-        courseEntity.crsValidated = false;
-        courseEntity.crsPublished = false;
-        courseEntity.crsDeleted = false;
-        courseEntity.crsUnavailable = false;
+
+        if (courseEntity.crsVip == null) { courseEntity.crsVip = false; }
+        if (courseEntity.crsPublished == null) { courseEntity.crsPublished = false; }
+        if (courseEntity.crsDeleted == null) { courseEntity.crsDeleted = false; }
+        if (courseEntity.crsUnavailable == null) { courseEntity.crsUnavailable = false; }
 
         // pour les tests // TODO à effacer plus tard
-        courseEntity.crsValidated = true;
         courseEntity.crsPublished = true;
 
         return courseEntity;
