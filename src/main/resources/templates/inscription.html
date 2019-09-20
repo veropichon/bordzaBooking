@@ -15,14 +15,14 @@
           enctype="multipart/form-data">
         <div class="form-group">
             <div class="row ">
-                <div class="col">
+                <div class="col-md-6 col-sm-12">
                     <div class="input_group-identity">
                         <label class="label--desc">Nom<em class="required-star">*</em></label>
                         <input required class="form-control" type="text" name="name" th:field="*{cliLastname}"
                                placeholder="Nom" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$">
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-6 col-sm-12">
                     <div class="input_group-identity">
                         <label class="label--desc">Prénom<em class="required-star">*</em></label>
                         <input required class="form-control" type="text" first_name="first_name"
@@ -34,12 +34,12 @@
 
             <div class="row" th:object="${modelUser}">
                 <input type="hidden" th:field="*{usrId}">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6 col-sm-12">
                     <label for="inputEmail">Email<em class="required-star">*</em></label>
                     <input required type="email" class="form-control" th:field="*{usrEmail}" placeholder="Email"
                            id="inputEmail"/>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6 col-sm-12">
                     <label for="inputPassword">Password<em class="required-star">*</em></label>
                     <input th:if="${formType} == 'inscription'" required type="password" class="form-control"
                            th:field="*{usrPwd}" placeholder="Mot de passe"
@@ -59,7 +59,7 @@
 
 
         <div class="row ">
-            <div class="col">
+            <div class="col-md-6 col-sm-12">
                 <div class="input_group-identity">
                     <label class="label--desc">Code Postal<em class="required-star">*</em></label>
                     <input required class="form-control" type="text" name="postal_code" minlength="5" maxlength="5"
@@ -67,7 +67,7 @@
                            th:field="*{cliZipcode}" placeholder="CP">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-md-6 col-sm-12">
                 <div class="input_group-identity">
                     <label class="label--desc">Ville<em class="required-star">*</em></label>
                     <input class="form-control" type="text" town="town" th:field="*{cliCity}"
@@ -78,21 +78,21 @@
 
         </hr><p>Autres :</p>
         <div class="row ">
-            <div class="col">
+            <div class="col-md-4 col-sm-12">
                 <div class="input_group-identity">
                     <label class="label--desc">Date de naissance<em class="required-star">*</em></label>
                     <input required class="form-control" type="date" name="birthday_date" th:field="*{cliBirthdate}"
                            id="birthdate">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-md-4 col-sm-12">
                 <div class="input_group-identity">
                     <label class="label--desc">Taille (cm)</label>
                     <input class="form-control" type="number" min="100" max="250"
                            height="height" th:field="*{cliHeight}" placeholder="Hauteur">
                 </div>
             </div>
-            <div class="col">
+            <div class="col-md-4 col-sm-12">
                 <div class="input_group-identity">
                     <label class="label--desc">Poids (kg)</label>
                     <input class="form-control" type="number" min="30" max="200"
@@ -104,14 +104,14 @@
 
         <div id="tutor">
             <div class="row ">
-                <div class="col">
+                <div class="col-md-6 col-sm-12">
                     <div class="input_group-identity">
                         <label class="label--desc">Nom du Tuteur/Tutrice<em class="required-star">*</em></label>
                         <input class="form-control" type="text" name="tutor_name" th:field="*{cliTutorLastname}"
                                placeholder="Nom" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Zéèçàêîâôëï]*)*$">
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-6 col-sm-12">
                     <div class="input_group-identity">
                         <label class="label--desc">Prénom du Tuteur/Tutrice<em class="required-star">*</em></label>
                         <input class="form-control" type="text" first_name="tutor_first_name"
@@ -121,20 +121,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6 col-sm-12">
                     <label for="tutor_phone">N° Téléphone du Tuteur<em class="required-star">*</em></label>
                     <input type="tel" class="form-control" id="tutor_phone" name="tutor_phone"
                            th:field="*{cliTutorPhone}"
                            placeholder="N° téléphone">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6 col-sm-12">
                     <label for="inputTutorEmail">Email du tuteur<em class="required-star">*</em></label>
                     <input type="email" class="form-control" th:field="*{cliTutorEmail}" placeholder="Email"
                            id="inputTutorEmail"/>
                 </div>
             </div>
         </div>
-
+        <hr>
         <div class="row">
             <div class="form-group col-md-5">
                 <label for="file">Photo</label>
@@ -160,25 +160,6 @@
 
             </div>
         </div>
-
-        <script th:inline="javascript">
-
-            /*<![CDATA[*/
-
-            document.getElementById("birthdate").onchange = function () {
-                cliAge(document.getElementById("birthdate").value);
-            };
-
-            if (document.getElementById("deletebtn")) {
-                document.getElementById("deletebtn").onclick = function () {
-                    //actionForm(document.getElementById("deletebtn").value);
-                    document.getElementById('form1').action = "/deletePicture";
-                    document.getElementById('form1').submit();
-                };
-            }
-            /*]]>*/
-        </script>
-
         <hr/>
         <h2>Informations complémentaires :</h2>
         <p>Niveau :</p>
@@ -212,6 +193,26 @@
     </form>
 </div>
 <footer th:include="fragments/general.html::footerClient"></footer>
+
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    document.getElementById("birthdate").onchange = function () {
+        cliAge(document.getElementById("birthdate").value);
+    };
+
+    if (document.getElementById("deletebtn")) {
+        document.getElementById("deletebtn").onclick = function () {
+            //actionForm(document.getElementById("deletebtn").value);
+            document.getElementById('form1').action = "/deletePicture";
+            document.getElementById('form1').submit();
+        };
+    }
+    /*]]>*/
+</script>
+
 <script src="/js/functions.js"></script>
 <script src="/js/pictureUpload.js"></script>
 </body>

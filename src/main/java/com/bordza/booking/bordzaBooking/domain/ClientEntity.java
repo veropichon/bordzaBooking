@@ -2,13 +2,17 @@ package com.bordza.booking.bordzaBooking.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
 
-@Data
+@Getter @Setter
+@EqualsAndHashCode(exclude = {"courseClients"})
 @Entity(name = "client")
 public class ClientEntity {
 

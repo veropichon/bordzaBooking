@@ -43,7 +43,7 @@
                 <tr>
                     <td class="course_summary_td_left">Age</td>
                     <td>:</td>
-                    <td class="course_summary_td_right" id="clientAge"></td>
+                    <td class="course_summary_td_right" id=clientAge th:utext="${clientAge}"></td>
                 </tr>
                 <tr>
                     <td class="course_summary_td_left">Taille</td>
@@ -56,10 +56,11 @@
                     <td class="course_summary_td_right" th:utext="${clientProfil.cliWeight}"></td>
                 </tr>
             </table>
-            <div><!-- <div id="tutor">!-->
+            <div th:if="${clientAge} < 18"><!-- <div id="tutor">!-->
+                <hr>
                 <table>
                     <tr>
-                        <th>Tuteur</th>
+                        <th class="course_summary_td_left">Tuteur</th>
                         <td></td>
                         <td></td>
                     </tr>
@@ -93,32 +94,18 @@
                 </tr>
             </table>
         </div>
+
         <!---- TODO afficher l'image en grand ---------!-->
 
         <div class="col-2 ">
-            <img th:src="${clientProfil.cliUrlPicture}" th:alt="${clientProfil.cliUrlPicture}" class="bordza_input_picture">
+            <img th:src="${clientProfil.cliUrlPicture}" th:alt="${clientProfil.cliUrlPicture}" class="bordza_input_picture_profil">
         </div>
 
     </div>
 </div>
 
-<!---- TODO diviser la fonction cliAge ---------!-->
-<script th:inline="javascript">
-
-    /*<![CDATA[*/
-
-    onload = function () {
-        var age = cliAge( /*[[${clientProfil.cliBirthdate}]]*/);
-        //document.getElementById('clientAge').innerHTML = age;
-    };
-
-    /*]]>*/
-
-</script>
-<script src="/js/functions.js"></script>
-
-
 <footer th:include="fragments/general.html::footerClient"></footer>
+
 
 </body>
 </html>
