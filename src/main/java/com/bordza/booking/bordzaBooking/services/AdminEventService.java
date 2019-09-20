@@ -20,7 +20,7 @@ public class AdminEventService {
         List<Event> eventList = new ArrayList<>();
         for(CourseEntity course : courseList) {
             if (course.getCrsPublished()) {
-                if (!course.getCrsVip() && !course.getCrsUnavailable()) {
+                if (!course.getCrsVip()) {
                     if (course.getDiscipline().getDisId() == 1) {
                         Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle(), "/reservation?courseId=" + course.getCrsId(), "#29828E", "light blue", "black");
                         eventList.add(event);
@@ -34,7 +34,7 @@ public class AdminEventService {
                         Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle(), "/reservation?courseId=" + course.getCrsId()   , "red", "green", "black");
                         eventList.add(event);
                     }
-                } else if (course.getCrsVip() && course.getCrsUnavailable()) {
+                } else {
                     if (course.getDiscipline().getDisId() == 1) {
                         Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + " VIP", "/reservation?courseId=" + course.getCrsId(), "#29828E", "light blue", "black");
                         eventList.add(event);

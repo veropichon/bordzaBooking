@@ -811,7 +811,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 /* List View
 --------------------------------------------------------------------------------------------------*/
 .fc-unthemed .fc-list-item:hover td {
-  background-color: #f5f5f5;
+  background-color: #484848;
 }
 
 /* Toolbar
