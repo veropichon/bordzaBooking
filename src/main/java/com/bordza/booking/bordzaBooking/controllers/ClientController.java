@@ -67,15 +67,6 @@ public class ClientController {
         ClientEntity clientEntity = clientRepository.findById(Long.valueOf(clientId)).get();
 
 
-        /*public int calculateAge(
-                LocalDate birthDate,
-                LocalDate currentDate) {
-            //validate inputs ...
-            return Period.between(birthDate, currentDate).getYears();
-
-        }*/
-
-
         LocalDate birthDate = clientEntity.getCliBirthdate().toLocalDate();
         LocalDate currentDate = LocalDateTime.now().toLocalDate();
         int clientAge = Period.between(birthDate, currentDate).getYears();;
@@ -83,9 +74,6 @@ public class ClientController {
         model.addAttribute("clientProfil", clientEntity);
         model.addAttribute("pageTitle", "Profil");
         model.addAttribute("clientAge", clientAge);
-
-
-
 
         return "clientProfil";
     }
