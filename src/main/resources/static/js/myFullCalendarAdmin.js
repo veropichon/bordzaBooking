@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: [ 'dayGrid', 'timeGrid', 'interaction'],
+        plugins: [ 'dayGrid', 'timeGrid', 'interaction', 'list'],
         defaultView: 'timeGridWeek',
         hiddenDays: [ 0 ],
         allDaySlot: false,
@@ -14,17 +14,18 @@ document.addEventListener('DOMContentLoaded', function() {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
         buttonText: {
             today: 'Aujourd\'hui',
             month: 'Mois',
             week : 'Semaine',
             day  : 'Jour',
+            list : 'Liste',
         },
         eventSources: [{
-                url: '/courses',
-            }],
+            url: '/adminCourses',
+        }],
 
         eventClick: function(info) {
             info.jsEvent.preventDefault();
@@ -44,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
             daysOfWeek: [ 6 ]
         }],
         dateClick: function(info) {
-           if (info.date > new Date().setHours(22, 0, 0, 0)){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {window.open("/newCourse?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"),"_self");}}
-           if (info.date < new Date().setHours(22, 0, 0, 0) && info.date > new Date()){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {alert("Si vous souhaitez creer un cours aujourd'hui merci de contacter le formateur au 06 ** ** ** **");}}
+            if (info.date > new Date().setHours(22, 0, 0, 0)){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {window.open("/newCourse?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"),"_self");}}
+            if (info.date < new Date().setHours(22, 0, 0, 0) && info.date > new Date()){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {alert("Si vous souhaitez creer un cours aujourd'hui merci de contacter le formateur au 06 ** ** ** **");}}
         }
     });
 

@@ -12,7 +12,6 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
 
     public List<CourseEntity> findByCrsFromDateGreaterThanEqualAndCrsToDateLessThanEqual(LocalDateTime start, LocalDateTime end);
 
-    /* This one uses an @Query */
-    //@Query("SELECT b FROM Event b WHERE b.start >= ?1 AND b.finish <= ?2")
-    //public List<Event> findByDateBetween(LocalDateTime start, LocalDateTime end);
+    public CourseEntity findByCrsId(Long id);
+
 }

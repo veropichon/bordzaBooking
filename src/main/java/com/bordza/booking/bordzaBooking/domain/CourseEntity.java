@@ -66,9 +66,6 @@ public class CourseEntity {
         if (courseEntity.crsDeleted == null) { courseEntity.crsDeleted = false; }
         if (courseEntity.crsUnavailable == null) { courseEntity.crsUnavailable = false; }
 
-        // pour les tests // TODO à effacer plus tard
-        courseEntity.crsPublished = true;
-
         return courseEntity;
     }
 }
