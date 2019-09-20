@@ -1,13 +1,11 @@
 package com.bordza.booking.bordzaBooking.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-
 @Entity(name = "booking")
 public class CourseClientEntity implements Serializable {
 

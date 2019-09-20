@@ -114,10 +114,6 @@ public class CourseController {
         model.addAttribute("someBean", someBean);
 
         // log.info("course.getCrsFromDate() : " + course.getCrsFromDate());
-        // log.info("bean FromTime : " + someBean.getFromTime());
-        // log.info("bean FromTimeHour : " + someBean.getFromTimeHour());
-        // log.info("bean FromTimeMinutes : " + someBean.getFromTimeMinutes());
-        // log.info("bean FromDateTime : " + someBean.getFromDateTime());
 
         model.addAttribute("pageTitle", "Proposition de cours");
 
@@ -156,7 +152,7 @@ public class CourseController {
             // envoi de l'email à l'administrateur
             String adminEmail = userRepository.findUserEntityByRoleIs("ADMIN").getUsrEmail();
             subject = "Nouveau cours";
-            contents = "Bonjour Eric Motard,\n\n";
+            contents = "Bonjour,\n\n";
             contents += "Un nouveau cours est à valider.\nDescriptif du cours...\n";
             msg = mailService.buildEmail(adminEmail, subject, contents, false);
             mailService.sendEmail(msg);
@@ -171,7 +167,8 @@ public class CourseController {
     @RequestMapping("/courseSummary")
         public String courseSummary(Model model,
                                     @RequestParam Long bookingId) {
-            CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
+
+        CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
 
         // log.info("id cours : " + booking.getCourse().getCrsFromDate());
         model.addAttribute("modelCourseClient", booking);
@@ -212,13 +209,35 @@ public class CourseController {
                               @ModelAttribute("modelCourse") CourseEntity courseEntity,
                               @ModelAttribute("modelClient") ClientEntity clientEntity,
 
-                              BindingResult result, ModelMap model) {
+                              BindingResult result, ModelMap model) throws MessagingException {
 
         try {
 
             courseClientEntity.defaultValue(courseClientEntity);
 
             courseService.saveCourseClient(courseClientEntity, courseEntity, clientEntity);
+
+            // envoi de l'email au client // TODO pout les tests : client 2 pour l'inscription à un cours existant
+            String clientEmail = clientRepository.findById(2L).get().getUser().getUsrEmail();
+            // log.info("clientEmail qui s'inscrit à un cours : " + clientEmail);
+            String clientLastname = clientRepository.findById(2L).get().getCliLastname();
+            String clientFirstname = clientRepository.findById(2L).get().getCliFirstname();
+            String subject = "Bordza - Votre demande d'inscription à un cours";
+            String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
+            contents += "Votre demande d'inscription à un cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validée.\n\n";
+            contents += "L'équipe Bordza";
+
+            MimeMessage msg = null;
+            msg = mailService.buildEmail(clientEmail, subject, contents, false);
+            mailService.sendEmail(msg);
+
+            // envoi de l'email à l'administrateur
+            String adminEmail = userRepository.findUserEntityByRoleIs("ADMIN").getUsrEmail();
+            subject = "Demande d'inscription à un cours";
+            contents = "Bonjour,\n\n";
+            contents += "Une nouvelle demande d'inscription est à valider.\nDescriptif du cours...\n";
+            msg = mailService.buildEmail(adminEmail, subject, contents, false);
+            mailService.sendEmail(msg);
 
             String url = "redirect:/reservationSummary?bookingId=" + String.valueOf(courseClientEntity.getBkId());
             return url;

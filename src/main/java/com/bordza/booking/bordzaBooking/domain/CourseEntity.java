@@ -2,13 +2,18 @@ package com.bordza.booking.bordzaBooking.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = {"courseClients"})
 @Entity(name = "course")
 public class CourseEntity {
 
@@ -65,9 +70,6 @@ public class CourseEntity {
         if (courseEntity.crsPublished == null) { courseEntity.crsPublished = false; }
         if (courseEntity.crsDeleted == null) { courseEntity.crsDeleted = false; }
         if (courseEntity.crsUnavailable == null) { courseEntity.crsUnavailable = false; }
-
-        // pour les tests // TODO à effacer plus tard
-        courseEntity.crsPublished = true;
 
         return courseEntity;
     }
