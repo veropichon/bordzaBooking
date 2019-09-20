@@ -24,6 +24,7 @@ public class AdminCourseService {
     @Autowired
     CourseRepository courseRepository;
 
+    /* MODIFICATION D'UN COURS */
     public void update(CourseEntity inputCourseEntity, SomeBean someBean) throws IllegalArgumentException {
 
         log.info("courseEntity : " + inputCourseEntity.toString());
@@ -38,13 +39,20 @@ public class AdminCourseService {
         // - someBean.fromTimeHour
         // - someBean.fromTimeMinutes
         // 2019-09-21T11:30:00
+
+        // Gestion zéro de l'heure
+        int tempHour = someBean.getFromTimeHour();
+        String stringTempHour = String.valueOf(tempHour);
+        if (tempHour < 10) {
+            stringTempHour = "0" + stringTempHour;
+        }
         // Gestion zéro des minutes
         int tempMinutes = someBean.getFromTimeMinutes();
         String stringTempMinutes = String.valueOf(tempMinutes);
         if (tempMinutes < 10) {
             stringTempMinutes = "0" + stringTempMinutes;
         }
-        LocalDateTime fromDate = LocalDateTime.parse(someBean.getFromDateUS() + "T" + someBean.getFromTimeHour() + ":" + stringTempMinutes + ":00");
+        LocalDateTime fromDate = LocalDateTime.parse(someBean.getFromDateUS() + "T" + stringTempHour + ":" + stringTempMinutes + ":00");
         courseEntity.setCrsFromDate(fromDate);
 
         // Mise à jour date de fin en fonction de la nouvelle date de début et de la durée :

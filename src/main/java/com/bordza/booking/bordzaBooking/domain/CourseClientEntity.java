@@ -22,7 +22,9 @@ public class CourseClientEntity implements Serializable {
     private CourseEntity course;
 
     private Boolean bkVip;
+
     private Boolean bkMat;
+
     private Boolean bkValidated;
 
     /**

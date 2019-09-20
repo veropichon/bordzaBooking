@@ -163,7 +163,7 @@ public class CourseController {
     }
 
     // Récapitulatif du cours créé
-    // Paramètre : ID du booking (table booking)
+    // Paramètre : Long bookingId = ID du booking (table booking)
     @RequestMapping("/courseSummary")
         public String courseSummary(Model model,
                                     @RequestParam Long bookingId) {
@@ -177,7 +177,7 @@ public class CourseController {
     }
 
     // Demande d'inscription à un cours existant
-    // Paramètre : ID du cours (table course)
+    // Paramètre : Long courseId = ID du cours (table course)
     @RequestMapping("/reservation")
     public String reservation(Model model,
                               @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
