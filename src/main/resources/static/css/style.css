@@ -230,3 +230,10 @@ input#fromTimeHour, input#fromTimeMinutes {
     width: 150px;
     margin-bottom: 20px;
 }
+
+/*-------------- profil -------------------------------- */
+
+.bordza_input_picture_profil{
+    width: 300px;
+
+}

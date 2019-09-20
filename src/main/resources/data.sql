@@ -13,12 +13,6 @@ INSERT INTO skateschool.location (loc_id, loc_deleted, loc_label) VALUES (1, fal
 INSERT INTO skateschool.location (loc_id, loc_deleted, loc_label) VALUES (2, false, 'Skatepark Colbert');
 INSERT INTO skateschool.location (loc_id, loc_deleted, loc_label) VALUES (3, false, 'Darwin');
 
--- User --
-INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, role) VALUES (1, 'paul-smith@free.fr', 'eeeeeeeee', 'CLIENT');
-INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, role) VALUES (2, 'ltropas@gmail.com', 'RRRRRRR', 'CLIENT');
-INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, role) VALUES (3, 'gilleshette@gmail.com', '4FFGYYYG', 'CLIENT');
-INSERT INTO skateschool.user (usr_id, usr_email, usr_pwd, role) VALUES (4, 'admin', 'admin', 'ADMIN');
-
 -- Duration --
 INSERT INTO skateschool.duration (dur_id, dur_label) VALUES (1, '1 heure');
 INSERT INTO skateschool.duration (dur_id, dur_label) VALUES (2, '2 heures');

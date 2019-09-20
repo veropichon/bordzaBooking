@@ -1,5 +1,4 @@
 $(":file").change(function () {
-    //alert("Hello")
     if (this.files && this.files[0]) {
         var reader = new FileReader();
         reader.onload = imageIsLoaded;
