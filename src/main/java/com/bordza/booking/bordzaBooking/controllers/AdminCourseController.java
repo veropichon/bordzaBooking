@@ -134,6 +134,7 @@ public class AdminCourseController {
                                        BindingResult result, ModelMap model
     ) throws MessagingException  {
 
+
         // mise à jour du cours
         adminCourseService.update(courseEntity, someBean);
 

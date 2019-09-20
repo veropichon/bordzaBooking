@@ -33,18 +33,25 @@ public class AdminCourseService {
 
         courseEntity = inputCourseEntity;
 
-        // TODO gérer dates et heures
-        // FromDate construite à partir de someBean.fromDateUS
-        // FromDate = FromDate par défaut avec l'heure saisie
-        // LocalDateTime crsFromDate = LocalDateTime.of(courseEntity.getCrsFromDate().getYear(), courseEntity.getCrsFromDate().getMonth(), courseEntity.getCrsFromDate().getDayOfMonth(), someBean.getFromTimeHour(), someBean.getFromTimeMinutes());
-        // ToDate construit à partir de fromDate et Durée
-        // Long crsDurId = courseEntity.getDuration().getDurId();
-        // LocalDateTime crsToDate = crsFromDate.plusHours(crsDurId);
+        // Mise à jour date de début en fonction de la date de début et de l'heure :
+        // - someBean.fromDateUS       --par ex : 2019-12-31
+        // - someBean.fromTimeHour
+        // - someBean.fromTimeMinutes
+        // 2019-09-21T11:30:00
+        // Gestion zéro des minutes
+        int tempMinutes = someBean.getFromTimeMinutes();
+        String stringTempMinutes = String.valueOf(tempMinutes);
+        if (tempMinutes < 10) {
+            stringTempMinutes = "0" + stringTempMinutes;
+        }
+        LocalDateTime fromDate = LocalDateTime.parse(someBean.getFromDateUS() + "T" + someBean.getFromTimeHour() + ":" + stringTempMinutes + ":00");
+        courseEntity.setCrsFromDate(fromDate);
 
-        // Titre construit à partir de la discipline et du lieu
-        // String crsTitle = courseEntity.getDiscipline().getDisLabel();
-        // crsTitle += ' ' + courseEntity.getLocation().getLocLabel();
-        // courseEntity.setCrsTitle(crsTitle);
+        // Mise à jour date de fin en fonction de la nouvelle date de début et de la durée :
+        // ToDate construit à partir de fromDate et Durée
+        Long crsDurId = courseEntity.getDuration().getDurId();
+        LocalDateTime toDate = fromDate.plusHours(crsDurId);
+        courseEntity.setCrsToDate(toDate);
 
         courseRepository.save(courseEntity);
 
