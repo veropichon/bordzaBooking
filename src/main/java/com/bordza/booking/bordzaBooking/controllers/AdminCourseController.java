@@ -124,9 +124,6 @@ public class AdminCourseController {
 
         model.addAttribute("pageTitle", "Publication d'un cours");
 
-        // String url = "adminPublishCourse?courseId=" + courseId;
-        // String url = "redirect:/adminPublishCourse?courseId=" + courseId;
-        // return url;
         return "adminPublishCourse";
     }
 
