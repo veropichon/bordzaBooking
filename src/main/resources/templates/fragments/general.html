@@ -65,15 +65,15 @@
 
 <footer th:fragment="footerClient">
     <div class="footer_bordza bg-black text-white">
-        <div class="row align-items-center" >
+        <div class="row align-items-center">
             <div class="col-12 bordza_flex_center">
                 <ul class="nav">
-                    <li  class="nav-item">
+                    <li class="nav-item">
                         <a href="conditions_generales_de_vente.html" class="text-right">
                             Nos Conditions générales de vente
                         </a>
                     </li>
-                    <li class="nav-item">-  Suivez-nous</li>
+                    <li class="nav-item">- Suivez-nous</li>
                     <li class="nav-item">
                         <!-- Facebook -->
                         <a href="https://www.facebook.com/bordzalongboards/" class="nav-link">
@@ -134,23 +134,34 @@
                         Agenda
                     </a>
                 </li>
+
+                <!--
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-fw fa-star"></i>!-->
+                <!-- <span th:utext="'Validations en cours (' + ${BookingToValid} + ')'"></span> -->
+                <!--     Validations en cours
+                 </a>
+                 <ul class="dropdown-menu dropdown_black">
+                     <li><a href="#" class="nav-link">Cours en attente</a></li>
+                     <li><a th:href="@{/adminWaiting}" class="nav-link">Réservations en attente</a></li>
+                     </ul>
+                 </li>
+                 !-->
+
+                <li class="nav-item">
+                    <a th:href="@{/adminWaiting}" class="nav-link">
                         <i class="fa fa-fw fa-star"></i>
-                        <!-- <span th:utext="'Validations en cours (' + ${BookingToValid} + ')'"></span> -->
-                        Validations en cours
+                        <!--<span th:utext="'Validations en cours (' + ${BookingToValid} + ')'"></span> -->
+                        Validations en attente
                     </a>
-                    <ul class="dropdown-menu dropdown_black">
-                        <li><a href="#" class="nav-link">Cours en attente</a></li>
-                        <li><a th:href="@{/adminWaiting}" class="nav-link">Réservations en attente</a></li>
-                    </ul>
                 </li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fa fa-fw fa-user-circle-o"></i>
                         Mon Compte
                     </a>
-
                 </li>
             </ul>
         </div>

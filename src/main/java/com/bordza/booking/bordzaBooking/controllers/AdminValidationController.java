@@ -90,6 +90,8 @@ public class AdminValidationController {
 
         String message = "Validations en attente (" + courseClientsList.size() + ")";
         model.addAttribute("pageTitle", message);
+        //model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
+
 
         return "adminWaiting";
     }

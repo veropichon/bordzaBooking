@@ -124,6 +124,8 @@ public class AdminCourseController {
 
         model.addAttribute("pageTitle", "Publication d'un cours");
 
+        //model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
+
         // String url = "adminPublishCourse?courseId=" + courseId;
         // String url = "redirect:/adminPublishCourse?courseId=" + courseId;
         // return url;

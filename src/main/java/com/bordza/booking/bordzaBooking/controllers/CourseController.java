@@ -102,7 +102,7 @@ public class CourseController {
 
         // TODO récupérer l'ID client courant (cookie)
         // Pour l'instant : on suppose que le client est connecté et que c'est le client avec cliId = 1
-        ClientEntity client = clientRepository.findById(1L).get();
+        ClientEntity client = clientRepository.findById(4L).get();
         model.addAttribute("modelClient", client);
 
         SomeBean someBean = new SomeBean();
@@ -138,9 +138,9 @@ public class CourseController {
             courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
 
             // envoi de l'email au client // TODO pout les tests : client 1 pour la création de cours
-            String clientEmail = clientRepository.findById(1L).get().getUser().getUsrEmail();
-            String clientLastname = clientRepository.findById(1L).get().getCliLastname();
-            String clientFirstname = clientRepository.findById(1L).get().getCliFirstname();
+            String clientEmail = clientRepository.findById(4L).get().getUser().getUsrEmail();
+            String clientLastname = clientRepository.findById(4L).get().getCliLastname();
+            String clientFirstname = clientRepository.findById(4L).get().getCliFirstname();
             String subject = "Bordza - Votre demande de cours";
             String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
             contents += "Votre demande de cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validé.\n\n";
