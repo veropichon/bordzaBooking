@@ -76,7 +76,7 @@ public class AdminValidationController {
 
         model.addAttribute("bookingsAndClients" , bookingsToClients);
 
-/*
+        /*
         CourseClientEntity courseClientEntity = new CourseClientEntity();
         courseClientEntity.defaultValue(courseClientEntity);
         model.addAttribute("modelCourseClient", courseClientEntity);
@@ -90,8 +90,7 @@ public class AdminValidationController {
 
         String message = "Validations en attente (" + courseClientsList.size() + ")";
         model.addAttribute("pageTitle", message);
-        //model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
-
+        model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
 
         return "adminWaiting";
     }

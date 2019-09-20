@@ -113,7 +113,7 @@
 
 <!--  Header Admin !-->
 
-<header th:fragment="headerAdmin(myPageTitle)">
+<header th:fragment="headerAdmin(myPageTitle,myBookingToValid)">
     <div class="navbar bg-black text-white row">
         <div class=" col-4">
             <div id="logo">
@@ -152,8 +152,8 @@
                 <li class="nav-item">
                     <a th:href="@{/adminWaiting}" class="nav-link">
                         <i class="fa fa-fw fa-star"></i>
-                        <!--<span th:utext="'Validations en cours (' + ${BookingToValid} + ')'"></span> -->
-                        Validations en attente
+                        <span th:text="'Validations en cours (' + ${myBookingToValid} + ')'"></span>
+                        <!--Validations en attente!-->
                     </a>
                 </li>
 

@@ -87,9 +87,6 @@ public class ClientEntity {
     private String cliUrlPicture;
 
     @Column(nullable = false)
-    private Boolean cliValidated;
-
-    @Column(nullable = false)
     private Boolean cliDeleted;
 
     /**
@@ -98,9 +95,7 @@ public class ClientEntity {
      * @return client entity with default values
      */
     public static ClientEntity defaultValue(ClientEntity clientEntity) {
-        if (clientEntity.cliValidated == null) {
-            clientEntity.cliValidated = false;
-        }
+
         if (clientEntity.cliDeleted == null) {
             clientEntity.cliDeleted = false;
         }

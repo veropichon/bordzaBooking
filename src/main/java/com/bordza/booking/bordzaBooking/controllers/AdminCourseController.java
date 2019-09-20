@@ -123,6 +123,8 @@ public class AdminCourseController {
         // log.info("bean FromDateTime : " + someBean.getFromDateTime());
 
         model.addAttribute("pageTitle", "Publication d'un cours");
+        model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
+
 
         return "adminPublishCourse";
     }
