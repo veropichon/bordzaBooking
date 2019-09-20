@@ -8,9 +8,9 @@ import javax.servlet.Registration;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity,Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    public UserEntity findUserEntityByUsrRoleIs(String role);
+    public UserEntity findByUsrEmail(String email);
+    public UserEntity findUserEntityByRoleIs(String role);
     public List<UserEntity> findByUsrEmailContaining(String usrEmail);
-
 }

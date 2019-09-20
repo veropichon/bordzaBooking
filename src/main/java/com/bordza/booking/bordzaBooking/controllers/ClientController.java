@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -61,10 +66,14 @@ public class ClientController {
 
         ClientEntity clientEntity = clientRepository.findById(Long.valueOf(clientId)).get();
 
+
+        LocalDate birthDate = clientEntity.getCliBirthdate().toLocalDate();
+        LocalDate currentDate = LocalDateTime.now().toLocalDate();
+        int clientAge = Period.between(birthDate, currentDate).getYears();;
+
         model.addAttribute("clientProfil", clientEntity);
         model.addAttribute("pageTitle", "Profil");
-
-        clientEntity.getCliBirthdate();
+        model.addAttribute("clientAge", clientAge);
 
         return "clientProfil";
     }
