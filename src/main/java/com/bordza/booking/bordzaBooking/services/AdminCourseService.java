@@ -42,9 +42,9 @@ public class AdminCourseService {
         // LocalDateTime crsToDate = crsFromDate.plusHours(crsDurId);
 
         // Titre construit à partir de la discipline et du lieu
-        String crsTitle = courseEntity.getDiscipline().getDisLabel();
-        crsTitle += ' ' + courseEntity.getLocation().getLocLabel();
-        courseEntity.setCrsTitle(crsTitle);
+        // String crsTitle = courseEntity.getDiscipline().getDisLabel();
+        // crsTitle += ' ' + courseEntity.getLocation().getLocLabel();
+        // courseEntity.setCrsTitle(crsTitle);
 
         courseRepository.save(courseEntity);
 
