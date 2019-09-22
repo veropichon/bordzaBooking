@@ -181,6 +181,11 @@ input#fromTimeHour, input#fromTimeMinutes {
 .icon_validation{
      font-size: 30px;
  }
+.icon_validation_green{
+    font-size: 30px;
+    color: #8fdf82;
+}
+
 .hr{
     color: black;
 }
@@ -229,4 +234,10 @@ input#fromTimeHour, input#fromTimeMinutes {
 .bordza_input_picture{
     width: 150px;
     margin-bottom: 20px;
+}
+
+/*--------------------------  admin  récapitulatif cours  ---------*/
+.modal-content{
+    background-color: grey;
+    color: white;
 }

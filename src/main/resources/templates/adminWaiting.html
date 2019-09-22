@@ -97,7 +97,8 @@
                                                 data-hover="dropdown" data-placement="top">
                             <span th:text="${bookingAndClients.booking.client.cliLastname}+' '+${bookingAndClients.booking.client.cliFirstname}"></span></a>
                             <ul class="dropdown-content list-unstyled">
-                                <li th:text="${bookingAndClients.booking.client.cliBirthdate}"></li>
+                                <li th:field="${bookingAndClients.booking.client.cliBirthdate}" id="birthdate">cliAge("${bookingAndClients.booking.client.cliBirthdate}")></li>
+                    <!--            <li th:text="${bookingAndClients.booking.client.cliBirthdate}"></li>  !-->
                             </ul>
 
                         </li>
@@ -155,7 +156,6 @@
                         </li>
                     </ul>
                 </td>
-                <!-- modifier sur href validation cours  !-->
 
                 <td>
 
@@ -163,6 +163,7 @@
             <!--         <a th:href="@{'/adminValidation?bookingId='+ ${bookingAndClients.booking.bkId}}">   !-->
                         <a th:href="@{'/adminPublishCourse?courseId='+ ${bookingAndClients.booking.course.crsId}}">
                          <i class="fa fa-w fa-check-circle-o icon_validation "> </i></a></span>
+
                     <span th:if=" ${bookingAndClients.booking.course.crsPublished} == true ">
                      <a th:href="@{'/adminValidation?bookingId='+ ${bookingAndClients.booking.bkId}}">
                          <i class="fa fa-w fa-check-circle-o icon_validation "> </i></a></span>
@@ -191,8 +192,21 @@
 </div>
 
 <footer th:include="fragments/general.html::footerClient"></footer>
-<script src="/js/functions.js"></script>
+
 <script src="/js/pictureUpload.js"></script>
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    document.getElementById("birthdate").onchange = function () {
+        cliAge(document.getElementById("birthdate").value);
+    };
+
+    /*]]>*/
+</script>
+
+<script src="/js/functions.js"></script>
+<!--<script src="/js/pictureUpload.js"></script>!-->
 <!----
 <script>
       $(document).ready(function(){
