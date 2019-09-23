@@ -153,6 +153,9 @@
                 <input type="hidden" th:field="*{crsUnavailable}">
                 <input type="hidden" th:field="*{crsDeleted}">
             </div>
+            <div class="form-row" th:object="${someBean}">
+                <input type="hidden" th:field="*{origine}">
+            </div>
 
             <button type="submit" class="btn btn-primary bordza_green">Valider</button>
             <button type="button" class="btn btn-secondary"

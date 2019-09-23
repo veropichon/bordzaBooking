@@ -15,4 +15,6 @@ public class SomeBean {
 
     private LocalDate fromDate;
     private String fromDateUS;
+
+    private String origine;
 }
