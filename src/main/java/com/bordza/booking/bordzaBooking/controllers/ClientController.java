@@ -147,6 +147,15 @@ public class ClientController {
 
         //Save picture
 
+            try {
+                clientService.save(userEntity, clientEntity, file, redirectAttributes);
+
+                // envoi de l'email pour validation email visiteur
+
+
+            } catch (IllegalArgumentException e) {
+                return "inscription";
+            }
         try {
             clientService.save(userEntity, clientEntity, file, redirectAttributes);
             if (result.hasErrors()) {

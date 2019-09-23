@@ -181,6 +181,11 @@ input#fromTimeHour, input#fromTimeMinutes {
 .icon_validation{
      font-size: 30px;
  }
+.icon_validation_green{
+    font-size: 30px;
+    color: #8fdf82;
+}
+
 .hr{
     color: black;
 }
@@ -237,3 +242,11 @@ input#fromTimeHour, input#fromTimeMinutes {
     width: 300px;
 
 }
+
+/*--------------------------  admin  récapitulatif cours  ---------*/
+.modal-content{
+    background-color: grey;
+    color: white;
+}
+
+/*-------------------------- liste des cours  ---------*/
