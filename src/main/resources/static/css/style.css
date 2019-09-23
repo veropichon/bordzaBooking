@@ -14,12 +14,6 @@ body {
     background-color: #44a194;
 }
 
-/*table, td {
-    border: 1px solid;
-    border-collapse: collapse;
-    padding: 5px;
-}*/
-
 h1, #textBordza {
     text-align: center;
     font-family: 'Shadows Into Light', cursive;
@@ -45,6 +39,12 @@ a {
 }
 .collapse{
     background-color: #242424;
+}
+
+
+.bordza_error{
+    color: orangered;
+    font-weight: bold;
 }
 /*-------------------- HEADER -----------------*/
 

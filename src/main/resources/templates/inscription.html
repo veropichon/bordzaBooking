@@ -11,6 +11,8 @@
 <header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
 
 <div class="contenu">
+    <p th:text="${errorMessage}" class="bordza_error"></p>
+
     <form id="form1" action="#" th:action="@{/} + ${formType}" th:object="${modelClient}" method="post"
           enctype="multipart/form-data">
         <div class="form-group">

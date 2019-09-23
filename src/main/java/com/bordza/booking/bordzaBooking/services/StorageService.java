@@ -4,12 +4,12 @@ package com.bordza.booking.bordzaBooking.services;
 import com.bordza.booking.bordzaBooking.domain.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
@@ -17,37 +17,52 @@ import java.nio.file.*;
 @Service
 public class StorageService {
 
-    private static final Logger log = LoggerFactory.getLogger("test Input");
+    private static final Logger log = LoggerFactory.getLogger("StorageService");
 
-    private static String UPLOADED_FOLDER = "/home/laetitia/bordza_pictures/client_images/";
-    public static String UPLOADED_FOLDER_BDD = "http://localhost/client_images/";
+    Environment env;
 
+    private final Path internalPicturesPath;
+    private final String externalPicturesDir;
+
+
+    public StorageService(@Value("${bordza.pictures.external}") String externalPicturesDir,
+                          @Value("${bordza.pictures.path}") String internalPicturesPath,
+                          Environment env) {
+        this.externalPicturesDir = externalPicturesDir;
+        String home = env.getProperty("HOME");
+        this.internalPicturesPath = Paths.get(home, internalPicturesPath);
+    }
 
     public String store(MultipartFile file,
                         //@RequestParam("file") MultipartFile file,
                         RedirectAttributes redirectAttributes,
                         UserEntity userEntity) {
 
-        if (file.isEmpty()) {
+        /*if (file.isEmpty()) {
             log.info("Storage : file Empty");
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
             return null;
-        }
+        }*/
 
         try {
+
+            log.info("File size : " + file.getSize());
+
 
             log.info("Storage : Entrée dans Try");
 
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
 
-            Path path = Paths.get(UPLOADED_FOLDER +userEntity.getUsrId() + "_" + file.getOriginalFilename());
+            log.info("Storage/path : " + internalPicturesPath);
 
-            log.info("Storage/path : " + path);
 
-            Files.write(path, bytes);
 
-            log.info("Storage : " + path.toString());
+            Files.write(internalPicturesPath, bytes, StandardOpenOption.TRUNCATE_EXISTING);
+            //Files.write(internalPicturesPath, bytes);
+
+
+            log.info("Storage : " + internalPicturesPath.toString());
 
             return file.getOriginalFilename();
             //return path.toString();
@@ -78,4 +93,7 @@ public class StorageService {
         }
     }
 
+    public String getExternalPicturesDir() {
+        return externalPicturesDir;
+    }
 }
