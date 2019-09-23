@@ -28,6 +28,9 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false, length = 20)
     private String role;
 
+    @Column(nullable = false)
+    private Boolean usrValidated;
+
     /**
      * Display Default values
      * @return user entity with default role
@@ -37,6 +40,11 @@ public class UserEntity implements UserDetails {
         if(userEntity.role == null){
             userEntity.role = "CLIENT";
         }
+
+        if (userEntity.usrValidated == null) {
+            userEntity.usrValidated = false;
+        }
+
         return userEntity;
     }
 

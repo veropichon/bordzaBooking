@@ -103,7 +103,7 @@ public class CourseController {
 
         // TODO récupérer l'ID client courant (cookie)
         // Pour l'instant : on suppose que le client est connecté et que c'est le client avec cliId = 1
-        ClientEntity client = clientRepository.findById(1L).get();
+        ClientEntity client = clientRepository.findById(4L).get();
         model.addAttribute("modelClient", client);
 
         SomeBean someBean = new SomeBean();
@@ -139,9 +139,9 @@ public class CourseController {
             courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
 
             // envoi de l'email au client // TODO pout les tests : client 1 pour la création de cours
-            String clientEmail = clientRepository.findById(1L).get().getUser().getUsrEmail();
-            String clientLastname = clientRepository.findById(1L).get().getCliLastname();
-            String clientFirstname = clientRepository.findById(1L).get().getCliFirstname();
+            String clientEmail = clientRepository.findById(4L).get().getUser().getUsrEmail();
+            String clientLastname = clientRepository.findById(4L).get().getCliLastname();
+            String clientFirstname = clientRepository.findById(4L).get().getCliFirstname();
             String subject = "Bordza - Votre demande de cours";
             String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
             contents += "Votre demande de cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validé.\n\n";
@@ -164,7 +164,7 @@ public class CourseController {
     }
 
     // Récapitulatif du cours créé
-    // Paramètre : ID du booking (table booking)
+    // Paramètre : Long bookingId = ID du booking (table booking)
     @RequestMapping("/courseSummary")
         public String courseSummary(Model model,
                                     @RequestParam Long bookingId) {
@@ -178,7 +178,7 @@ public class CourseController {
     }
 
     // Demande d'inscription à un cours existant
-    // Paramètre : ID du cours (table course)
+    // Paramètre : Long courseId = ID du cours (table course)
     @RequestMapping("/reservation")
     public String reservation(Model model,
                               @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,

@@ -15,13 +15,13 @@
 
 <body>
 
-<header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
+<header th:include="fragments/general.html::headerAdmin( myPageTitle=${pageTitle} , myBookingToValid=${bookingToValid} )"></header>
 
 <div class="contenu">
 
     <form action="#" th:action="@{/adminPublishCourse}" th:object="${modelCourse}" method="post">
         <div class="form-group">
-            <div class ="row">
+            <div class="row">
                 <div class="col">
                     <big><span><strong><u>Date du cours</u></strong> :</span>
                         <span th:text="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div class="form-group" >
+        <div class="form-group">
             <label><strong>Cours particulier VIP <span class="required-star">*</span></strong></label>
             <div class="row">
                 <div class="col">
@@ -65,52 +65,45 @@
                 </div>
             </div>
         </div>
-        <!--
-        <div class = "form-group" th:object="${someBean}">
-            <label><strong>Horaire <span class="required-star">*</span></strong></label>
-            <div class="row">
-                <div class="col">
-                    <input th:field="*{fromTime}" type="time" min="09:00" max="18:00" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH:mm')}" step="1800">
-                </div>
-            </div>
-            <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
-            <input type="hidden" th:field="*{fromDateTime}" th:value="${someBean.getFromDateTime()}">
-        </div>
-        -->
 
-        <div class = "form-group" th:object="${someBean}">
-            <label><strong>Horaire <span class="required-star">*</span>  &nbsp; </strong></label>
-            <span id="resultHH" name="resultHH" th:text="${#temporals.format(someBean.getFromDateTime(), 'HH')}" ></span>
+        <div class="form-group" th:object="${someBean}">
+            <label><strong>Horaire <span class="required-star">*</span> &nbsp; </strong></label>
+            <span id="resultHH" name="resultHH" th:text="${#temporals.format(someBean.getFromDateTime(), 'HH')}"></span>
             :
-            <span id="resultMM" name="resultMM" th:text="${#temporals.format(someBean.getFromDateTime(), 'mm')}" ></span>
+            <span id="resultMM" name="resultMM" th:text="${#temporals.format(someBean.getFromDateTime(), 'mm')}"></span>
             <div class="row">
                 <div class="col">
-                    <input id="fromTimeHour" th:field="*{fromTimeHour}" type="number" min="09" max="18" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH')}" onchange="putResultHH(this.value)">
-                    <input id="fromTimeMinutes" th:field="*{fromTimeMinutes}" type="number" min="00" max="30" step="30" required th:value="${#temporals.format(someBean.getFromDateTime(), 'mm')}" onchange="putResultMM(this.value)">
+                    <input id="fromTimeHour" th:field="*{fromTimeHour}" type="number" min="09" max="18" required
+                           th:value="${#temporals.format(someBean.getFromDateTime(), 'HH')}"
+                           onchange="putResultHH(this.value)">
+                    <input id="fromTimeMinutes" th:field="*{fromTimeMinutes}" type="number" min="00" max="30" step="30"
+                           required th:value="${#temporals.format(someBean.getFromDateTime(), 'mm')}"
+                           onchange="putResultMM(this.value)">
                 </div>
             </div>
             <input type="hidden" th:field="*{fromDateTime}" th:value="${someBean.getFromDateTime()}">
         </div>
         <!-- th:id="fromTime" th:name="fromTime" th:field="*{fromTime}"  th:value="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"   -->
 
-        <div class = "form-group">
+        <div class="form-group">
             <label><strong>Durée souhaitée <span class="required-star">*</span></strong></label>
             <div class="row">
                 <div class="col">
                     <select id="dis-duration" th:field="*{duration}" class="custom-select">
-                        <option th:each="myDur : ${modelDurationsList}" th:value="${myDur.getDurId()}" th:text="${myDur.getDurLabel()}"></option>
+                        <option th:each="myDur : ${modelDurationsList}" th:value="${myDur.getDurId()}"
+                                th:text="${myDur.getDurLabel()}"></option>
                     </select>
                 </div>
             </div>
-            <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
         </div>
 
-        <div class = "form-group">
+        <div class="form-group">
             <label for="dis-select"><strong>Discipline <span class="required-star">*</span></strong></label>
             <div class="row">
                 <div class="col">
                     <select id="dis-select" th:field="*{discipline}" class="custom-select">
-                        <option th:each="myDis : ${modelDisciplinesList}" th:value="${myDis.getDisId()}" th:text="${myDis.getDisLabel()}"></option>
+                        <option th:each="myDis : ${modelDisciplinesList}" th:value="${myDis.getDisId()}"
+                                th:text="${myDis.getDisLabel()}"></option>
                     </select>
                 </div>
             </div>
@@ -119,7 +112,8 @@
         <div class="form-group">
             <label for="loc-select"><strong>Lieu souhaité <span class="required-star">*</span></strong></label>
             <select id="loc-select" th:field="*{location}" class="custom-select">
-                <option th:each="myLoc : ${modelLocationsList}" th:value="${myLoc.getLocId()}" th:text="${myLoc.getLocLabel()}"></option>
+                <option th:each="myLoc : ${modelLocationsList}" th:value="${myLoc.getLocId()}"
+                        th:text="${myLoc.getLocLabel()}"></option>
             </select>
         </div>
 
@@ -133,14 +127,40 @@
             </div>
         </div>
 
-        <div class="form-row" th:object="${modelCourse}">
-            <input type="hidden" th:field="*{crsId}">
-            <input type="hidden" th:field="*{crsUnavailable}">
-            <input type="hidden" th:field="*{crsDeleted}">
-        </div>
+        <div class="form-group">
+            <div class="row ">
+                <div class="col">
+                    <label><strong>Titre <span class="required-star">*</span></strong></label>
 
-        <button type="submit" class="btn btn-primary bordza_green">Valider</button>
-        <button type="button" class="btn btn-secondary">Annuler</button>
+                        <input class="form-control" type="text" town="town" th:field="*{crsTitle}">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row ">
+                    <div class="col">
+                        <br class="input_group-identity">
+                            <label><strong>Description <span class="required-star">*</span></strong></label><br>
+                            <textarea id="story" name="story" rows="5" cols="70" th:field="*{crsDesc}"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row" th:object="${modelCourse}">
+                <input type="hidden" th:field="*{crsId}">
+                <input type="hidden" th:field="*{crsUnavailable}">
+                <input type="hidden" th:field="*{crsDeleted}">
+            </div>
+            <div class="form-row" th:object="${someBean}">
+                <input type="hidden" th:field="*{origine}">
+            </div>
+
+            <button type="submit" class="btn btn-primary bordza_green">Valider</button>
+            <button type="button" class="btn btn-secondary"
+                    th:onclick="'window.location.href = \'' + @{/admincalendar} + '\''">Annuler
+            </button>
     </form>
 </div>
 

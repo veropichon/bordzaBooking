@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         eventClick: function(info) {
             info.jsEvent.preventDefault();
-            if (info.event.url !== "none") {
+            if (info.event.end > new Date() && info.event.url !== "none") {
                 window.open(info.event.url);
             }
         },

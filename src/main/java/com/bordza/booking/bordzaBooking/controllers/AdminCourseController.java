@@ -75,13 +75,13 @@ public class AdminCourseController {
 
     private static final Logger log = LoggerFactory.getLogger("log CourseController");
 
+    // MODIFICATION D'UN COURS : CHARGEMENT
     @GetMapping("/adminPublishCourse")
     public String adminPublishCourse(Model model,
-                                     @RequestParam Long courseId) {
+                                     @RequestParam Long courseId, String ori) {
 
         CourseEntity courseEntity = courseRepository.findByCrsId(courseId);
         model.addAttribute("modelCourse", courseEntity);
-
 
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevelsList", levelsList);
@@ -99,49 +99,57 @@ public class AdminCourseController {
         model.addAttribute("modelDiscipline", new DisciplineEntity());
 
         SomeBean someBean = new SomeBean();
+        someBean.setOrigine(ori);
 
         // extraction date
         someBean.setFromDate(courseEntity.getCrsFromDate().toLocalDate());
+        String tempDay = "";
+        if (courseEntity.getCrsFromDate().getDayOfMonth() < 10) {
+            tempDay = "0" + courseEntity.getCrsFromDate().getDayOfMonth();
+        } else {
+            tempDay = Integer.toString(courseEntity.getCrsFromDate().getDayOfMonth());
+        }
         String tempMonth = "";
         if (courseEntity.getCrsFromDate().getMonthValue() < 10) {
             tempMonth = "0" + courseEntity.getCrsFromDate().getMonthValue();
         } else {
             tempMonth = Integer.toString(courseEntity.getCrsFromDate().getMonthValue());
         }
-        someBean.setFromDateUS(courseEntity.getCrsFromDate().getYear() + "-" + tempMonth + "-" + courseEntity.getCrsFromDate().getDayOfMonth());
+        someBean.setFromDateUS(courseEntity.getCrsFromDate().getYear() + "-" + tempMonth + "-" + tempDay);
 
         // extraction heure
         someBean.setFromTimeHour(courseEntity.getCrsFromDate().getHour());
         someBean.setFromTimeMinutes(courseEntity.getCrsFromDate().getMinute());
         someBean.setFromDateTime(courseEntity.getCrsFromDate());
-
         model.addAttribute("someBean", someBean);
 
-        // log.info("bean FromTime : " + someBean.getFromTime());
-        // log.info("bean FromTimeHour : " + someBean.getFromTimeHour());
-        // log.info("bean FromTimeMinutes : " + someBean.getFromTimeMinutes());
-        // log.info("bean FromDateTime : " + someBean.getFromDateTime());
-
         model.addAttribute("pageTitle", "Publication d'un cours");
+        model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
 
-        // String url = "adminPublishCourse?courseId=" + courseId;
-        // String url = "redirect:/adminPublishCourse?courseId=" + courseId;
-        // return url;
+
         return "adminPublishCourse";
     }
 
-    // Sauvegarde du cours (table Course)
+    // MODIFICATION D'UN COURS : SAUVEGARDE
     @PostMapping("/adminPublishCourse")
     public String saveCourseAndBooking(@ModelAttribute("modelCourse") CourseEntity courseEntity,
                                        @ModelAttribute("someBean") SomeBean someBean,
                                        BindingResult result, ModelMap model
     ) throws MessagingException  {
 
+
         // mise à jour du cours
         adminCourseService.update(courseEntity, someBean);
 
-        String url = "redirect:/admincalendar";
-        return url;
+        Long id = courseEntity.getCrsId();
 
+        String url = "";
+        if (someBean.getOrigine().equals("1") ) {
+            url = "redirect:/adminWaiting";
+            return url;
+        } else {
+            url = "redirect:/adminSummary?courseId=" + id;
+            return url;
+        }
     }
 }

@@ -236,6 +236,13 @@ input#fromTimeHour, input#fromTimeMinutes {
     margin-bottom: 20px;
 }
 
+/*-------------- profil -------------------------------- */
+
+.bordza_input_picture_profil{
+    width: 300px;
+
+}
+
 /*--------------------------  admin  récapitulatif cours  ---------*/
 .modal-content{
     background-color: grey;
