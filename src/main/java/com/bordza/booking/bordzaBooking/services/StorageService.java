@@ -56,10 +56,10 @@ public class StorageService {
 
             log.info("Storage/path : " + internalPicturesPath);
 
+            Path path = Paths.get(internalPicturesPath.toString() + "/" + userEntity.getUsrId() + "_" + file.getOriginalFilename());
 
-
-            Files.write(internalPicturesPath, bytes, StandardOpenOption.TRUNCATE_EXISTING);
-            //Files.write(internalPicturesPath, bytes);
+            Files.write(path, bytes);
+            //Files.write(internalPicturesPath, bytes, , StandardOpenOption.TRUNCATE_EXISTING);
 
 
             log.info("Storage : " + internalPicturesPath.toString());
