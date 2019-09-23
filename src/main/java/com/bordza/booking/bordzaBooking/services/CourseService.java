@@ -73,7 +73,6 @@ public class CourseService {
 
         courseClientEntity.setCourse(courseEntity);
         courseClientEntity.setClient(clientEntity);
-
         courseClientRepository.save(courseClientEntity);
 
         log.info("Cours : " + courseEntity.toString());

@@ -50,6 +50,9 @@ public class AdminCourseController {
     ClientRepository clientRepository;
 
     @Autowired
+    CourseClientRepository courseClientRepository;
+
+    @Autowired
     DisciplineRepository disciplineRepository;
 
     @Autowired
@@ -62,9 +65,6 @@ public class AdminCourseController {
     LocationRepository locationRepository;
 
     @Autowired
-    CourseClientRepository courseClientRepository;
-
-    @Autowired
     AdminCourseService adminCourseService;
 
     @Autowired
@@ -75,7 +75,7 @@ public class AdminCourseController {
 
     private static final Logger log = LoggerFactory.getLogger("log CourseController");
 
-    // MODIFICATION D'UN COURS : CHARGEMENT
+    // MODIFICATION/PUBLICATION D'UN COURS : CHARGEMENT
     @GetMapping("/adminPublishCourse")
     public String adminPublishCourse(Model model,
                                      @RequestParam Long courseId, String ori) {
@@ -116,7 +116,6 @@ public class AdminCourseController {
             tempMonth = Integer.toString(courseEntity.getCrsFromDate().getMonthValue());
         }
         someBean.setFromDateUS(courseEntity.getCrsFromDate().getYear() + "-" + tempMonth + "-" + tempDay);
-
         // extraction heure
         someBean.setFromTimeHour(courseEntity.getCrsFromDate().getHour());
         someBean.setFromTimeMinutes(courseEntity.getCrsFromDate().getMinute());
@@ -138,7 +137,6 @@ public class AdminCourseController {
 
         // mise à jour du cours
         adminCourseService.update(courseEntity, someBean);
-
         Long id = courseEntity.getCrsId();
 
         String url = "";

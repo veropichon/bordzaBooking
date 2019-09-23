@@ -30,10 +30,6 @@ public class CourseEntity {
     @ManyToOne
     private LevelEntity level;
 
-    // Id du User qui a créé le cours
-    // @ManyToOne
-    // private UserEntity user;
-
     @ManyToOne
     private DurationEntity duration;
 
@@ -56,6 +52,9 @@ public class CourseEntity {
     private String crsDesc;
 
     private String crsComment;
+
+    // Id de type "ClientIdService"
+    private Long crsCreatorId;
 
     @Column(nullable = false)
     private Boolean crsPublished;

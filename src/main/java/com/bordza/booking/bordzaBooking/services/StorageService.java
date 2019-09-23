@@ -19,7 +19,7 @@ public class StorageService {
 
     private static final Logger log = LoggerFactory.getLogger("test Input");
 
-    private static String UPLOADED_FOLDER = "/home/laetitia/bordza_pictures/client_images/";
+    private static String UPLOADED_FOLDER = "/home/bordza_pictures/client_images/";
     public static String UPLOADED_FOLDER_BDD = "http://localhost/client_images/";
 
 

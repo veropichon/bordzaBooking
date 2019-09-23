@@ -3,6 +3,7 @@ package com.bordza.booking.bordzaBooking.controllers;
 import com.bordza.booking.bordzaBooking.config.ConfigTemplateEngine;
 import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.*;
+import com.bordza.booking.bordzaBooking.services.ClientIdService;
 import com.bordza.booking.bordzaBooking.services.CourseService;
 import com.bordza.booking.bordzaBooking.services.MailService;
 import com.bordza.booking.bordzaBooking.utils.SomeBean;
@@ -60,12 +61,22 @@ public class CourseController {
     @Autowired
     MailService mailService;
 
+    @Autowired
+    private ClientIdService idService;
+
     private static final Logger log = LoggerFactory.getLogger("log CourseController");
 
     // Le visiteur a cliqué dans le calendrier pour ajouter un cours
     // Paramètre : start = date
     @RequestMapping("/newCourse")
     public String newCourse(Model model, @RequestParam String start) {
+
+        // Identification du visiteur
+        Long idConnected = idService.getClientId();
+        if (idConnected == -1) { return "redirect:/admincalendar"; }
+        if (idConnected == 0) { return "redirect:/login"; }
+        ClientEntity client = clientRepository.findById(idConnected).get();
+        model.addAttribute("modelClient", client);
 
         CourseClientEntity courseClientEntity = new CourseClientEntity();
         courseClientEntity.defaultValue(courseClientEntity);
@@ -88,7 +99,7 @@ public class CourseController {
 
         CourseEntity course = new CourseEntity();
         course.defaultValue(course);
-
+        course.setCrsCreatorId(idConnected);
         LocalDateTime fromDate = LocalDateTime.parse(start);
         course.setCrsFromDate(fromDate);
         LocalDateTime toDate = fromDate.plusHours(1); // Par défaut : durée = 1 heure
@@ -97,23 +108,13 @@ public class CourseController {
         course.setCrsDesc("Description par défaut");
         LevelEntity level = levelRepository.findById(1L).get();
         course.setLevel(level);
-
         model.addAttribute("modelCourse", course);
 
-        // TODO récupérer l'ID client courant (cookie)
-        // Pour l'instant : on suppose que le client est connecté et que c'est le client avec cliId = 1
-        ClientEntity client = clientRepository.findById(1L).get();
-        model.addAttribute("modelClient", client);
-
         SomeBean someBean = new SomeBean();
-        // someBean.setFromTime(LocalTime.of(course.getCrsFromDate().getHour(), course.getCrsFromDate().getMinute())); // TODO à supprimer si on utilise le format input type number
         someBean.setFromTimeHour(course.getCrsFromDate().getHour());
         someBean.setFromTimeMinutes(course.getCrsFromDate().getMinute());
         someBean.setFromDateTime(course.getCrsFromDate());
-        // String.valueOf(number)
         model.addAttribute("someBean", someBean);
-
-        // log.info("course.getCrsFromDate() : " + course.getCrsFromDate());
 
         model.addAttribute("pageTitle", "Proposition de cours");
 
@@ -129,18 +130,17 @@ public class CourseController {
                                        BindingResult result, ModelMap model
                                        ) throws MessagingException  {
 
-
-
             courseEntity.defaultValue(courseEntity);
             courseClientEntity.defaultValue(courseClientEntity);
 
             // création du cours
             courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
 
-            // envoi de l'email au client // TODO pout les tests : client 1 pour la création de cours
-            String clientEmail = clientRepository.findById(1L).get().getUser().getUsrEmail();
-            String clientLastname = clientRepository.findById(1L).get().getCliLastname();
-            String clientFirstname = clientRepository.findById(1L).get().getCliFirstname();
+            // envoi de l'email au client
+            Long creatorId = courseEntity.getCrsCreatorId();
+            String clientEmail = clientRepository.findById(creatorId).get().getUser().getUsrEmail();
+            String clientLastname = clientRepository.findById(creatorId).get().getCliLastname();
+            String clientFirstname = clientRepository.findById(creatorId).get().getCliFirstname();
             String subject = "Bordza - Votre demande de cours";
             String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
             contents += "Votre demande de cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validé.\n\n";
@@ -183,17 +183,19 @@ public class CourseController {
                               @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
                               @RequestParam Long courseId) {
 
+        // Identification du visiteur
+        Long idConnected = idService.getClientId();
+        if (idConnected == -1) { return "redirect:/admincalendar"; }
+        if (idConnected == 0) { return "redirect:/login"; }
+        ClientEntity client = clientRepository.findById(idConnected).get();
+        model.addAttribute("modelClient", client);
+
         CourseEntity course = courseRepository.findById(courseId).get();
         model.addAttribute("modelCourse", course);
 
         courseClientEntity = new CourseClientEntity();
         courseClientEntity.defaultValue(courseClientEntity);
         model.addAttribute("modelCourseClient", courseClientEntity);
-
-        // TODO récupérer l'ID client courant (cookie)
-        // Pour l'instant : on suppose que le client est connecté et que c'est le client avec cliId = 2
-        ClientEntity client = clientRepository.findById(2L).get();
-        model.addAttribute("modelClient", client);
 
         model.addAttribute("modelLocation", new LocationEntity());
         model.addAttribute("modelDiscipline", new DisciplineEntity());
@@ -217,11 +219,11 @@ public class CourseController {
 
             courseService.saveCourseClient(courseClientEntity, courseEntity, clientEntity);
 
-            // envoi de l'email au client // TODO pout les tests : client 2 pour l'inscription à un cours existant
-            String clientEmail = clientRepository.findById(2L).get().getUser().getUsrEmail();
-            // log.info("clientEmail qui s'inscrit à un cours : " + clientEmail);
-            String clientLastname = clientRepository.findById(2L).get().getCliLastname();
-            String clientFirstname = clientRepository.findById(2L).get().getCliFirstname();
+            // envoi de l'email au client
+            Long current_CliId = clientEntity.getCliId();
+            String clientEmail = clientRepository.findById(current_CliId).get().getUser().getUsrEmail();
+            String clientLastname = clientRepository.findById(current_CliId).get().getCliLastname();
+            String clientFirstname = clientRepository.findById(current_CliId).get().getCliFirstname();
             String subject = "Bordza - Votre demande d'inscription à un cours";
             String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
             contents += "Votre demande d'inscription à un cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validée.\n\n";

@@ -18,8 +18,26 @@
 <header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
 
 <div class="contenu">
-
     <form action="#" th:action="@{/adminPublishCourse}" th:object="${modelCourse}" method="post">
+
+        <!--
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <big><span><strong><u>Cours proposé par</u></strong> :</span>
+                        <span th:utext="${firstname}"></span>
+                        <span th:text="${lastname}"></span>
+                        <span th:text="${phone}"></span>
+                    </big>
+                </div>
+                <div class="col">
+                    <input th:type="checkbox" id="publier" th:name="publier" th:field="*{crsPublished}">
+                    <label for="publier">Publier</label>
+                </div>
+            </div>
+        </div>
+        -->
+
         <div class="form-group">
             <div class="row">
                 <div class="col">
@@ -34,10 +52,9 @@
                     <input type="hidden" th:field="*{crsToDate}" th:value="${modelCourse.getCrsToDate()}">
 
                 </div>
-                <div class="col">
-                    <input th:type="checkbox" id="publier" th:name="publier" th:field="*{crsPublished}">
-                    <label for="publier">Publier</label>
-                </div>
+
+
+
             </div>
         </div>
 
@@ -131,32 +148,46 @@
             <div class="row ">
                 <div class="col">
                     <label><strong>Titre <span class="required-star">*</span></strong></label>
-
                         <input class="form-control" type="text" town="town" th:field="*{crsTitle}">
-
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="row ">
-                    <div class="col">
-                        <br class="input_group-identity">
-                            <label><strong>Description <span class="required-star">*</span></strong></label><br>
-                            <textarea id="story" name="story" rows="5" cols="70" th:field="*{crsDesc}"></textarea>
-                        </div>
-                    </div>
+        <div class="form-group">
+            <div class="row ">
+                <div class="col">
+                    <br class="input_group-identity">
+                        <label><strong>Description <span class="required-star">*</span></strong></label><br>
+                        <textarea id="story" name="story" rows="5" cols="70" th:field="*{crsDesc}"></textarea>
                 </div>
             </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row ">
+                <div class="col">
+                    <input th:type="checkbox" id="publier" th:name="publier" th:field="*{crsPublished}">
+                    <label for="publier">Publier</label>
+                </div>
+            </div>
+        </div>
 
             <div class="form-row" th:object="${modelCourse}">
+                <input type="hidden" th:field="*{crsFromDate}" th:value="${modelCourse.getCrsFromDate()}">
+                <input type="hidden" th:field="*{crsToDate}" th:value="${modelCourse.getCrsToDate()}">
                 <input type="hidden" th:field="*{crsId}">
                 <input type="hidden" th:field="*{crsUnavailable}">
                 <input type="hidden" th:field="*{crsDeleted}">
+                <input type="hidden" th:field="*{crsCreatorId}">
             </div>
             <div class="form-row" th:object="${someBean}">
                 <input type="hidden" th:field="*{origine}">
             </div>
 
+
+
+            <!-- <button th:if="${!crsPublished}" type="submit" class="btn btn-primary bordza_green">Publier</button> -->
+            <!-- <button th:if="${crsPublished}" type="submit" class="btn btn-primary bordza_green">Dépublier</button> -->
             <button type="submit" class="btn btn-primary bordza_green">Valider</button>
             <button type="button" class="btn btn-secondary"
                     th:onclick="'window.location.href = \'' + @{/admincalendar} + '\''">Annuler

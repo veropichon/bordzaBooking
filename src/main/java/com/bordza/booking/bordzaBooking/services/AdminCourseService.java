@@ -1,6 +1,10 @@
 package com.bordza.booking.bordzaBooking.services;
 
+import com.bordza.booking.bordzaBooking.domain.ClientEntity;
+import com.bordza.booking.bordzaBooking.domain.CourseClientEntity;
 import com.bordza.booking.bordzaBooking.domain.CourseEntity;
+import com.bordza.booking.bordzaBooking.repositories.ClientRepository;
+import com.bordza.booking.bordzaBooking.repositories.CourseClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.CourseRepository;
 import com.bordza.booking.bordzaBooking.utils.SomeBean;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +28,18 @@ public class AdminCourseService {
     @Autowired
     CourseRepository courseRepository;
 
-    /* MODIFICATION D'UN COURS */
+    @Autowired
+    ClientRepository clientRepository;
+
+    @Autowired
+    CourseClientRepository courseClientRepository;
+
+    /* MODIFICATION/PUBLICATION D'UN COURS */
     public void update(CourseEntity inputCourseEntity, SomeBean someBean) throws IllegalArgumentException {
 
-        log.info("courseEntity : " + inputCourseEntity.toString());
+        // log.info("courseEntity : " + inputCourseEntity.toString());
 
         CourseEntity courseEntity = courseRepository.findById(inputCourseEntity.getCrsId()).get();
-        // boolean crsUnavailable = courseEntity.getCrsUnavailable();
-
         courseEntity = inputCourseEntity;
 
         // Mise à jour date de début en fonction de la date de début et de l'heure :
@@ -63,7 +71,18 @@ public class AdminCourseService {
 
         courseRepository.save(courseEntity);
 
-        log.info("Cours : " + courseEntity.toString());
+        log.info("Cours creator id: " + inputCourseEntity.getCrsCreatorId());
+
+        // si le cours est publié et qu'il n'y a qu'un participant => inscrire automatiquement le participant
+        boolean isPublished = courseEntity.getCrsPublished();
+        Long creatorId = courseEntity.getCrsCreatorId();
+        ClientEntity clientEntity = clientRepository.findByCliId(creatorId);
+
+        if ((isPublished == true) && (creatorId != 0)) {
+            CourseClientEntity courseClientEntity = courseClientRepository.findByCourseIsAndClientIs(courseEntity, clientEntity);
+            courseClientEntity.setBkValidated(true);
+            courseClientRepository.save(courseClientEntity);
+        }
 
     }
 }

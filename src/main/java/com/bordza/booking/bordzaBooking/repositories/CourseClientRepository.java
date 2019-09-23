@@ -12,7 +12,7 @@ public interface CourseClientRepository extends JpaRepository<CourseClientEntity
 
     List<CourseClientEntity> findAllByBkId(Long crsId);
 
-    List<CourseClientEntity> findAllByCourse(CourseEntity courseEntity);
+    CourseClientEntity findByCourseIsAndClientIs(CourseEntity courseEntity, ClientEntity clientEntity);
 
 }
 

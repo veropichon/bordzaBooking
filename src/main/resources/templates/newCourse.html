@@ -123,6 +123,9 @@
                 <div class="form-row" th:object="${modelClient}">
                     <input type="hidden" th:field="*{cliId}">
                 </div>
+                <div class="form-row" th:object="${modelCourse}">
+                    <input type="hidden" th:field="*{crsCreatorId}">
+                </div>
 
                 <button type="submit" class="btn btn-primary bordza_green">Valider</button>
                 <button type="button" class="btn btn-secondary" th:onclick="'window.location.href = \'' + @{/calendar} + '\''">Annuler</button>
