@@ -156,7 +156,7 @@ public class ClientController {
 
             //return "redirect:/calendar";
         } else {
-            return "redirect:/_error";
+            return "inscription";
         }
 
     }

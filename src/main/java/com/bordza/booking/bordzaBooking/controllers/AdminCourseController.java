@@ -123,6 +123,8 @@ public class AdminCourseController {
         model.addAttribute("someBean", someBean);
 
         model.addAttribute("pageTitle", "Publication d'un cours");
+        model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
+
 
         return "adminPublishCourse";
     }

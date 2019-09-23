@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.springframework.org/tags/form" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
+</head>
+
+<body>
+
+<header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
+
+<div class="contenu">
+
+    <div class="liste" th:object="${modelCourse}">
+        <ul class="list-unstyled">
+            <li>
+                <strong><u>Date du cours</u> : </strong>
+                <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
+                <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
+                <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
+                <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span>
+            </li>
+
+            <li>
+                <strong><u>Horaires</u> : de </strong>
+                <span th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
+                <strong> à </strong>
+                <span th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
+            </li>
+
+            <li>
+                <strong><u>Discipline</u> : </strong>
+                <span th:utext="${modelCourse.discipline.disLabel}"></span>
+            </li>
+
+            <li>
+                <strong><u>Lieu</u> : </strong>
+                <span th:utext="${modelCourse.location.locLabel}"></span>
+            </li>
+
+            <li>
+                <strong><u>Niveau</u> : </strong>
+                <span th:utext="${modelCourse.level.levCourseLabel}"></span>
+            </li>
+        </ul>
+    </div>
+ <!----    Choix du client parmi liste  !-->
+    <div class="list_client">
+        <strong><u> Client à inscrire</u> : </strong>
+
+
+
+
+    </div>
+
+    <form action="#" th:action="@{/reservation}" th:object="${modelCourseClient}" method="post">
+        <div class="form-group">
+            <label><strong>Prêt de matériel <span class="required-star">*</span></strong></label>
+            <div class="row">
+                <div class="col">
+                    <input th:type="radio" th:field="*{bkMat}" th:id="oui" th:value="1">
+                    <label th:for="oui">Oui</label>
+                </div>
+                <div class="col">
+                    <input th:type="radio" th:field="*{bkMat}" th:id="non" th:value="0">
+                    <label th:for="non">Non</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row" th:object="${modelCourse}">
+            <input type="hidden" th:field="*{crsId}">
+        </div>
+        <div class="form-row" th:object="${modelClient}">
+            <input type="hidden" th:field="*{cliId}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Valider</button>
+        <button type="button" class="btn btn-secondary">Annuler</button>
+    </form>
+
+</div>
+
+<footer th:include="fragments/general.html::footerClient"></footer>
+
+</body>
+</html>
