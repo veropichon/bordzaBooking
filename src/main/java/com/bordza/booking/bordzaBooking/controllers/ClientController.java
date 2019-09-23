@@ -143,6 +143,10 @@ public class ClientController {
 
             try {
                 clientService.save(userEntity, clientEntity, file, redirectAttributes);
+
+                // envoi de l'email pour validation email visiteur
+
+
             } catch (IllegalArgumentException e) {
                 return "inscription";
             }
