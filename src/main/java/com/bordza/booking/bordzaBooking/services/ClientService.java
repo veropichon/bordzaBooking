@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import static com.bordza.booking.bordzaBooking.services.StorageService.UPLOADED_FOLDER_BDD;
-
 
 @Slf4j
 @Service
@@ -45,7 +43,7 @@ public class ClientService {
         String urlPicture = storageService.store(file, redirectAttributes, userEntity);
 
         if (urlPicture != null) {
-            clientEntity.setCliUrlPicture(UPLOADED_FOLDER_BDD + userEntity.getUsrId() + "_" + urlPicture);
+            clientEntity.setCliUrlPicture(storageService.getExternalPicturesDir() + userEntity.getUsrId() + "_" + urlPicture);
         }
 
         clientEntity.setUser(userEntity);
@@ -73,8 +71,9 @@ public class ClientService {
         userRepository.save(userEntity);
 
         if (urlPicture != null) {
-            log.info("update urlPicture 2 : " + UPLOADED_FOLDER_BDD + userEntity.getUsrId() + "_" + urlPicture);
-            clientEntity.setCliUrlPicture(UPLOADED_FOLDER_BDD + userEntity.getUsrId() + "_" + urlPicture);
+            String externalPicturesDir = storageService.getExternalPicturesDir();
+            log.info("update urlPicture 2 : " + externalPicturesDir + userEntity.getUsrId() + "_" + urlPicture);
+            clientEntity.setCliUrlPicture(externalPicturesDir + userEntity.getUsrId() + "_" + urlPicture);
         }
 
         clientEntity.setUser(userEntity);

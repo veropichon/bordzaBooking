@@ -62,14 +62,15 @@ public class ClientController {
     }
 
     @GetMapping("/clientProfil")
-    public String clientProfil(Model model, @RequestParam String clientId){
+    public String clientProfil(Model model, @RequestParam String clientId) {
 
         ClientEntity clientEntity = clientRepository.findById(Long.valueOf(clientId)).get();
 
-
+        //Calcul de l'age
         LocalDate birthDate = clientEntity.getCliBirthdate().toLocalDate();
         LocalDate currentDate = LocalDateTime.now().toLocalDate();
-        int clientAge = Period.between(birthDate, currentDate).getYears();;
+        int clientAge = Period.between(birthDate, currentDate).getYears();
+
 
         model.addAttribute("clientProfil", clientEntity);
         model.addAttribute("pageTitle", "Profil");
@@ -77,7 +78,6 @@ public class ClientController {
 
         return "clientProfil";
     }
-
 
 
     //Send lvl, User and Client model to "Inscription"
@@ -126,20 +126,26 @@ public class ClientController {
                                     @RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes) {
 
-        /*if (result.hasErrors()) {
-            return "error";
-        }*/
 
         log.info(file.getOriginalFilename());
 
         List<UserEntity> EmailsList = userRepository.findByUsrEmailContaining(userEntity.getUsrEmail());
 
-        if (EmailsList.isEmpty()) {
-            // Add defeult values
-            userEntity.defaultValue(userEntity);
-            clientEntity.defaultValue(clientEntity);
+        if (!EmailsList.isEmpty()) {
+            model.addAttribute("errorMessage", "Votre Email est déjà enregistré");
+            return "inscription";
+        }
 
-            //Save picture
+        if (file.getSize() > 1300000) {
+            model.addAttribute("errorMessage", "L'image est trop lourde.");
+            return "inscription";
+        }
+
+        // Add defeult values
+        userEntity.defaultValue(userEntity);
+        clientEntity.defaultValue(clientEntity);
+
+        //Save picture
 
             try {
                 clientService.save(userEntity, clientEntity, file, redirectAttributes);
@@ -150,14 +156,17 @@ public class ClientController {
             } catch (IllegalArgumentException e) {
                 return "inscription";
             }
-
-            String url = "redirect:/clientProfil?clientId=" + String.valueOf(clientEntity.getCliId());
-            return url;
-
-            //return "redirect:/calendar";
-        } else {
+        try {
+            clientService.save(userEntity, clientEntity, file, redirectAttributes);
+            if (result.hasErrors()) {
+                return "inscription";
+            }
+        } catch (IllegalArgumentException e) {
             return "inscription";
         }
+
+        String url = "redirect:/clientProfil?clientId=" + String.valueOf(clientEntity.getCliId());
+        return url;
 
     }
 
@@ -168,9 +177,11 @@ public class ClientController {
                                @RequestParam("file") MultipartFile file,
                                RedirectAttributes redirectAttributes) {
 
-        /*if (result.hasErrors()) {
-            return "error";
-        }*/
+
+        if (file.getSize() > 1300000) {
+            model.addAttribute("errorMessage", "L'image est trop lourde.");
+            return "inscription";
+        }
 
         // Add defeult values
         userEntity.defaultValue(userEntity);
@@ -199,7 +210,6 @@ public class ClientController {
 
         String url = "redirect:/clientProfil?clientId=" + String.valueOf(clientEntity.getCliId());
         return url;
-        //return "redirect:/index";
     }
 
 }
