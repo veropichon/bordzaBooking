@@ -1,11 +1,12 @@
 /**
  * ADMIN :
- * - MODIFICATION / PUBLICATION D'UN COURS
+ * - CREATION / MODIFICATION / PUBLICATION D'UN COURS
  */
 
 package com.bordza.booking.bordzaBooking.controllers;
 
 import com.bordza.booking.bordzaBooking.domain.*;
+import com.bordza.booking.bordzaBooking.services.ClientIdService;
 import com.bordza.booking.bordzaBooking.utils.SomeBean;
 import com.bordza.booking.bordzaBooking.utils.util;
 import org.springframework.ui.Model;
@@ -73,7 +74,12 @@ public class AdminCourseController {
     @Autowired
     MailService mailService;
 
-    private static final Logger log = LoggerFactory.getLogger("log CourseController");
+    @Autowired
+    private ClientIdService idService;
+
+    private static final Logger log = LoggerFactory.getLogger("log AdminCourseController");
+
+    // --------------------------------------------------------------------------------------------------------
 
     // MODIFICATION/PUBLICATION D'UN COURS : CHARGEMENT
     @GetMapping("/adminPublishCourse")
@@ -129,7 +135,10 @@ public class AdminCourseController {
         return "adminPublishCourse";
     }
 
+    // --------------------------------------------------------------------------------------------------------
+
     // MODIFICATION D'UN COURS : SAUVEGARDE
+
     @PostMapping("/adminPublishCourse")
     public String saveCourseAndBooking(@ModelAttribute("modelCourse") CourseEntity courseEntity,
                                        @ModelAttribute("someBean") SomeBean someBean,
@@ -149,5 +158,80 @@ public class AdminCourseController {
             url = "redirect:/adminSummary?courseId=" + id;
             return url;
         }
+    }
+
+    // --------------------------------------------------------------------------------------------------------
+
+    // CREATION D'UN COURS : CHARGEMENT
+    // L'admin a cliqué dans le calendrier pour ajouter un cours
+    // Paramètre : start = date
+
+    @GetMapping("/adminNewCourse")
+    public String adminNewCourse(Model model, @RequestParam String start) {
+
+        // Identification du visiteur : doit être égal à l'admin
+        Long idConnected = idService.getClientId();
+        if (idConnected == 0) { return "redirect:/login"; }
+        if (idConnected != -1) { return "redirect:/calendar"; }
+
+        List<LevelEntity> levelsList = levelRepository.findAll();
+        model.addAttribute("modelLevelsList", levelsList);
+
+        List<DurationEntity> durationsList = durationRepository.findAll();
+        model.addAttribute("modelDurationsList", durationsList);
+
+        List<DisciplineEntity> disciplinesList = disciplineRepository.findAll();
+        model.addAttribute("modelDisciplinesList", disciplinesList);
+
+        List<LocationEntity> locationsList = locationRepository.findAll();
+        model.addAttribute("modelLocationsList", locationsList);
+
+        model.addAttribute("modelLocation", new LocationEntity());
+        model.addAttribute("modelDiscipline", new DisciplineEntity());
+
+        CourseEntity course = new CourseEntity();
+        course.defaultValue(course);
+        course.setCrsCreatorId(idConnected);
+        LocalDateTime fromDate = LocalDateTime.parse(start);
+        course.setCrsFromDate(fromDate);
+        LocalDateTime toDate = fromDate.plusHours(1); // Par défaut : durée = 1 heure
+        course.setCrsToDate(toDate);
+        course.setCrsTitle("");
+        course.setCrsDesc("");
+        LevelEntity level = levelRepository.findById(1L).get();
+        course.setLevel(level);
+
+        model.addAttribute("modelCourse", course);
+
+        SomeBean someBean = new SomeBean();
+        someBean.setFromTimeHour(course.getCrsFromDate().getHour());
+        someBean.setFromTimeMinutes(course.getCrsFromDate().getMinute());
+        someBean.setFromDateTime(course.getCrsFromDate());
+        model.addAttribute("someBean", someBean);
+
+        model.addAttribute("pageTitle", "Création d'un cours");
+
+        return "adminNewCourse";
+    }
+
+    // --------------------------------------------------------------------------------------------------------
+
+    // CREATION D'UN COURS : SAUVEGARDE
+
+    @PostMapping("/adminNewCourse")
+    public String saveCourse(@ModelAttribute("modelCourse") CourseEntity courseEntity,
+                                       @ModelAttribute("someBean") SomeBean someBean,
+                                       BindingResult result, ModelMap model
+    ) {
+
+        log.info("AdminCourseController courseEntity");
+        log.info(courseEntity.getCrsTitle());
+
+        // création du cours
+        adminCourseService.saveCourse(courseEntity, someBean);
+        Long courseId = courseEntity.getCrsId();
+
+        return "admincalendar";
+
     }
 }

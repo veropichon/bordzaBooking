@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.springframework.org/tags/form" xmlns:width="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
+
+    <script src="/js/functions.js"></script>
+
+</head>
+
+<body>
+
+<header th:include="fragments/general.html::headerAdmin(myPageTitle=${pageTitle}, myBookingToValid=${bookingToValid})"></header>
+
+<div class="contenu">
+
+    <form action="#" th:action="@{/adminNewCourse}" th:object="${modelCourse}" method="post">
+        <div class="form-group">
+            <div class ="row">
+                <div class="col">
+                    <big><span><strong><u>Date du cours</u></strong> :</span>
+                        <span th:text="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
+                        <span th:text="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
+                        <span th:text="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
+                        <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span></big>
+
+                    <!-- <span th:text="${#temporals.format(modelCourse.getCrsFromDate(), 'dd/MM/yyyy')}"></span> -->
+                    <input type="hidden" th:field="*{crsFromDate}" th:value="${modelCourse.getCrsFromDate()}">
+                    <input type="hidden" th:field="*{crsToDate}" th:value="${modelCourse.getCrsToDate()}">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" >
+            <label><strong>Cours particulier VIP <span class="required-star">*</span></strong></label>
+            <div class="row">
+                <div class="col">
+                    <input th:field="*{crsVip}" th:type="radio" th:id="particulier" th:name="crsVip" th:value="1">
+                    <label th:for="particulier">Oui</label>
+                </div>
+                <div class="col">
+                    <input th:field="*{crsVip}" th:type="radio" th:id="collectif" th:name="crsVip" th:value="0">
+                    <label th:for="collectif">Non</label>
+                </div>
+            </div>
+        </div>
+
+        <div class = "form-group" th:object="${someBean}">
+            <label><strong>Horaire <span class="required-star">*</span>  &nbsp; </strong></label>
+            <span id="resultHH" name="resultHH" th:text="${#temporals.format(someBean.getFromDateTime(), 'HH')}" ></span>
+            :
+            <span id="resultMM" name="resultMM" th:text="${#temporals.format(someBean.getFromDateTime(), 'mm')}" ></span>
+            <div class="row">
+                <div class="col">
+                    <input id="fromTimeHour" th:field="*{fromTimeHour}" type="number" min="09" max="18" required th:value="${#temporals.format(someBean.getFromDateTime(), 'HH')}" onchange="putResultHH(this.value)">
+                    <input id="fromTimeMinutes" th:field="*{fromTimeMinutes}" type="number" min="00" max="30" step="30" required th:value="${#temporals.format(someBean.getFromDateTime(), 'mm')}" onchange="putResultMM(this.value)">
+                </div>
+            </div>
+            <input type="hidden" th:field="*{fromDateTime}" th:value="${someBean.getFromDateTime()}">
+        </div>
+
+        <div class = "form-group">
+            <label><strong>Durée souhaitée <span class="required-star">*</span></strong></label>
+            <div class="row">
+                <div class="col">
+                    <select id="dis-duration" th:field="*{duration}" class="custom-select">
+                        <option th:each="myDur : ${modelDurationsList}" th:value="${myDur.getDurId()}" th:text="${myDur.getDurLabel()}"></option>
+                    </select>
+                </div>
+            </div>
+            <small class="form-text text-muted">Il existe des forfaits 5h et 10h qui permettent de participer à des cours de plusieurs heures. Pour tout renseignement , veuillez contacter directement le formateur par téléphone : 06 10 66 02 46 ou par mail : contact@bordza.fr</small>
+        </div>
+
+        <div class = "form-group">
+            <label for="dis-select"><strong>Discipline <span class="required-star">*</span></strong></label>
+            <div class="row">
+                <div class="col">
+                    <select id="dis-select" th:field="*{discipline}" class="custom-select">
+                        <option th:each="myDis : ${modelDisciplinesList}" th:value="${myDis.getDisId()}" th:text="${myDis.getDisLabel()}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="loc-select"><strong>Lieu souhaité <span class="required-star">*</span></strong></label>
+            <select id="loc-select" th:field="*{location}" class="custom-select">
+                <option th:each="myLoc : ${modelLocationsList}" th:value="${myLoc.getLocId()}" th:text="${myLoc.getLocLabel()}"></option>
+            </select>
+
+            <small class="form-text text-muted">Ce lieu n'est pas définitif, il sera validé ou non par votre formateur</small>
+        </div>
+
+        <div class="form-group">
+            <label><strong>Niveau souhaité <span class="required-star">*</span></strong></label>
+            <div class="row">
+                <div class="col" th:each="myLev: ${modelLevelsList}">
+                    <input type="radio" th:field="*{level}" th:value="${myLev.getLevId()}">
+                    <label th:for="${#ids.prev('level')}" th:text="${myLev.getLevCourseLabel()}"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row ">
+                <div class="col">
+                    <label><strong>Titre <span class="required-star">*</span></strong></label>
+                    <input class="form-control" type="text" town="town" th:field="*{crsTitle}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row ">
+                <div class="col">
+                    <br class="input_group-identity">
+                    <label><strong>Description <span class="required-star">*</span></strong></label><br>
+                    <textarea id="story" name="story" rows="5" cols="70" th:field="*{crsDesc}"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row ">
+                <div class="col">
+                    <input th:type="checkbox" id="unavailable" th:name="unavailable" th:field="*{crsUnavailable}">
+                    <label for="publier">Marquer comme indisponible</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row ">
+                <div class="col">
+                    <input th:type="checkbox" id="publier" th:name="publier" th:field="*{crsPublished}">
+                    <label for="publier">Publier</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row" th:object="${modelCourse}">
+            <input type="hidden" th:field="*{crsCreatorId}">
+        </div>
+
+        <button type="submit" class="btn btn-primary bordza_green">Valider</button>
+        <button type="button" class="btn btn-secondary" th:onclick="'window.location.href = \'' + @{/admincalendar} + '\''">Annuler</button>
+    </form>
+</div>
+
+<footer th:include="fragments/general.html::footerClient"></footer>
+</body>
+</html>

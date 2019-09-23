@@ -129,45 +129,45 @@ public class CourseController {
                                        @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
                                        @ModelAttribute("someBean") SomeBean someBean,
                                        BindingResult result, ModelMap model
-                                       ) throws MessagingException  {
+    ) throws MessagingException  {
 
-            courseEntity.defaultValue(courseEntity);
-            courseClientEntity.defaultValue(courseClientEntity);
+        courseEntity.defaultValue(courseEntity);
+        courseClientEntity.defaultValue(courseClientEntity);
 
-            // création du cours
-            courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
+        // création du cours
+        courseService.saveCourse(courseEntity, clientEntity, courseClientEntity, someBean);
 
-            // envoi de l'email au client
-            Long creatorId = courseEntity.getCrsCreatorId();
-            String clientEmail = clientRepository.findById(creatorId).get().getUser().getUsrEmail();
-            String clientLastname = clientRepository.findById(creatorId).get().getCliLastname();
-            String clientFirstname = clientRepository.findById(creatorId).get().getCliFirstname();
-            String subject = "Bordza - Votre demande de cours";
-            String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
-            contents += "Votre demande de cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validé.\n\n";
-            contents += "L'équipe Bordza";
-            MimeMessage msg = null;
-            msg = mailService.buildEmail(clientEmail, subject, contents, false);
-            mailService.sendEmail(msg);
+        // envoi de l'email au client
+        Long creatorId = courseEntity.getCrsCreatorId();
+        String clientEmail = clientRepository.findById(creatorId).get().getUser().getUsrEmail();
+        String clientLastname = clientRepository.findById(creatorId).get().getCliLastname();
+        String clientFirstname = clientRepository.findById(creatorId).get().getCliFirstname();
+        String subject = "Bordza - Votre demande de cours";
+        String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
+        contents += "Votre demande de cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validé.\n\n";
+        contents += "L'équipe Bordza";
+        MimeMessage msg = null;
+        msg = mailService.buildEmail(clientEmail, subject, contents, false);
+        mailService.sendEmail(msg);
 
-            // envoi de l'email à l'administrateur
-            String adminEmail = userRepository.findUserEntityByRoleIs("ADMIN").getUsrEmail();
-            subject = "Nouveau cours";
-            contents = "Bonjour,\n\n";
-            contents += "Un nouveau cours est à valider.\nDescriptif du cours...\n";
-            msg = mailService.buildEmail(adminEmail, subject, contents, false);
-            mailService.sendEmail(msg);
+        // envoi de l'email à l'administrateur
+        String adminEmail = userRepository.findUserEntityByRoleIs("ADMIN").getUsrEmail();
+        subject = "Nouveau cours";
+        contents = "Bonjour,\n\n";
+        contents += "Un nouveau cours est à valider.\nDescriptif du cours...\n";
+        msg = mailService.buildEmail(adminEmail, subject, contents, false);
+        mailService.sendEmail(msg);
 
-            String url = "redirect:/courseSummary?bookingId=" + String.valueOf(courseClientEntity.getBkId());
-            return url;
+        String url = "redirect:/courseSummary?bookingId=" + String.valueOf(courseClientEntity.getBkId());
+        return url;
 
     }
 
     // Récapitulatif du cours créé
     // Paramètre : Long bookingId = ID du booking (table booking)
     @RequestMapping("/courseSummary")
-        public String courseSummary(Model model,
-                                    @RequestParam Long bookingId) {
+    public String courseSummary(Model model,
+                                @RequestParam Long bookingId) {
 
         CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
 
@@ -255,7 +255,7 @@ public class CourseController {
     // Paramètre : ID du booking (table booking)
     @RequestMapping("/reservationSummary")
     public String reservationSummary(Model model,
-                                @RequestParam Long bookingId) {
+                                     @RequestParam Long bookingId) {
         CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
 
         model.addAttribute("modelCourseClient", booking);
@@ -277,7 +277,7 @@ public class CourseController {
         log.info("taille liste : " + courseClientsList.size());
         model.addAttribute("nbcours", courseClientsList.size());
 
-    //     Aucun cours à visualiser
+        //     Aucun cours à visualiser
 
         if (courseClientsList.size() == 0) {
             String message = "Mes cours";
