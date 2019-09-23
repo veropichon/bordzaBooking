@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -258,5 +259,35 @@ public class CourseController {
         model.addAttribute("modelCourseClient", booking);
         model.addAttribute("pageTitle", "Récapitulatif");
         return "reservationSummary";
+    }
+
+    // Récapitulatif des cours d'un client
+
+    @GetMapping("/listCourses")
+   /* public String listCourses(Model model,
+                                     @RequestParam Long bookingId) {
+        CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
+        A faire --- Récuperer ident Client
+   */
+    public String listCourses(Model model) {
+        ClientEntity clientEntity = clientRepository.findById(1L).get();
+        List<CourseClientEntity> courseClientsList = courseClientRepository.findAllByClientCliIdOrderByCourseCrsFromDateDesc(clientEntity.getCliId());
+        log.info("taille liste : " + courseClientsList.size());
+        model.addAttribute("nbcours", courseClientsList.size());
+
+    //     Aucun cours à visualiser
+
+        if (courseClientsList.size() == 0) {
+            String message = "Mes cours";
+            String message1 = "Aucune participaton aux cours";
+            model.addAttribute("pageTitle", message);
+            model.addAttribute("information", message1);
+            return "listCourses";
+        }
+        model.addAttribute("courseClientsList" , courseClientsList);
+        LocalDate currentDate = LocalDateTime.now().toLocalDate();
+        model.addAttribute("todaysdate",currentDate );
+        model.addAttribute("pageTitle", "Mes cours");
+        return "listCourses";
     }
 }

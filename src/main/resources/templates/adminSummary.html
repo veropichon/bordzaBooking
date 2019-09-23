@@ -63,7 +63,9 @@
                     </tr>
                 </table>
             </div>
-            <button type="submit" class="btn btn-primary bordza_green pull-right">Modifier</button>
+            <button type="submit" class="btn btn-primary bordza_green pull-right" th:href="@{'/adminPublishCourse?courseId='+ ${modelCourse.crsId}+'&ori='+2}">Modidier</button>
+     <!--      th:onclick="'window.location.href=\"+@{"'/adminPublishCourse?courseId='"+ ${modelCourse.course.crsId}+'&ori='+2'">Modifier</button>
+            >Modifier</button>  !-->
         </div>
         <hr>
         <div class="summary" th:if="${nbvalidation} > 0">
@@ -90,10 +92,9 @@
                     <td><a href="#">
                         <i class="fa fa-w fa-search icon_validation " data-toggle="modal" data-target="#myModal"
                            th:attr="data-target='#myModal'+${myBooking.client.cliId}"></i>
-
                         <!-- modal Infos Client  !-->
 
-                        <div class="modal fade in" th:id="myModal+${myBooking.client.cliId}" role="dialog">
+                        <div class="modal fade" th:id="myModal+${myBooking.client.cliId}" role="dialog" style="overflow-y:hidden;">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -111,6 +112,7 @@
                                                             th:utext="${myBooking.client.cliFirstname} + ' ' + ${myBooking.client.cliLastname}"></td>
                                                     </tr>
                                                     <tr>
+
                                                         <td class="course_summary_td_left">Email</td>
                                                         <td>:</td>
                                                         <td class="course_summary_td_right"><a
@@ -122,7 +124,7 @@
                                                         <td class="course_summary_td_left">Téléphone</td>
                                                         <td>:</td>
                                                         <td class="course_summary_td_right"
-                                                            th:utext="${myBooking.client.cliPhone}"></td>
+                                                            th:utext="${myBooking.client.cliPhone}">< text-decoration: underline;/td>
                                                     </tr>
                                                     <tr>
                                                         <td class="course_summary_td_left">Ville</td>
@@ -132,7 +134,6 @@
                                                     </tr>
 
                                                 </table>
-                                                <hr>
                                                 <table>
                                                     <tr>
                                                         <td class="course_summary_td_left">Age</td>
@@ -170,7 +171,7 @@
                                                                             th:utext="${myBooking.client.cliTutorFirstname} + ' ' + ${myBooking.client.cliTutorLastname}"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="course_summary_td_left">Email</td>
+                                                                        <td class="course_summary_td_left>Email</td>
                                                                         <td>:</td>
                                                                         <td class="course_summary_td_right"><a th:href="'mailto:' + ${myBooking.client.cliTutorEmail}"
                                                                                                                th:utext="${myBooking.client.cliTutorEmail}"> </a>
@@ -184,7 +185,6 @@
                                                                 </table>
                                                             </div>
                                                !-->
-                                                <hr>
                                                 <table>
                                                     <tr>
                                                         <td class="course_summary_td_left">Blessures</td>
@@ -199,8 +199,7 @@
 
                                                 <div class="col-2 ">
                                                     <img th:src="${myBooking.client.cliUrlPicture}"
-                                                         th:alt="${myBooking.client.cliUrlPicture}"
-                                                         class="bordza_input_picture">
+                                                         th:alt="${myBooking.client.cliUrlPicture}" class="bordza_input_picture">
                                                 </div>
 
                                         </div>

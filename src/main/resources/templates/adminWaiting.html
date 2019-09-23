@@ -161,7 +161,7 @@
 
                     <span th:if="${bookingAndClients.booking.course.crsPublished} == false ">
             <!--         <a th:href="@{'/adminValidation?bookingId='+ ${bookingAndClients.booking.bkId}}">   !-->
-                        <a th:href="@{'/adminPublishCourse?courseId='+ ${bookingAndClients.booking.course.crsId}}">
+                        <a th:href="@{'/adminPublishCourse?courseId='+ ${bookingAndClients.booking.course.crsId}+'&ori='+1}">
                          <i class="fa fa-w fa-check-circle-o icon_validation "> </i></a></span>
 
                     <span th:if=" ${bookingAndClients.booking.course.crsPublished} == true ">

@@ -1,8 +1,6 @@
 package com.bordza.booking.bordzaBooking.controllers;
 
-import com.bordza.booking.bordzaBooking.domain.ClientEntity;
-import com.bordza.booking.bordzaBooking.domain.CourseClientEntity;
-import com.bordza.booking.bordzaBooking.domain.CourseEntity;
+import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.*;
 import com.bordza.booking.bordzaBooking.services.CourseService;
 import org.slf4j.Logger;
@@ -11,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -95,6 +94,34 @@ public class AdminCourseSummaryController{
         courseClientRepository.delete(courseClient);
         return "redirect:/adminSummary";
     }
+    /*
+    @RequestMapping("/adminSummaryCreateBooking")
+    public String createBooking(Model model,
+                              @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
+                              @RequestParam Long courseId) {
 
+        //  Liste des clients
+        List<ClientEntity> clientsList = clientRepository.findAll();
+        model.addAttribute("listClient",  clientsList);
+        CourseEntity course = courseRepository.findById(courseId).get();
+        model.addAttribute("modelCourse", course);
+
+        courseClientEntity = new CourseClientEntity();
+        courseClientEntity.defaultValue(courseClientEntity);
+        model.addAttribute("modelCourseClient", courseClientEntity);
+
+        // TODO récupérer l'ID client courant (cookie)
+        // Pour l'instant : on suppose que le client est connecté et que c'est le client avec cliId = 2
+        //ClientEntity client = clientRepository.findById(2L).get();
+        //model.addAttribute("modelClient", client);
+
+        model.addAttribute("modelLocation", new LocationEntity());
+        model.addAttribute("modelDiscipline", new DisciplineEntity());
+
+        model.addAttribute("pageTitle", "Réservation cours");
+
+        return "adminReservation";
+    }
+    */
 
 }
