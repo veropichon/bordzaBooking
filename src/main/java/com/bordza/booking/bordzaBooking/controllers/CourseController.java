@@ -218,7 +218,10 @@ public class CourseController {
 
             courseClientEntity.defaultValue(courseClientEntity);
 
-            courseService.saveCourseClient(courseClientEntity, courseEntity, clientEntity);
+            // builing the relationship
+            courseClientEntity.setClient(clientEntity);
+            courseClientEntity.setCourse(courseEntity);
+            courseClientRepository.save(courseClientEntity);
 
             // envoi de l'email au client
             Long current_CliId = clientEntity.getCliId();

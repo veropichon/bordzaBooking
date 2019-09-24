@@ -50,11 +50,9 @@ public class AdminCourseSummaryController {
 
 
     @GetMapping("/adminSummary")
-    public String summary(Model model) {
+    public String summary(Model model, @RequestParam Long courseId) {
 
-        // todo faire branchement avec Calendar
-
-        CourseEntity course = courseRepository.findById(1L).get();
+        CourseEntity course = courseRepository.findById(courseId).get();
         model.addAttribute("modelCourse", course);
         //  A revoir
         log.info("id course : " + course.getCrsId());
@@ -129,16 +127,17 @@ public class AdminCourseSummaryController {
     @PostMapping("/adminReservation")
     public String saveBooking(@ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
                               @ModelAttribute("modelCourse") CourseEntity courseEntity,
-                              @ModelAttribute("modelClient") ClientEntity clientEntity,
 
                               BindingResult result, ModelMap model) throws MessagingException {
 
         try {
-            log.info("cliId : " + clientEntity.getCliId());
+            log.info("cliId : " + courseClientEntity.getClient().getCliId());
             log.info("coursId : " + courseEntity.getCrsId());
-            courseClientEntity.defaultValue(courseClientEntity);
 
-            courseService.saveCourseClient(courseClientEntity, courseEntity, clientEntity);
+            courseClientEntity.defaultValue(courseClientEntity);
+            courseClientEntity.setCourse(courseEntity);
+            // client is already populated
+            courseClientRepository.save(courseClientEntity);
 
             // envoi de l'email au client
          /*   Long current_CliId = clientEntity.getCliId();
