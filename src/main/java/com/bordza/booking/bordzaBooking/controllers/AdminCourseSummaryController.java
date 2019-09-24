@@ -50,7 +50,7 @@ public class AdminCourseSummaryController {
 
 
     @GetMapping("/adminSummary")
-    public String summary(Model model) {
+    public String summary(Model model, @RequestParam Long courseId) {
 
         CourseEntity course = courseRepository.findById(courseId).get();
         model.addAttribute("modelCourse", course);
