@@ -85,7 +85,8 @@ public class AdminCourseController {
     @GetMapping("/adminPublishCourse")
     public String adminPublishCourse(Model model,
                                      @RequestParam Long courseId, String ori) {
-
+        log.info("id course : " + courseId);
+        log.info("ori : " + ori);
         CourseEntity courseEntity = courseRepository.findByCrsId(courseId);
         model.addAttribute("modelCourse", courseEntity);
 

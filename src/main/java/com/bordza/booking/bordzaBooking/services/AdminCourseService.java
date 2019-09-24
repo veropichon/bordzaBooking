@@ -76,13 +76,16 @@ public class AdminCourseService {
         // si le cours est publié et que le créateur n'est pas l'admin => inscrire automatiquement le créateur
         boolean isPublished = courseEntity.getCrsPublished();
         Long creatorId = courseEntity.getCrsCreatorId();
-        ClientEntity clientEntity = clientRepository.findByCliId(creatorId);
-
-        if ((isPublished == true) && (creatorId != 0)) {
-            CourseClientEntity courseClientEntity = courseClientRepository.findByCourseIsAndClientIs(courseEntity, clientEntity);
-            courseClientEntity.setBkValidated(true);
-            courseClientRepository.save(courseClientEntity);
+        if (creatorId > 0) {
+            ClientEntity clientEntity = clientRepository.findByCliId(creatorId);
+            if ((isPublished == true) && (creatorId != -1)) {
+                CourseClientEntity courseClientEntity = courseClientRepository.findByCourseIsAndClientIs(courseEntity, clientEntity);
+                courseClientEntity.setBkValidated(true);
+                courseClientRepository.save(courseClientEntity);
+            }
         }
+
+
 
     }
 
@@ -100,6 +103,21 @@ public class AdminCourseService {
         courseEntity.setCrsToDate(crsToDate);
         courseEntity.setCrsDeleted(false);
         courseRepository.save(courseEntity);
+
+    }
+
+    public void saveCourseClient(CourseClientEntity courseClientEntity, CourseEntity courseEntity, ClientEntity clientEntity)
+            throws IllegalArgumentException {
+
+        boolean bkVip = courseClientEntity.getBkVip();
+        boolean bkMat = courseClientEntity.getBkMat();
+
+        //courseClientEntity.setClient(clientEntity);
+        // courseClientEntity.setCourse(courseEntity);
+        courseClientEntity.setBkVip(bkVip);
+        courseClientEntity.setBkMat(bkMat);
+
+        courseClientRepository.save(courseClientEntity);
 
     }
 }

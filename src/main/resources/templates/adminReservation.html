@@ -46,16 +46,17 @@
             </li>
         </ul>
     </div>
+
+    <form action="#" th:action="@{/adminReservation}" th:object="${modelCourseClient}" method="post">
  <!----    Choix du client parmi liste  !-->
     <div class="list_client">
-        <strong><u> Client à inscrire</u> : </strong>
-
-
-
-
+        <label for="cli-select"> <strong><u> Client à inscrire</u> : </strong></label>
+            <select id="cli-select" th:field="*{client}" class="custom-select">
+                <option th:each="myCli : ${listClient}" th:value="${myCli.getCliId()}" th:text="${myCli.getCliLastname()}+' '+${myCli.getCliFirstname()}"></option>
+            </select>
     </div>
 
-    <form action="#" th:action="@{/reservation}" th:object="${modelCourseClient}" method="post">
+
         <div class="form-group">
             <label><strong>Prêt de matériel <span class="required-star">*</span></strong></label>
             <div class="row">
@@ -70,13 +71,13 @@
             </div>
         </div>
 
-        <div class="form-row" th:object="${modelCourse}">
-            <input type="hidden" th:field="*{crsId}">
+        <div class="form-row" th:object="${modelCourseClient}">
+            <input type="hidden" th:field="*{course}">
         </div>
-        <div class="form-row" th:object="${modelClient}">
-            <input type="hidden" th:field="*{cliId}">
-        </div>
-
+<!--       <div class="form-row" th:object="${modelClient}">
+            <input type="hidden" th:field="*{myCli.getCliId()}">
+          </div>
+!-->
         <button type="submit" class="btn btn-primary">Valider</button>
         <button type="button" class="btn btn-secondary">Annuler</button>
     </form>

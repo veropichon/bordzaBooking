@@ -79,19 +79,4 @@ public class CourseService {
         log.info("Booking : " + courseClientEntity.toString());
 
     }
-
-    public void saveCourseClient(CourseClientEntity courseClientEntity, CourseEntity courseEntity, ClientEntity clientEntity)
-            throws IllegalArgumentException {
-
-        boolean bkVip = courseClientEntity.getBkVip();
-        boolean bkMat = courseClientEntity.getBkMat();
-
-        courseClientEntity.setClient(clientEntity);
-        courseClientEntity.setCourse(courseEntity);
-        courseClientEntity.setBkVip(bkVip);
-        courseClientEntity.setBkMat(bkMat);
-
-        courseClientRepository.save(courseClientEntity);
-
-    }
 }
