@@ -1,8 +1,16 @@
 <!DOCTYPE html>
-
-<html xmlns:th="http://www.w3.org/1999/xhtml">
-<head><title>test</title></head>
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
+</head>
 <body>
+
+<header th:include="fragments/general.html::headerClient(myPageTitle=${pageTitle})"></header>
+
+<div class="contenu">
 <h2 th:text="${message}"></h2>
 <h1>Login</h1>
 <form name='f' action="login" method='POST'>
@@ -10,6 +18,7 @@
         <tr>
             <td>User:</td>
             <td><input type='text' name='username' value=''></td>
+
         </tr>
         <tr>
             <td>Password:</td>
@@ -26,5 +35,7 @@
         </div>
     </div>
 </form>
+</div>
+<footer th:include="fragments/general.html::footerClient"></footer>
 </body>
 </html>

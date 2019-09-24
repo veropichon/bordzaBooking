@@ -55,7 +55,6 @@ public class AdminValidationController {
             List<ClientEntity> clients = booking.getCourse()
                     .getCourseClients()
                     .stream()
-                    .filter(b -> FALSE.equals(b.getBkValidated())) //also not validated yet
                     .map(b -> b.getClient())
                     .collect(Collectors.toList());
 

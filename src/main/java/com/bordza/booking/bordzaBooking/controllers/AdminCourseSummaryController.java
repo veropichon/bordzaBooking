@@ -2,7 +2,7 @@ package com.bordza.booking.bordzaBooking.controllers;
 
 import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.*;
-import com.bordza.booking.bordzaBooking.services.AdminCourseService;
+import com.bordza.booking.bordzaBooking.services.CourseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +44,13 @@ public class AdminCourseSummaryController {
     CourseClientRepository courseClientRepository;
 
     @Autowired
-    AdminCourseService adminCourseService;
+    CourseService courseService;
 
     private static final Logger log = LoggerFactory.getLogger("log AdminCourseSummaryController");
 
 
     @GetMapping("/adminSummary")
-    public String summary(Model model, @RequestParam Long courseId) {
-
+    public String summary(Model model) {
 
         CourseEntity course = courseRepository.findById(courseId).get();
         model.addAttribute("modelCourse", course);
@@ -104,13 +103,20 @@ public class AdminCourseSummaryController {
         List<ClientEntity> clientsList = clientRepository.findAll();
         //List<ClientEntity> clientsList = clientRepository.findAllOrderByCliLastnameDesc();
         model.addAttribute("listClient", clientsList);
-
         CourseEntity course = courseRepository.findById(courseId).get();
         model.addAttribute("modelCourse", course);
 
         courseClientEntity = new CourseClientEntity();
         courseClientEntity.defaultValue(courseClientEntity);
         model.addAttribute("modelCourseClient", courseClientEntity);
+
+        // TODO récupérer l'ID client courant (cookie)
+        // Pour l'instant : on suppose que le client est connecté et que c'est le client avec cliId = 2
+        //ClientEntity client = clientRepository.findById(2L).get();
+        //model.addAttribute("modelClient", client);
+
+        //.addAttribute("modelLocation", new LocationEntity());
+        //model.addAttribute("modelDiscipline", new DisciplineEntity());
 
         model.addAttribute("pageTitle", "Réservation cours");
 
@@ -121,17 +127,17 @@ public class AdminCourseSummaryController {
     @PostMapping("/adminReservation")
     public String saveBooking(@ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
                               @ModelAttribute("modelCourse") CourseEntity courseEntity,
-                              @ModelAttribute("modelClient") ClientEntity clientEntity,
 
                               BindingResult result, ModelMap model) throws MessagingException {
 
         try {
-
-            log.info("cliId : " + courseClientEntity.getCourse());
+            log.info("cliId : " + courseClientEntity.getClient().getCliId());
             log.info("coursId : " + courseEntity.getCrsId());
-            courseClientEntity.defaultValue(courseClientEntity);
 
-            adminCourseService.saveCourseClient(courseClientEntity, courseEntity, clientEntity);
+            courseClientEntity.defaultValue(courseClientEntity);
+            courseClientEntity.setCourse(courseEntity);
+            // client is already populated
+            courseClientRepository.save(courseClientEntity);
 
             // envoi de l'email au client
          /*   Long current_CliId = clientEntity.getCliId();
