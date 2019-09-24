@@ -152,7 +152,9 @@
                 <li class="nav-item">
                     <a th:href="@{/adminWaiting}" class="nav-link">
                         <i class="fa fa-fw fa-star"></i>
-                        <span th:text="'Validations en cours (' + ${myBookingToValid} + ')'"></span>
+                        <span th:if="${myBookingToValid} != null" th:text="'Validations en cours (' + ${myBookingToValid} + ')'"></span>
+                        <span th:if="${myBookingToValid} == null" th:text="'Validations en cours (0)'"></span>
+
                         <!--Validations en attente!-->
                     </a>
                 </li>
