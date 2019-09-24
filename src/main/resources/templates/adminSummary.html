@@ -9,15 +9,16 @@
 
 <body>
 
-<header th:include="fragments/general.html::headerAdmin(myPageTitle=${pageTitle})"></header>
+<header th:include="fragments/general.html::headerAdmin( myPageTitle=${pageTitle} , myBookingToValid=${bookingToValid} )"></header>
 
 
 <div class="contenu">
+
     <form action="#" th:action="@{/adminSummary}" th:object="${modelCourse}" method="post">
 
         <div class="summary">
             <div class="info_cours">
-                <table >
+                <table>
                     <tr>
                         <td class="info_date">Date du cours</td>
                         <td>:</td>
@@ -62,59 +63,230 @@
                     </tr>
                 </table>
             </div>
-            <button type="submit" class="btn btn-primary bordza_green pull-right">Modifier</button>
+            <button type="submit" class="btn btn-primary bordza_green pull-right" th:href="@{'/adminPublishCourse?courseId='+ ${modelCourse.crsId}+'&ori='+2}">Modidier</button>
+     <!--      th:onclick="'window.location.href=\"+@{"'/adminPublishCourse?courseId='"+ ${modelCourse.course.crsId}+'&ori='+2'">Modifier</button>
+            >Modifier</button>  !-->
         </div>
         <hr>
-        <table class="table table-hover" th:object="${modelCourse}">
-            <thead class="thead-dark">
-            <tr>
-                <th>Nom</th>
-                <th>Age</th>
-                <th>Niveau</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody class="list_client" >
-            <tr th:each="myBooking : ${courseClientsList}">
-                <td th:utext="${myBooking.client.cliLastname}+' '+${myBooking.client.cliFirstname}">...</td>
-                <td th:utext="${myBooking.client.cliBirthdate}">...</td>
-                 <!--- afficher toujours le niveau du client ????   !-->
-                <td th:utext="${modelCourse.level.levCourseLabel}"></td>
+        <div class="summary" th:if="${nbvalidation} > 0">
+            <table class="table table-hover" th:object="${modelCourse}">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Nom</th>
+                    <th>Age</th>
+                    <th>Niveau</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody class="list_client">
+                <tr th:each="myBooking : ${courseClientsList}">
+                    <td th:utext="${myBooking.client.cliLastname}+' '+${myBooking.client.cliFirstname}">...</td>
+                    <td th:utext="${myBooking.client.cliBirthdate}">...</td>
+                    <!--- afficher toujours le niveau du client ????   !-->
+                    <td th:utext="${modelCourse.level.levCourseLabel}"></td>
 
-                <!-- afficher le profil client !-->
-                <td><a href="#">
-                    <i class="fa fa-w fa-search icon_validation "> </i></a>
-                </td>
+                    <!-- afficher le profil client !-->
 
-                <!-- modifier sur href validation cours  !-->
-                <!---  tester si cours validé ===> icone vert + bloqué  !-->
-                <td><a href="#">
-                    <i class="fa fa-w fa-check-circle-o icon_validation"> </i></a>
-                </td>
+                    <td><a href="#">
+                        <i class="fa fa-w fa-search icon_validation " data-toggle="modal" data-target="#myModal"
+                           th:attr="data-target='#myModal'+${myBooking.client.cliId}"></i>
+                        <!-- modal Infos Client  !-->
 
-                <!-- modifier sur href suppression proposition cours !-->
+                        <div class="modal fade" th:id="myModal+${myBooking.client.cliId}" role="dialog" style="overflow-y:hidden;">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel">Fiche client</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row center">
+                                            <div class="col-8">
+                                                <table>
+                                                    <tr>
+                                                        <td class="course_summary_td_left">Identité</td>
+                                                        <td>:</td>
+                                                        <td class="course_summary_td_right"
+                                                            th:utext="${myBooking.client.cliFirstname} + ' ' + ${myBooking.client.cliLastname}"></td>
+                                                    </tr>
+                                                    <tr>
 
-                <td><a href="#">
-                    <i class="fa fa-w fa-trash icon_validation"> </i></a>
-                </td>
-            </tr>
+                                                        <td class="course_summary_td_left">Email</td>
+                                                        <td>:</td>
+                                                        <td class="course_summary_td_right"><a
+                                                                th:href="'mailto:' + ${myBooking.client.user.usrEmail}"
+                                                                th:utext="${myBooking.client.user.usrEmail}"> </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="course_summary_td_left">Téléphone</td>
+                                                        <td>:</td>
+                                                        <td class="course_summary_td_right"
+                                                            th:utext="${myBooking.client.cliPhone}">< text-decoration: underline;/td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="course_summary_td_left">Ville</td>
+                                                        <td>:</td>
+                                                        <td class="course_summary_td_right"
+                                                            th:utext="${myBooking.client.cliCity}"></td>
+                                                    </tr>
 
-            <hr>
+                                                </table>
+                                                <table>
+                                                    <tr>
+                                                        <td class="course_summary_td_left">Age</td>
+                                                        <td>:</td>
+                                                        <td class="course_summary_td_right" id=clientAge><script>age("${myBooking.client.cliBirthdate}")</script> ans</td>
+                                            <!--                th:utext="${clientAge}"></td>      !-->
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="course_summary_td_left">Taille</td>
+                                                        <td>:</td>
+                                                        <td class="course_summary_td_right"
+                                                            th:utext="${myBooking.client.cliHeight}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="course_summary_td_left">Poids</td>
+                                                        <td>:</td>
+                                                        <td class="course_summary_td_right"
+                                                            th:utext="${myBooking.client.cliWeight}"></td>
+                                                    </tr>
+                                                </table>
+                                                <!---
+                                                        <div th:if="${clientAge} < 18">
 
-            </tbody>
-        </table>
+                                                                <hr>
+                                                                <table>
+                                                                    <tr>
+                                                                        <th class="course_summary_td_left">Tuteur</th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="course_summary_td_left">Identité</td>
+                                                                        <td>:</td>
+                                                                        <td class="course_summary_td_right"
+                                                                            th:utext="${myBooking.client.cliTutorFirstname} + ' ' + ${myBooking.client.cliTutorLastname}"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="course_summary_td_left>Email</td>
+                                                                        <td>:</td>
+                                                                        <td class="course_summary_td_right"><a th:href="'mailto:' + ${myBooking.client.cliTutorEmail}"
+                                                                                                               th:utext="${myBooking.client.cliTutorEmail}"> </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="course_summary_td_left">Téléphone</td>
+                                                                        <td>:</td>
+                                                                        <td class="course_summary_td_right" th:utext="${myBooking.client.cliTutorPhone}"></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                               !-->
+                                                <table>
+                                                    <tr>
+                                                        <td class="course_summary_td_left">Blessures</td>
+                                                        <td>:</td>
+                                                        <td class="course_summary_td_right"
+                                                            th:utext="${myBooking.client.cliComment}"></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
 
-        <button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button>
+                                                <!---- TODO afficher l'image en grand ---------!-->
+
+                                                <div class="col-2 ">
+                                                    <img th:src="${myBooking.client.cliUrlPicture}"
+                                                         th:alt="${myBooking.client.cliUrlPicture}" class="bordza_input_picture">
+                                                </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    </td>
+
+                    <!-- modifier sur href validation cours  !-->
+                    <!---  tester si cours validé ===> icone vert + bloqué  !-->
+
+                    <td>
+                    <span th:if="${myBooking.bkValidated} == false ">
+                  <a th:href="@{'/adminSummaryValidation?bookingId='+ ${myBooking.bkId}}">
+                     <i class="fa fa-w fa-check-circle-o icon_validation "> </i></a></span>
+                        <span th:if="${myBooking.bkValidated} == true ">
+                  <a href="#">
+                      <i class="fa fa-w fa-check-circle icon_validation_green"> </i></a></span>
+
+                    </td>
+                    <!--         <td><a href="#">
+                                 <i class="fa fa-w fa-check-circle-o icon_validation"> </i></a>
+                            </td>
+                            !-->
+
+                    <!-- modifier sur href suppression proposition cours !-->
+
+                    <td><a th:href="@{'/adminSummaryDelete?bookingId='+ ${myBooking.bkId}}">
+                        <i class="fa fa-w fa-trash icon_validation"> </i></a>
+                    </td>
+                </tr>
+
+                <hr>
+
+                </tbody>
+            </table>
+
+            <button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button>
+            <!--        th:onclick="'window.location.href = \'' + @{/adminReservation} + '\''"  !-->
+        </div>
     </form>
+</div>
+</div>
+
+<div class="list_message box_text bordza_center" th:if="${nbvalidation} == 0">
+    <strong th:text="${information}"></strong>
+
+</div>
+
 
 </div>
 
 <footer th:include="fragments/general.html::footerClient"></footer>
 
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    document.getElementById("birthdate").onchange = function () {
+        cliAge(document.getElementById("birthdate").value);
+    };
+
+    if (document.getElementById("deletebtn")) {
+        document.getElementById("deletebtn").onclick = function () {
+            //actionForm(document.getElementById("deletebtn").value);
+            document.getElementById('form1').action = "/deletePicture";
+            document.getElementById('form1').submit();
+        };
+    }
+    /*]]>*/
+</script>
+
+<script src="/js/functions.js"></script>
+<!--<script src="/js/pictureUpload.js"></script>!-->
+
 <!--
-<script>
+<script th:inline="javascript">
 function age(birthday)
 {
 birthday = new Date(birthday);

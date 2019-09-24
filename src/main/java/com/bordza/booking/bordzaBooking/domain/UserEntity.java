@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +20,8 @@ public class UserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long usrId;
 
-    @Column(nullable = false, length = 50)
+    @Email
+    @Column(nullable = false, length = 50, unique = true)
     private String usrEmail;
 
     @Column(nullable = false, length = 50)
@@ -27,6 +29,9 @@ public class UserEntity implements UserDetails {
 
     @Column(nullable = false, length = 20)
     private String role;
+
+    @Column(nullable = false)
+    private Boolean usrValidated;
 
     /**
      * Display Default values
@@ -37,6 +42,11 @@ public class UserEntity implements UserDetails {
         if(userEntity.role == null){
             userEntity.role = "CLIENT";
         }
+
+        if (userEntity.usrValidated == null) {
+            userEntity.usrValidated = false;
+        }
+
         return userEntity;
     }
 

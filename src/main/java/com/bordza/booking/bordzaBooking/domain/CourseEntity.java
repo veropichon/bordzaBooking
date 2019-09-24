@@ -48,8 +48,13 @@ public class CourseEntity {
     private LocalDateTime crsToDate;
 
     private String crsTitle;
+
     private String crsDesc;
+
     private String crsComment;
+
+    // Id de type "ClientIdService"
+    private Long crsCreatorId;
 
     @Column(nullable = false)
     private Boolean crsPublished;

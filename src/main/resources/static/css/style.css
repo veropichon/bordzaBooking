@@ -14,12 +14,6 @@ body {
     background-color: #44a194;
 }
 
-/*table, td {
-    border: 1px solid;
-    border-collapse: collapse;
-    padding: 5px;
-}*/
-
 h1, #textBordza {
     text-align: center;
     font-family: 'Shadows Into Light', cursive;
@@ -45,6 +39,12 @@ a {
 }
 .collapse{
     background-color: #242424;
+}
+
+
+.bordza_error{
+    color: orangered;
+    font-weight: bold;
 }
 /*-------------------- HEADER -----------------*/
 
@@ -181,6 +181,11 @@ input#fromTimeHour, input#fromTimeMinutes {
 .icon_validation{
      font-size: 30px;
  }
+.icon_validation_green{
+    font-size: 30px;
+    color: #8fdf82;
+}
+
 .hr{
     color: black;
 }
@@ -237,3 +242,11 @@ input#fromTimeHour, input#fromTimeMinutes {
     width: 300px;
 
 }
+
+/*--------------------------  admin  récapitulatif cours  ---------*/
+.modal-content{
+    background-color: grey;
+    color: white;
+}
+
+/*-------------------------- liste des cours  ---------*/

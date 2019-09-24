@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
+</head>
+
+<body>
+
+<header th:include="fragments/general.html::headerAdmin(myPageTitle=${pageTitle})"></header>
+<div class="contenu">
+    <div class="list_cli" th:if="${nbcours} > 0">
+
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>Date et Heure</th>
+                <th>Discipline</th>
+                <th>Niveau</th>
+                <th>Lieu</th>
+                <th>Date du jour</th>
+            </tr>
+            </thead>
+            <tbody class="list_validation">
+
+            <tr th:each="booking : ${courseClientsList}">
+                <td>
+                    <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(booking.course.getCrsFromDate()))}"></span>
+                    <span th:utext="${#temporals.day(booking.course.getCrsFromDate())}"></span>
+                    <span th:utext="${#temporals.monthName(booking.course.getCrsFromDate())}"></span>
+                    <span th:text="${#temporals.year(booking.course.getCrsFromDate())}"></span>
+                    <span th:utext="${#temporals.format(booking.course.getCrsFromDate(), 'HH:mm')}"></span>
+                    - <span
+                        th:utext="${#temporals.format(booking.course.getCrsToDate(), 'HH:mm')}"></span>
+                </td>
+                <td> <span th:utext="${booking.course.discipline.disLabel}"></span>  </td>
+                <td><span th:utext="${booking.course.level.levCourseLabel}"></span></td>
+                <td><span th:utext="${booking.course.location.locLabel}"></span></td>
+                <td><span th:utext="${todaysdate}"></span></td>
+            </tr>
+            <hr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="list_message box_text bordza_center" th:if="${nbcours} == 0">
+        <strong th:text="${information}"></strong>
+
+    </div>
+
+
+</div>
+
+<footer th:include="fragments/general.html::footerClient"></footer>
+
+</body>
+</html></html>

@@ -45,12 +45,8 @@ public class CourseService {
      * @throws IllegalArgumentException
      */
 
+    /* CREATION D'UN COURS */
     public void saveCourse(CourseEntity courseEntity, ClientEntity clientEntity, CourseClientEntity courseClientEntity, SomeBean someBean) throws IllegalArgumentException, MessagingException {
-
-        // String crsComment = courseEntity.getCrsComment();
-        // boolean crsDeleted = courseEntity.getCrsDeleted();
-        // String crsDesc = courseEntity.getCrsDesc();
-        // boolean crsPublished = courseEntity.getCrsPublished();
 
         boolean crsUnavailable = courseEntity.getCrsUnavailable();
         boolean crsVip = courseEntity.getCrsVip();
@@ -59,7 +55,6 @@ public class CourseService {
         Long crsLocId = courseEntity.getLocation().getLocId();
 
         // FromDate = FromDate par défaut avec l'heure saisie
-        // LocalDateTime crsFromDate = LocalDateTime.of(courseEntity.getCrsFromDate().getYear(), courseEntity.getCrsFromDate().getMonth(), courseEntity.getCrsFromDate().getDayOfMonth(), someBean.getFromTime().getHour(), someBean.getFromTime().getMinute());
         LocalDateTime crsFromDate = LocalDateTime.of(courseEntity.getCrsFromDate().getYear(), courseEntity.getCrsFromDate().getMonth(), courseEntity.getCrsFromDate().getDayOfMonth(), someBean.getFromTimeHour(), someBean.getFromTimeMinutes());
 
         // ToDate construit à partir de fromDate et Durée
@@ -78,7 +73,6 @@ public class CourseService {
 
         courseClientEntity.setCourse(courseEntity);
         courseClientEntity.setClient(clientEntity);
-
         courseClientRepository.save(courseClientEntity);
 
         log.info("Cours : " + courseEntity.toString());

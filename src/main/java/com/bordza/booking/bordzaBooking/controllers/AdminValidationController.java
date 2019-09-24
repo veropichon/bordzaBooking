@@ -43,7 +43,7 @@ public class AdminValidationController {
     @Autowired
     CourseService courseService;
 
-    private static final Logger log = LoggerFactory.getLogger("log ValidationController");
+    private static final Logger log = LoggerFactory.getLogger("log AdminValidationController");
 
     @GetMapping("/adminWaiting")
     public String validation(Model model) {
@@ -76,7 +76,7 @@ public class AdminValidationController {
 
         model.addAttribute("bookingsAndClients" , bookingsToClients);
 
-/*
+        /*
         CourseClientEntity courseClientEntity = new CourseClientEntity();
         courseClientEntity.defaultValue(courseClientEntity);
         model.addAttribute("modelCourseClient", courseClientEntity);
@@ -90,10 +90,11 @@ public class AdminValidationController {
 
         String message = "Validations en attente (" + courseClientsList.size() + ")";
         model.addAttribute("pageTitle", message);
+        model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
 
         return "adminWaiting";
     }
-
+/*
     @GetMapping("/adminSummary")
     public String summary(Model model) {
 
@@ -107,7 +108,7 @@ public class AdminValidationController {
 
         return "adminSummary";
     }
-
+*/
     @RequestMapping("/adminValidation")
     public String validationBooking (Model model, @RequestParam Long bookingId) {
      //   log.info("bookingId : " + bookingId);
