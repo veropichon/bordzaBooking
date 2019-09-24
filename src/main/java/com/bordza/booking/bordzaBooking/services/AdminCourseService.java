@@ -73,7 +73,7 @@ public class AdminCourseService {
 
         log.info("Cours creator id: " + inputCourseEntity.getCrsCreatorId());
 
-        // si le cours est publié et qu'il n'y a qu'un participant => inscrire automatiquement le participant
+        // si le cours est publié et que le créateur n'est pas l'admin => inscrire automatiquement le créateur
         boolean isPublished = courseEntity.getCrsPublished();
         Long creatorId = courseEntity.getCrsCreatorId();
         ClientEntity clientEntity = clientRepository.findByCliId(creatorId);
@@ -83,6 +83,23 @@ public class AdminCourseService {
             courseClientEntity.setBkValidated(true);
             courseClientRepository.save(courseClientEntity);
         }
+
+    }
+
+    /* ENREGISTREMENT D'UN NOUVEAU COURS CREE PAR L'ADMIN */
+    public void saveCourse(CourseEntity courseEntity, SomeBean someBean) throws IllegalArgumentException {
+
+        // FromDate = FromDate par défaut avec l'heure saisie
+        LocalDateTime crsFromDate = LocalDateTime.of(courseEntity.getCrsFromDate().getYear(), courseEntity.getCrsFromDate().getMonth(), courseEntity.getCrsFromDate().getDayOfMonth(), someBean.getFromTimeHour(), someBean.getFromTimeMinutes());
+
+        // ToDate construit à partir de fromDate et Durée
+        Long crsDurId = courseEntity.getDuration().getDurId();
+        LocalDateTime crsToDate = crsFromDate.plusHours(crsDurId);
+
+        courseEntity.setCrsFromDate(crsFromDate);
+        courseEntity.setCrsToDate(crsToDate);
+        courseEntity.setCrsDeleted(false);
+        courseRepository.save(courseEntity);
 
     }
 }
