@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.springframework.org/tags/form">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}"></title>
+    <th:block th:include="fragments/general.html::headFiles"></th:block>
+</head>
+<body>
+<header th:include="fragments/general.html::headerAdmin( myPageTitle=${pageTitle} , myBookingToValid=${bookingToValid} )"></header>
+<div class="contenu" th:object="${modelCourse}">
+
+    <div class="list_cli" >  <!-- th:if=" ${nbcours} > 0" -->
+
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>Date et Heure</th>
+                <th>Discipline</th>
+                <th>Niveau</th>
+                <th>Lieu</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+            <tbody class="list_validation">
+
+            <tr th:each = "myCourse : ${adminNonPublishedCoursesList}">
+                <td>
+                    <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(myCourse.getCrsFromDate()))}"></span>
+                    <span th:utext="${#temporals.day(myCourse.getCrsFromDate())}"></span>
+                    <span th:utext="${#temporals.monthName(myCourse.getCrsFromDate())}"></span>
+                    <span th:text="${#temporals.year(myCourse.getCrsFromDate())}"></span>
+                    <span th:utext="${#temporals.format(myCourse.getCrsFromDate(), 'HH:mm')}"></span>
+                    - <span
+                        th:utext="${#temporals.format(myCourse.getCrsToDate(), 'HH:mm')}"></span>
+                </td>
+                <td><span th:utext="${myCourse.discipline.disLabel}"></span></td>
+                <td><span th:utext="${myCourse.level.levCourseLabel}"></span></td>
+                <td><span th:utext="${myCourse.location.locLabel}"></span></td>
+                <td align="center"><a th:href="@{'/adminPublishCourse?courseId='+ ${myCourse.crsId} + '&ori=3'}">
+                    <i class="fa fa-w fa-search icon_validation icon_validation" alt="Modifier"> </i></a>
+                </td>
+                <td align="center"><a th:href="@{'/adminDeleteCourse?courseId='+ ${myCourse.crsId}}">
+                    <i class="fa fa-w fa-trash icon_validation" alt="Supprimer"> </i></a>
+                </td>
+            </tr>
+            <hr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="list_message box_text bordza_center" th:if="${nbcours} == 0">
+        <strong th:text="${information}"></strong>
+
+    </div>
+
+</div>
+
+<footer th:include="fragments/general.html::footerClient"></footer>
+
+<script src="/js/functions.js"></script>
+
+</body>
+</html>

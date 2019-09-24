@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -155,8 +156,11 @@ public class AdminCourseController {
         if (someBean.getOrigine().equals("1") ) {
             url = "redirect:/adminWaiting";
             return url;
-        } else {
+        } else if (someBean.getOrigine().equals("2") ) {
             url = "redirect:/adminSummary?courseId=" + id;
+            return url;
+        } else {
+            url = "redirect:/adminCourseList";
             return url;
         }
     }
@@ -234,5 +238,52 @@ public class AdminCourseController {
 
         return "admincalendar";
 
+    }
+
+    // --------------------------------------------------------------------------------------------------------
+
+    // LISTE DES COURS CREES PAR L'ADMIN NON PUBLIES
+
+    @GetMapping("/adminCourseList")
+    public String adminCourseList(Model model) {
+
+        // Identification du visiteur
+        Long idConnected = idService.getClientId();
+        if (idConnected != -1) { return "redirect:/login"; }
+
+        // Liste des cours créés par l'admin et non publiés
+        List<CourseEntity> adminNonPublishedCoursesList = courseRepository.findByCrsCreatorIdEqualsAndCrsPublishedEquals(-1L,false);
+        log.info("nbre de cours : " + adminNonPublishedCoursesList.size());
+        model.addAttribute("nbcours", adminNonPublishedCoursesList.size());
+
+        //     Aucun cours à visualiser
+
+        if (adminNonPublishedCoursesList.size() == 0) {
+            String message = "Mes cours non publiés";
+            String message1 = "Aucun cours à publier";
+            model.addAttribute("pageTitle", message);
+            model.addAttribute("information", message1);
+            return "adminCourseList";
+        }
+        model.addAttribute("adminNonPublishedCoursesList" , adminNonPublishedCoursesList);
+        model.addAttribute("pageTitle", "Mes cours non publiés");
+        return "adminCourseList";
+    }
+
+    // --------------------------------------------------------------------------------------------------------
+
+    // SUPPRESSION D'UN COURS
+
+    @GetMapping("/adminDeleteCourse")
+    public String adminDeleteCourse(Model model, @RequestParam Long courseId) {
+
+        // Identification du visiteur
+        Long idConnected = idService.getClientId();
+        if (idConnected != -1) { return "redirect:/login"; }
+
+        CourseEntity courseEntity = courseRepository.findByCrsId(courseId);
+        adminCourseService.deleteCourse(courseEntity);
+
+        return "adminCourseList";
     }
 }
