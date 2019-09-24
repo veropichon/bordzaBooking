@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
             daysOfWeek: [ 6 ]
         }],
         dateClick: function(info) {
-            if (info.date > new Date().setHours(22, 0, 0, 0)){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {window.open("/newCourse?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"),"_self");}}
-            if (info.date < new Date().setHours(22, 0, 0, 0) && info.date > new Date()){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {alert("Si vous souhaitez creer un cours aujourd'hui merci de contacter le formateur au 06 ** ** ** **");}}
+            if (info.date > new Date().setHours(22, 0, 0, 0)){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {window.open("/AdminNewCourse?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"),"_self");}}
+            if (info.date < new Date().setHours(22, 0, 0, 0) && info.date > new Date()){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {window.open("/AdminNewCourse?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"),"_self");}}
         }
     });
 
