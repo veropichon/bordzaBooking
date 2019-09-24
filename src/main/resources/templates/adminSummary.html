@@ -14,7 +14,7 @@
 
 <div class="contenu">
 
-    <form action="#" th:action="@{/adminSummary}" th:object="${modelCourse}" method="post">
+
 
         <div class="summary">
             <div class="info_cours">
@@ -63,11 +63,12 @@
                     </tr>
                 </table>
             </div>
-            <button type="submit" class="btn btn-primary bordza_green pull-right" th:href="@{'/adminPublishCourse?courseId='+ ${modelCourse.crsId}+'&ori='+2}">Modidier</button>
+            <a th:href="@{'/adminPublishCourse?courseId='+ ${modelCourse.crsId}+'&ori='+2}"><button type="submit" class="btn btn-primary bordza_green pull-right">Modifier</button></a>
      <!--      th:onclick="'window.location.href=\"+@{"'/adminPublishCourse?courseId='"+ ${modelCourse.course.crsId}+'&ori='+2'">Modifier</button>
             >Modifier</button>  !-->
         </div>
         <hr>
+    <form action="#" th:action="@{/adminSummary}" th:object="${modelCourse}" method="post">
         <div class="summary" th:if="${nbvalidation} > 0">
             <table class="table table-hover" th:object="${modelCourse}">
                 <thead class="thead-dark">
@@ -230,10 +231,6 @@
                       <i class="fa fa-w fa-check-circle icon_validation_green"> </i></a></span>
 
                     </td>
-                    <!--         <td><a href="#">
-                                 <i class="fa fa-w fa-check-circle-o icon_validation"> </i></a>
-                            </td>
-                            !-->
 
                     <!-- modifier sur href suppression proposition cours !-->
 
@@ -246,11 +243,13 @@
 
                 </tbody>
             </table>
-
-            <button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button>
-            <!--        th:onclick="'window.location.href = \'' + @{/adminReservation} + '\''"  !-->
         </div>
     </form>
+
+            <a th:href="@{'/adminReservation?courseId='+ ${modelCourse.crsId}}"><button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button></a>
+        <!--    <button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button>  !-->
+            <!--        th:onclick="'window.location.href = \'' + @{/adminReservation} + '\''"  !-->
+
 </div>
 </div>
 
