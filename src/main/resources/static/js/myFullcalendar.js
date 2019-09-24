@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         eventClick: function(info) {
             info.jsEvent.preventDefault();
             if (info.event.end > new Date() && info.event.url !== "none") {
-                window.open(info.event.url);
+                window.open(info.event.url,"_self");
             }
         },
 

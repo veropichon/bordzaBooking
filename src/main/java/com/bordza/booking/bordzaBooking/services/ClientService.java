@@ -7,6 +7,9 @@ import com.bordza.booking.bordzaBooking.repositories.UserRepository;
 import com.bordza.booking.bordzaBooking.utils.ClientValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,6 +30,10 @@ public class ClientService {
 
     @Autowired
     StorageService storageService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     /**
      * Exception check when @POST from inscription form
      *
@@ -38,7 +45,7 @@ public class ClientService {
 
         clientValidator.clientValidator(clientEntity, userEntity);
 
-        log.info("role : " + userEntity.getRole());
+        userEntity.setUsrPwd(passwordEncoder.encode(userEntity.getUsrPwd()));
         userRepository.save(userEntity);
 
         String urlPicture = storageService.store(file, redirectAttributes, userEntity);

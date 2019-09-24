@@ -24,7 +24,7 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false, length = 50, unique = true)
     private String usrEmail;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 60)
     private String usrPwd;
 
     @Column(nullable = false, length = 20)

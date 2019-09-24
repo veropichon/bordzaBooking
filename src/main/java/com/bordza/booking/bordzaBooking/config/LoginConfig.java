@@ -11,7 +11,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -44,15 +46,14 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
         http.csrf()
                 .disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(new Http403ForbiddenEntryPoint() {
+                .authenticationEntryPoint(new UnauthorizedHandler() {
                 })
                 .and()
                 .authenticationProvider(getProvider())
                 .formLogin()
                 .loginProcessingUrl("/login")
                 .successHandler(new AuthentificationLoginSuccessHandler())
-                .failureHandler(new SimpleUrlAuthenticationFailureHandler())
-//                .failureForwardUrl("/login")
+                .failureHandler(new AuthentificationFailure())
                 .and()
                 .logout()
                 .logoutUrl("/logout")
@@ -62,14 +63,16 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/logout").permitAll()
-//                .antMatchers("/admin**").hasRole("ADMIN")
+                .antMatchers("/admin**").hasRole("ADMIN")
+                .antMatchers("/clientProfil").authenticated()
+                .antMatchers("/modifProfil").authenticated()
+                .antMatchers("/newCourse").authenticated()
+                .antMatchers("/reservation").authenticated()
+                .antMatchers("/courseSummary").authenticated()
+                .antMatchers("/reservationSummary").authenticated()
+                .antMatchers("/listCourses").authenticated()
                 .anyRequest().permitAll();
     }
-
-//    public void failureHandler(HttpServletResponse response) throws IOException, ServletException {
-//        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-//        response.sendRedirect("/login");
-//    }
 
     private class AuthentificationLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         @Override
@@ -92,8 +95,24 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
         public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
                                     Authentication authentication) throws IOException, ServletException {
             response.setStatus(HttpServletResponse.SC_OK);
-            response.sendRedirect("/login");
+            response.sendRedirect("/calendar");
 
+        }
+    }
+
+    private class AuthentificationFailure extends SimpleUrlAuthenticationFailureHandler {
+        @Override
+        public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+            response.sendRedirect("/login?error=wronglog");
+        }
+    }
+
+
+    private class UnauthorizedHandler extends Http403ForbiddenEntryPoint {
+        @Override
+        public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException arg2) throws IOException {
+
+            response.sendRedirect("/login?error=needlog");
         }
     }
 
@@ -102,6 +121,11 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
         AppAuthProvider provider = new AppAuthProvider();
         provider.setUserDetailsService(userDetailsService);
         return provider;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 
