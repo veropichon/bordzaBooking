@@ -12,4 +12,6 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
 
     public ClientEntity findByCliId(Long cliId);
 
+  //  public ClientEntity findAllOrderByCliLastnameDesc();
+
 }
