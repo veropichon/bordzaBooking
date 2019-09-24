@@ -38,6 +38,7 @@ public class ClientService {
 
         clientValidator.clientValidator(clientEntity, userEntity);
 
+        log.info("role : " + userEntity.getRole());
         userRepository.save(userEntity);
 
         String urlPicture = storageService.store(file, redirectAttributes, userEntity);

@@ -34,15 +34,13 @@ public class StorageService {
     }
 
     public String store(MultipartFile file,
-                        //@RequestParam("file") MultipartFile file,
                         RedirectAttributes redirectAttributes,
                         UserEntity userEntity) {
 
-        /*if (file.isEmpty()) {
+        if (file.isEmpty()) {
             log.info("Storage : file Empty");
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
             return null;
-        }*/
+        }
 
         try {
 
@@ -64,10 +62,8 @@ public class StorageService {
 
             log.info("Storage : " + internalPicturesPath.toString());
 
-            return file.getOriginalFilename();
             //return path.toString();
-
-            //redirectAttributes.addFlashAttribute("message", "You successfully uploaded '" + file.getOriginalFilename() + "'");
+            return file.getOriginalFilename();
 
         } catch (IOException e) {
 
