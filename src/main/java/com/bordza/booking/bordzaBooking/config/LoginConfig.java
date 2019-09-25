@@ -80,9 +80,9 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             response.setStatus(HttpServletResponse.SC_OK);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String role = auth.getAuthorities().toString();
-            if(role.contains("CLIENT")) {
+            if (role.contains("CLIENT")) {
                 response.sendRedirect("/calendar");
-            } else if(role.contains("ADMIN")) {
+            } else if (role.contains("ADMIN")) {
                 response.sendRedirect("/admincalendar");
             }
         }

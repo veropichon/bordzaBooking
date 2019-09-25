@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 @Service
 public class EventService {
 
@@ -20,7 +19,7 @@ public class EventService {
 
     public List<Event> courseToEvent(List<CourseEntity> courseList) {
         List<Event> eventList = new ArrayList<>();
-        for(CourseEntity course : courseList) {
+        for (CourseEntity course : courseList) {
             if (course.getCrsPublished()) {
                 if (!course.getCrsVip() && !course.getCrsUnavailable()) {
                     if (course.getDiscipline().getDisId() == 1) {
@@ -30,7 +29,7 @@ public class EventService {
                         Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle(), "/reservation?courseId=" + course.getCrsId(), "#097C4D", "green", "black");
                         eventList.add(event);
                     } else if (course.getDiscipline().getDisId() == 3) {
-                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle(), "/reservation?courseId=" + course.getCrsId()   , "#36C098", "green", "black");
+                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle(), "/reservation?courseId=" + course.getCrsId(), "#36C098", "green", "black");
                         eventList.add(event);
                     }
                 } else if (course.getCrsVip() || course.getCrsUnavailable()) {

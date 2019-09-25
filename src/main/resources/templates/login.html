@@ -8,51 +8,38 @@
 </head>
 <body>
 
-<header th:include="fragments/general.html::headerClient(myPageTitle='login')"></header>
+<header th:include="fragments/general.html::headerClient(myPageTitle='Login')"></header>
 
 <div class="contenu">
-<h2 th:text="${error}"></h2>
+    <div class="bordza_login_contenu">
+        <p th:text="${error}" class="bordza_error"></p>
+        <form name='f' action="login" method='POST'>
+            <div class="form-group row">
+                <label for="username" class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="username" name='username' placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-sm-4 col-form-label">Mot de passe</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" id="password" name='password'
+                           placeholder="Mot de passe">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-4">
+                    <input name="submit" type="submit" value="submit"/>
+                </div>
+                <div class="col-sm-4">
+                    <a href="/inscription">S'inscrire</a>
+                </div>
+            </div>
+        </form>
 
-<h1>Login</h1>
-<form name='f' action="login" method='POST'>
-    <table>
-        <tr>
-            <td>User:</td>
-            <td><input type='text' name='username' value=''></td>
-
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password' /></td>
-        </tr>
-        <tr>
-            <td><input name="submit" type="submit" value="submit" /></td>
-        </tr>
-    </table>
-    <hr>
-    <div class="row">
-        <div class="col">
-            <a href="/inscription">S'inscrire</a>
-        </div>
     </div>
-</form>
-
-    <form>
-        <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-            </div>
-        </div>
-    </form>
-
-
 </div>
 <footer th:include="fragments/general.html::footerClient"></footer>
 </body>
