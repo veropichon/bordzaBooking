@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title th:text="${pageTitle}"></title>
     <th:block th:include="fragments/general.html::headFiles"></th:block>
+    <script src="/js/functions.js"></script>
 </head>
 
 <body>
@@ -81,7 +82,22 @@
                 <tbody class="list_client">
                 <tr th:each="myBooking : ${courseClientsList}">
                     <td th:utext="${myBooking.client.cliLastname}+' '+${myBooking.client.cliFirstname}">...</td>
-                    <td th:utext="${myBooking.client.cliBirthdate}">...</td>
+                    <td th:id="'birthdate' + ${myBooking.client.cliId}"></td>
+
+
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+
+                        var input_date = /*[[${myBooking.client.cliBirthdate}]]*/ 1234 - 11 - 04;
+                        var client_id = /*[[${myBooking.client.cliId}]]*/ 5;
+                        var age = cliAgeValidate(input_date, client_id);
+
+                        /*]]>*/
+                    </script>
+
+
+
+
                     <!--- afficher toujours le niveau du client ????   !-->
                     <td th:utext="${modelCourse.level.levCourseLabel}"></td>
                     <!-- afficher le profil client !-->
@@ -214,8 +230,6 @@
 </div>
 
 <footer th:include="fragments/general.html::footerClient"></footer>
-
-<script src="/js/functions.js"></script>
 
 </body>
 </html>
