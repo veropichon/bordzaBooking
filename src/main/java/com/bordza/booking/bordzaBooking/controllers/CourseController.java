@@ -278,7 +278,7 @@ public class CourseController {
         ClientEntity clientEntity = clientRepository.findById(idConnected).get();
         // model.addAttribute("modelClient", client);
 
-        List<CourseClientEntity> courseClientsList = courseClientRepository.findAllByClientCliIdOrderByCourseCrsFromDateDesc(clientEntity.getCliId());
+        List<CourseClientEntity> courseClientsList = courseClientRepository.findAllByClientCliIdAndBkValidated(clientEntity.getCliId(), true);
         log.info("taille liste : " + courseClientsList.size());
         model.addAttribute("nbcours", courseClientsList.size());
 
