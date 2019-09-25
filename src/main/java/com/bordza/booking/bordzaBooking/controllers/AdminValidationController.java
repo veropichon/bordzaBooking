@@ -93,21 +93,7 @@ public class AdminValidationController {
 
         return "adminWaiting";
     }
-/*
-    @GetMapping("/adminSummary")
-    public String summary(Model model) {
 
-        CourseEntity course = courseRepository.findById(1L).get();
-        model.addAttribute("modelCourse", course);
-    //  A revoir
-        log.info("id course : " + course.getCrsId());
-        List<CourseClientEntity> courseClientsList = courseClientRepository.findAllByBkId(course.getCrsId());
-        model.addAttribute("courseClientsList" , courseClientsList);
-        model.addAttribute("pageTitle", "Récapitulatif");
-
-        return "adminSummary";
-    }
-*/
     @RequestMapping("/adminValidation")
     public String validationBooking (Model model, @RequestParam Long bookingId) {
      //   log.info("bookingId : " + bookingId);

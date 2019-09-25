@@ -68,8 +68,9 @@
             >Modifier</button>  !-->
         </div>
         <hr>
+    <div class="summary" th:if="${nbvalidation} > 0">
     <form action="#" th:action="@{/adminSummary}" th:object="${modelCourse}" method="post">
-        <div class="summary" th:if="${nbvalidation} > 0">
+
             <table class="table table-hover" th:object="${modelCourse}">
                 <thead class="thead-dark">
                 <tr>
@@ -243,13 +244,11 @@
 
                 </tbody>
             </table>
-        </div>
+
     </form>
 
-            <a th:href="@{'/adminReservation?courseId='+ ${modelCourse.crsId}}"><button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button></a>
-        <!--    <button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button>  !-->
-            <!--        th:onclick="'window.location.href = \'' + @{/adminReservation} + '\''"  !-->
-
+    <a th:href="@{'/adminReservation?courseId='+ ${modelCourse.crsId}}"><button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button></a>
+    </div>
 </div>
 </div>
 

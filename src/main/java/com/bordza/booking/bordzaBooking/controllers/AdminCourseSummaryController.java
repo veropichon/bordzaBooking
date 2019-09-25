@@ -3,6 +3,7 @@ package com.bordza.booking.bordzaBooking.controllers;
 import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.*;
 import com.bordza.booking.bordzaBooking.services.CourseService;
+import com.bordza.booking.bordzaBooking.services.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,9 @@ public class AdminCourseSummaryController {
     @Autowired
     CourseService courseService;
 
+    @Autowired
+    MailService mailService;
+
     private static final Logger log = LoggerFactory.getLogger("log AdminCourseSummaryController");
 
 
@@ -54,9 +58,7 @@ public class AdminCourseSummaryController {
 
         CourseEntity course = courseRepository.findById(courseId).get();
         model.addAttribute("modelCourse", course);
-        //  A revoir
-        log.info("id course : " + course.getCrsId());
-        //List<CourseClientEntity> courseClientsList = courseClientRepository.findAllByBkId(course.getCrsId());
+
         List<CourseClientEntity> courseClientsList = courseClientRepository.findAllByCourseCrsId(course.getCrsId());
         log.info("taille liste : " + courseClientsList.size());
         model.addAttribute("nbvalidation", courseClientsList.size());
@@ -65,7 +67,7 @@ public class AdminCourseSummaryController {
 
         if (courseClientsList.size() == 0) {
             String message = "Récapitulatif";
-            String message1 = "Toutes vos réservations sur ce cours sont supprimées";
+            String message1 = "Aucune réservation sur ce cours";
             model.addAttribute("pageTitle", message);
 
             model.addAttribute("information", message1);
@@ -76,24 +78,31 @@ public class AdminCourseSummaryController {
         return "adminSummary";
     }
 
+    // Validation d'un booking sur récapitulatif Cours admin
+
     @RequestMapping("/adminSummaryValidation")
     public String validationBooking(Model model, @RequestParam Long bookingId) {
-        //   log.info("bookingId : " + bookingId);
         CourseClientEntity courseClient = courseClientRepository.findById(bookingId).get();
         courseClient.setBkValidated(true);
+        Long courseId = courseClient.getCourse().getCrsId();
         courseClientRepository.save(courseClient);
 
-        return "redirect:/adminSummary";
+        return "redirect:/adminSummary?courseId="+ courseId;
     }
+
+    // Suppression d'un booking sur récapitulatif Cours admin
 
     @RequestMapping("/adminSummaryDelete")
     public String deleteBooking(Model model, @RequestParam Long bookingId) {
-        //  log.info("bookingId : " + bookingId);
         CourseClientEntity courseClient = courseClientRepository.findById(bookingId).get();
+        Long courseId = courseClient.getCourse().getCrsId();
         courseClientRepository.delete(courseClient);
-        return "redirect:/adminSummary";
+        log.info("id cours : " + courseId);
+        return "redirect:/adminSummary?courseId="+ courseId;
+
     }
 
+    //   Ajout d'un particpant à un cours existant Admin
     @RequestMapping("/adminReservation")
     public String createBooking(Model model,
                                 @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
@@ -101,7 +110,7 @@ public class AdminCourseSummaryController {
 
         //  Liste des clients
         List<ClientEntity> clientsList = clientRepository.findAll();
-        //List<ClientEntity> clientsList = clientRepository.findAllOrderByCliLastnameDesc();
+        //List<ClientEntity> clientsList = clientRepository.findAllByCliLastnameIsNotOrderByCliLastnameDesc(String );
         model.addAttribute("listClient", clientsList);
         CourseEntity course = courseRepository.findById(courseId).get();
         model.addAttribute("modelCourse", course);
@@ -136,40 +145,36 @@ public class AdminCourseSummaryController {
 
             courseClientEntity.defaultValue(courseClientEntity);
             courseClientEntity.setCourse(courseEntity);
+            courseClientEntity.setBkValidated(true);
             // client is already populated
             courseClientRepository.save(courseClientEntity);
 
             // envoi de l'email au client
-         /*   Long current_CliId = clientEntity.getCliId();
+            Long current_CliId = courseClientEntity.getClient().getCliId();
             String clientEmail = clientRepository.findById(current_CliId).get().getUser().getUsrEmail();
             String clientLastname = clientRepository.findById(current_CliId).get().getCliLastname();
             String clientFirstname = clientRepository.findById(current_CliId).get().getCliFirstname();
+
+            Long current_CrsId = courseClientEntity.getCourse().getCrsId();
+            String discipline = courseClientRepository.findById(current_CrsId).get().getCourse().getDiscipline().getDisLabel();
+            log.info("discipline : " + discipline);
+
             String subject = "Bordza - Votre demande d'inscription à un cours";
             String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
-            contents += "Votre demande d'inscription à un cours a bien été transmise.\nVous recevrez très prochainement un email une fois que nous l'aurons validée.\n\n";
+            contents += "Votre demande d'inscription à un cours de "+ discipline + " a bien été enregistrée.\n\n";
             contents += "L'équipe Bordza";
 
             MimeMessage msg = null;
             msg = mailService.buildEmail(clientEmail, subject, contents, false);
             mailService.sendEmail(msg);
 
-            // envoi de l'email à l'administrateur
-            String adminEmail = userRepository.findUserEntityByRoleIs("ADMIN").getUsrEmail();
-            subject = "Demande d'inscription à un cours";
-            contents = "Bonjour,\n\n";
-            contents += "Une nouvelle demande d'inscription est à valider.\nDescriptif du cours...\n";
-            msg = mailService.buildEmail(adminEmail, subject, contents, false);
-            mailService.sendEmail(msg);
-
-          */
-
-            String url = "redirect:/adminSummary?bookingId=" + String.valueOf(courseClientEntity.getBkId());
+            String url = "redirect:/adminSummary?courseId=" +courseClientEntity.getCourse().getCrsId();
             return url;
 
 
         } catch (IllegalArgumentException e) {
 
-            return "Adminreservation";
+            return "AdminReservation";
         }
     }
 
