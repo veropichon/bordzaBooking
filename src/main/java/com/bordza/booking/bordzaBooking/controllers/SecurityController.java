@@ -19,7 +19,7 @@ public class SecurityController {
         if (error != null) {
             if (error.equals("needlog")) {
                 ModelAndView mav = new ModelAndView("login");
-                mav.addObject("error", "Veuillez vous connecter pour acceder a cette page");
+                mav.addObject("error", "Veuillez vous connecter pour accéder à cette page");
                 return mav;
             } else if (error.equals("wronglog")) {
                 ModelAndView mav = new ModelAndView("login");
