@@ -5,73 +5,72 @@
     <meta charset="UTF-8">
     <title th:text="${pageTitle}"></title>
     <th:block th:include="fragments/general.html::headFiles"></th:block>
-    <script src="/js/functions.js"></script>
-    <script src="/js/pictureUpload.js"></script>
-
 </head>
 
 <body>
 
 <header th:include="fragments/general.html::headerAdmin( myPageTitle=${pageTitle} , myBookingToValid=${bookingToValid} )"></header>
 
+
 <div class="contenu">
 
-    <form action="#" th:action="@{/adminSummary}" th:object="${modelCourse}" method="post">
 
-        <div class="summary">
-            <div class="info_cours">
-                <table>
-                    <tr>
-                        <td class="info_date">Date du cours</td>
-                        <td>:</td>
-                        <td class="bookingline">
-                            <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
-                            <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
-                            <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
-                            <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="info_hour">Horaires</td>
-                        <td>:</td>
-                        <td class="bookingline">
-                            de <span
-                                th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
-                            à <span
-                                th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="info_discipline">Discipline</td>
-                        <td>:</td>
-                        <td class="bookingline">
-                            <span th:utext="${modelCourse.discipline.disLabel}"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="info_level">Niveau</td>
-                        <td>:</td>
-                        <td class="bookingline">
-                            <span th:utext="${modelCourse.level.levCourseLabel}"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="info_location">Lieu souhaité</td>
-                        <td>:</td>
 
-                        <td class="bookingline">
-                            <span th:utext="${modelCourse.location.locLabel}"></span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <a th:href="@{'/adminPublishCourse?courseId='+ ${modelCourse.crsId}+'&ori='+2}"><button type="submit" class="btn btn-primary bordza_green pull-right">Modifier</button></a>
-     <!--      th:onclick="'window.location.href=\"+@{"'/adminPublishCourse?courseId='"+ ${modelCourse.course.crsId}+'&ori='+2'">Modifier</button>
-            >Modifier</button>  !-->
+    <div class="summary">
+        <div class="info_cours">
+            <table>
+                <tr>
+                    <td class="info_date">Date du cours</td>
+                    <td>:</td>
+                    <td class="bookingline">
+                        <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(modelCourse.getCrsFromDate()))}"></span>
+                        <span th:utext="${#temporals.day(modelCourse.getCrsFromDate())}"></span>
+                        <span th:utext="${#temporals.monthName(modelCourse.getCrsFromDate())}"></span>
+                        <span th:text="${#temporals.year(modelCourse.getCrsFromDate())}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_hour">Horaires</td>
+                    <td>:</td>
+                    <td class="bookingline">
+                        de <span
+                            th:utext="${#temporals.format(modelCourse.getCrsFromDate(), 'HH:mm')}"></span>
+                        à <span
+                            th:utext="${#temporals.format(modelCourse.getCrsToDate(), 'HH:mm')}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_discipline">Discipline</td>
+                    <td>:</td>
+                    <td class="bookingline">
+                        <span th:utext="${modelCourse.discipline.disLabel}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_level">Niveau</td>
+                    <td>:</td>
+                    <td class="bookingline">
+                        <span th:utext="${modelCourse.level.levCourseLabel}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="info_location">Lieu souhaité</td>
+                    <td>:</td>
+
+                    <td class="bookingline">
+                        <span th:utext="${modelCourse.location.locLabel}"></span>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <hr>
-    <form action="#" th:action="@{/adminSummary}" th:object="${modelCourse}" method="post">
-        <div class="summary" th:if="${nbvalidation} > 0">
+        <a th:href="@{'/adminPublishCourse?courseId='+ ${modelCourse.crsId}+'&ori='+2}"><button type="submit" class="btn btn-primary bordza_green pull-right">Modifier</button></a>
+        <!--      th:onclick="'window.location.href=\"+@{"'/adminPublishCourse?courseId='"+ ${modelCourse.course.crsId}+'&ori='+2'">Modifier</button>
+               >Modifier</button>  !-->
+    </div>
+    <hr>
+    <div class="summary" th:if="${nbvalidation} > 0">
+        <form action="#" th:action="@{/adminSummary}" th:object="${modelCourse}" method="post">
+
             <table class="table table-hover" th:object="${modelCourse}">
                 <thead class="thead-dark">
                 <tr>
@@ -142,7 +141,7 @@
                                                         <td class="course_summary_td_left">Age</td>
                                                         <td>:</td>
                                                         <td class="course_summary_td_right" id=clientAge><script>age("${myBooking.client.cliBirthdate}")</script> ans</td>
-                                            <!--                th:utext="${clientAge}"></td>      !-->
+                                                        <!--                th:utext="${clientAge}"></td>      !-->
                                                     </tr>
                                                     <tr>
                                                         <td class="course_summary_td_left">Taille</td>
@@ -198,12 +197,12 @@
                                                 </table>
                                             </div>
 
-                                                <!---- TODO afficher l'image en grand ---------!-->
+                                            <!---- TODO afficher l'image en grand ---------!-->
 
-                                                <div class="col-2 ">
-                                                    <img th:src="${myBooking.client.cliUrlPicture}"
-                                                         th:alt="${myBooking.client.cliUrlPicture}" class="bordza_input_picture">
-                                                </div>
+                                            <div class="col-2 ">
+                                                <img th:src="${myBooking.client.cliUrlPicture}"
+                                                     th:alt="${myBooking.client.cliUrlPicture}" class="bordza_input_picture">
+                                            </div>
 
                                         </div>
 
@@ -233,10 +232,6 @@
                       <i class="fa fa-w fa-check-circle icon_validation_green"> </i></a></span>
 
                     </td>
-                    <!--         <td><a href="#">
-                                 <i class="fa fa-w fa-check-circle-o icon_validation"> </i></a>
-                            </td>
-                            !-->
 
                     <!-- modifier sur href suppression proposition cours !-->
 
@@ -249,12 +244,11 @@
 
                 </tbody>
             </table>
-        </div>
-            <hr>
-        <a th:href="@{'/adminReservation?courseId='+ ${modelCourse.crsId}}"><button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button></a>
-        <!--        th:onclick="'window.location.href = \'' + @{/adminReservation} + '\''"  !-->
 
-    </form>
+        </form>
+    </div>
+        <a th:href="@{'/adminReservation?courseId='+ ${modelCourse.crsId}}"><button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button></a>
+
 </div>
 </div>
 
