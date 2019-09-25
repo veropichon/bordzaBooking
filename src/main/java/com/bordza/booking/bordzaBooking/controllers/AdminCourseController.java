@@ -216,6 +216,8 @@ public class AdminCourseController {
         model.addAttribute("someBean", someBean);
 
         model.addAttribute("pageTitle", "Création d'un cours");
+        model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
+
 
         return "adminNewCourse";
     }
@@ -264,10 +266,14 @@ public class AdminCourseController {
             String message1 = "Aucun cours à publier";
             model.addAttribute("pageTitle", message);
             model.addAttribute("information", message1);
+            model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
+
             return "adminCourseList";
         }
         model.addAttribute("adminNonPublishedCoursesList" , adminNonPublishedCoursesList);
         model.addAttribute("pageTitle", "Mes cours non publiés");
+        model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
+
         return "adminCourseList";
     }
 
