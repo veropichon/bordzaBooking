@@ -28,12 +28,12 @@ public class CourseRestController {
     DisciplineRepository disciplineRepository;
 
     @GetMapping("/api/allCourses")
-    public List<CourseClientEntity> showAllbooking(){
+    public List<CourseClientEntity> showAllbooking() {
         return courseClientRepository.findAll();
     }
 
     @GetMapping("/api/courses")
-    public List<CourseEntity> showAllCourses(){
+    public List<CourseEntity> showAllCourses() {
         return courseRepository.findAll();
     }
 

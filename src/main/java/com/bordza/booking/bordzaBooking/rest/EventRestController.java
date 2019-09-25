@@ -31,7 +31,7 @@ public class EventRestController {
 
     @RequestMapping("/courses")
     public List<Event> getCourses(@RequestParam(value = "start", required = true) String start,
-                                         @RequestParam(value = "end", required = true) String end) {
+                                  @RequestParam(value = "end", required = true) String end) {
 
         Date startDate = null;
         Date endDate = null;
