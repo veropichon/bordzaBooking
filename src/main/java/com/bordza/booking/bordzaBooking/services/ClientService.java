@@ -65,9 +65,10 @@ public class ClientService {
         ClientEntity clientEntity = clientRepository.findById(inputClientEntity.getCliId()).get();
         UserEntity userEntity = userRepository.findById(clientEntity.getUser().getUsrId()).get();
 
-
-        if (inputUserEntity.getUsrPwd() == "") {
+        if (inputUserEntity.getUsrPwd().equals("")) {
             inputUserEntity.setUsrPwd(userEntity.getUsrPwd());
+        } else {
+            inputUserEntity.setUsrPwd(passwordEncoder.encode(inputUserEntity.getUsrPwd()));
         }
 
         log.info("update urlPicture 1 : " + urlPicture);
