@@ -3,7 +3,6 @@ package com.bordza.booking.bordzaBooking.domain;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -13,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
-@Entity (name = "user")
+@Entity(name = "user")
 public class UserEntity implements UserDetails {
 
     @Id
@@ -35,11 +34,12 @@ public class UserEntity implements UserDetails {
 
     /**
      * Display Default values
+     *
      * @return user entity with default role
      */
     public static UserEntity defaultValue(UserEntity userEntity) {
 
-        if(userEntity.role == null || userEntity.role.isEmpty()){
+        if (userEntity.role == null || userEntity.role.isEmpty()) {
             userEntity.role = "CLIENT";
         }
 

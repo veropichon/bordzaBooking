@@ -9,8 +9,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.sql.SQLOutput;
-
 public class AppAuthProvider extends DaoAuthenticationProvider {
 
     @Autowired
@@ -31,12 +29,13 @@ public class AppAuthProvider extends DaoAuthenticationProvider {
 
         UserDetails user = userDetailsService.loadUserByUsername(name);
 
-        if (user == null || !passwordEncoder.matches(password,user.getPassword())) {
+        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Username/Password does not match for " + auth.getPrincipal());
         }
 
         return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
     }
+
     @Override
     public boolean supports(Class<?> authentication) {
         return true;

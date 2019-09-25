@@ -1,18 +1,20 @@
 package com.bordza.booking.bordzaBooking.rest;
 
 import com.bordza.booking.bordzaBooking.domain.CourseEntity;
-import com.bordza.booking.bordzaBooking.services.EventService;
 import com.bordza.booking.bordzaBooking.domain.Event;
 import com.bordza.booking.bordzaBooking.repositories.CourseRepository;
+import com.bordza.booking.bordzaBooking.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class EventRestController {
 
     @RequestMapping("/courses")
     public List<Event> getCourses(@RequestParam(value = "start", required = true) String start,
-                                         @RequestParam(value = "end", required = true) String end) {
+                                  @RequestParam(value = "end", required = true) String end) {
 
         Date startDate = null;
         Date endDate = null;

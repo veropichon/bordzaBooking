@@ -1,9 +1,7 @@
 package com.bordza.booking.bordzaBooking.rest;
 
-import com.bordza.booking.bordzaBooking.domain.ClientEntity;
 import com.bordza.booking.bordzaBooking.domain.CourseClientEntity;
 import com.bordza.booking.bordzaBooking.domain.CourseEntity;
-import com.bordza.booking.bordzaBooking.domain.DisciplineEntity;
 import com.bordza.booking.bordzaBooking.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +28,12 @@ public class CourseRestController {
     DisciplineRepository disciplineRepository;
 
     @GetMapping("/api/allCourses")
-    public List<CourseClientEntity> showAllbooking(){
+    public List<CourseClientEntity> showAllbooking() {
         return courseClientRepository.findAll();
     }
 
     @GetMapping("/api/courses")
-    public List<CourseEntity> showAllCourses(){
+    public List<CourseEntity> showAllCourses() {
         return courseRepository.findAll();
     }
 

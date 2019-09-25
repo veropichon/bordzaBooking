@@ -14,9 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -82,9 +80,9 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
             response.setStatus(HttpServletResponse.SC_OK);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String role = auth.getAuthorities().toString();
-            if(role.contains("CLIENT")) {
+            if (role.contains("CLIENT")) {
                 response.sendRedirect("/calendar");
-            } else if(role.contains("ADMIN")) {
+            } else if (role.contains("ADMIN")) {
                 response.sendRedirect("/admincalendar");
             }
         }

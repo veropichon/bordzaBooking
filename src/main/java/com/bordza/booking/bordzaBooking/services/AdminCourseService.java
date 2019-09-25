@@ -11,15 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import java.time.LocalDateTime;
-
-import com.bordza.booking.bordzaBooking.utils.SomeBean;
-import org.apache.commons.lang3.StringUtils;
-
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Slf4j
 @Service
@@ -84,7 +76,6 @@ public class AdminCourseService {
                 courseClientRepository.save(courseClientEntity);
             }
         }
-
 
 
     }
