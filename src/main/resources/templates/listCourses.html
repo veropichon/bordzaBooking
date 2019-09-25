@@ -19,7 +19,6 @@
                 <th>Discipline</th>
                 <th>Niveau</th>
                 <th>Lieu</th>
-                <th>Date du jour</th>
             </tr>
             </thead>
             <tbody class="list_validation">
@@ -37,7 +36,6 @@
                 <td> <span th:utext="${booking.course.discipline.disLabel}"></span>  </td>
                 <td><span th:utext="${booking.course.level.levCourseLabel}"></span></td>
                 <td><span th:utext="${booking.course.location.locLabel}"></span></td>
-                <td><span th:utext="${todaysdate}"></span></td>
             </tr>
             <hr>
             </tbody>
