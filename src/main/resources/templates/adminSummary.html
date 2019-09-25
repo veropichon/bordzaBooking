@@ -251,7 +251,7 @@
             </table>
         </div>
             <hr>
-            <button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button>
+        <a th:href="@{'/adminReservation?courseId='+ ${modelCourse.crsId}}"><button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button></a>
         <!--        th:onclick="'window.location.href = \'' + @{/adminReservation} + '\''"  !-->
 
     </form>
