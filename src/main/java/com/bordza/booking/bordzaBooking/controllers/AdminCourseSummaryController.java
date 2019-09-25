@@ -104,7 +104,7 @@ public class AdminCourseSummaryController {
 
     }
 
-    //   Ajout d'un particpant à un cours existant Admin
+    //   Ajout d'un participant à un cours existant Admin
     @RequestMapping("/adminReservation")
     public String createBooking(Model model,
                                 @ModelAttribute("modelCourseClient") CourseClientEntity courseClientEntity,
