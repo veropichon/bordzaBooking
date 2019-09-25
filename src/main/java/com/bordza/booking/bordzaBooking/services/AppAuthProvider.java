@@ -9,8 +9,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.sql.SQLOutput;
-
 public class AppAuthProvider extends DaoAuthenticationProvider {
 
     @Autowired

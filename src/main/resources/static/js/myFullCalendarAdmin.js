@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         eventClick: function(info) {
             info.jsEvent.preventDefault();
             if (info.event.url !== "none") {
-                window.open(info.event.url);
+                window.open(info.event.url , "_self");
             }
         },
 
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             daysOfWeek: [ 6 ]
         }],
         dateClick: function(info) {
-            if (info.date > new Date().setHours(22, 0, 0, 0)){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {window.open("/AdminNewCourse?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"),"_self");}}
+            if (info.date > new Date().setHours(22, 0, 0, 0)){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {window.open("/adminNewCourse?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"),"_self");}}
             if (info.date < new Date().setHours(22, 0, 0, 0) && info.date > new Date()){ if (info.view.type === "timeGridWeek" || info.view.type === "timeGridDay") {window.open("/AdminNewCourse?start=" + info.dateStr.slice(0, -6).replace(":", "%3A"),"_self");}}
         }
     });
