@@ -286,7 +286,7 @@ public class CourseController {
 
         if (courseClientsList.size() == 0) {
             String message = "Mes cours";
-            String message1 = "Aucune participaton aux cours";
+            String message1 = "Aucune participation aux cours";
             model.addAttribute("pageTitle", message);
             model.addAttribute("information", message1);
             return "listCourses";
