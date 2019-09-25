@@ -112,4 +112,10 @@ public class AdminCourseService {
         courseClientRepository.save(courseClientEntity);
 
     }
+
+    public void deleteCourse(CourseEntity courseEntity)
+            throws IllegalArgumentException {
+
+        courseRepository.delete(courseEntity);
+    }
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="/js/functions.js"></script>
     <meta charset="UTF-8"/>
     <title th:text="${pageTitle}"></title>
     <th:block th:include="fragments/general.html::headFiles"></th:block>
@@ -98,10 +99,21 @@
                                                 data-hover="dropdown" data-placement="top">
                             <span th:text="${bookingAndClients.booking.client.cliLastname}+' '+${bookingAndClients.booking.client.cliFirstname}"></span></a>
                             <ul class="dropdown-content list-unstyled">
-                                <li th:field="${bookingAndClients.booking.client.cliBirthdate}" id="birthdate">cliAge("${bookingAndClients.booking.client.cliBirthdate}")></li>
-                    <!--            <li th:text="${bookingAndClients.booking.client.cliBirthdate}"></li>  !-->
-                            </ul>
+                                <li th:field="${bookingAndClients.booking.client.cliBirthdate}"
+                                    th:id="'birthdate' + ${bookingAndClients.booking.client.cliId}">
 
+                                    <script th:inline="javascript">
+                                        /*<![CDATA[*/
+
+                                        var input_date = /*[[${bookingAndClients.booking.client.cliBirthdate}]]*/ 1234 - 11 - 04;
+                                        var client_id = /*[[${bookingAndClients.booking.client.cliId}]]*/ 5;
+                                        var age = cliAgeValidate(input_date, client_id);
+
+                                        /*]]>*/
+                                    </script>
+
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </td>
@@ -159,7 +171,6 @@
                 </td>
 
                 <td>
-
                     <span th:if="${bookingAndClients.booking.course.crsPublished} == false ">
             <!--         <a th:href="@{'/adminValidation?bookingId='+ ${bookingAndClients.booking.bkId}}">   !-->
                         <a th:href="@{'/adminPublishCourse?courseId='+ ${bookingAndClients.booking.course.crsId}+'&ori='+1}">

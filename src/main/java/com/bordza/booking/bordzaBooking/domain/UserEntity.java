@@ -38,12 +38,12 @@ public class UserEntity implements UserDetails {
      */
     public static UserEntity defaultValue(UserEntity userEntity) {
 
-        if(userEntity.role == null){
+        if(userEntity.role == null || userEntity.role.isEmpty()){
             userEntity.role = "CLIENT";
         }
 
         if (userEntity.usrValidated == null) {
-            userEntity.usrValidated = false;
+            userEntity.usrValidated = true;
         }
 
         return userEntity;

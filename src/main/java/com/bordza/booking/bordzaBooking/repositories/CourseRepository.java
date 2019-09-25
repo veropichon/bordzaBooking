@@ -14,4 +14,5 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
 
     public CourseEntity findByCrsId(Long id);
 
+    public List<CourseEntity> findByCrsCreatorIdEqualsAndCrsPublishedEquals(Long crsCreatorId, Boolean crsPublished);
 }

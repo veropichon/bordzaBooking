@@ -73,6 +73,8 @@ public class AdminCourseSummaryController {
         }
         model.addAttribute("courseClientsList", courseClientsList);
         model.addAttribute("pageTitle", "Récapitulatif");
+        model.addAttribute("bookingToValid", courseClientRepository.findAllByBkValidated(false).size());
+
         return "adminSummary";
     }
 
