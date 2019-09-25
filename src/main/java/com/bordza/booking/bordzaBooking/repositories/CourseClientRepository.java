@@ -20,4 +20,6 @@ public interface CourseClientRepository extends JpaRepository<CourseClientEntity
     List<CourseClientEntity> findAllByClientCliId(Long cliId);
 
     List<CourseClientEntity> findAllByClientCliIdOrderByCourseCrsFromDateDesc(Long cliId);
+
+    List<CourseClientEntity> findAllByClientCliIdAndBkValidated(Long cliId, boolean b);
 }
