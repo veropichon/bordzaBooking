@@ -14,16 +14,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Controller
 public class SecurityController {
 
-    @RequestMapping(value="/login", method=RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error) {
-        if (error.equals("needlog")) {
-            ModelAndView mav = new ModelAndView("login");
-            mav.addObject("error", "Veuillez vous connecter pour acceder a cette page");
-            return mav;
-        } else if (error.equals("wronglog")) {
-            ModelAndView mav = new ModelAndView("login");
-            mav.addObject("error", "Email/Mot de passe Incorrect");
-            return mav;
+        if (error != null) {
+            if (error.equals("needlog")) {
+                ModelAndView mav = new ModelAndView("login");
+                mav.addObject("error", "Veuillez vous connecter pour acceder a cette page");
+                return mav;
+            } else if (error.equals("wronglog")) {
+                ModelAndView mav = new ModelAndView("login");
+                mav.addObject("error", "Email/Mot de passe Incorrect");
+                return mav;
+            }
         }
 
         return new ModelAndView("login");

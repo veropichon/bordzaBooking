@@ -1,5 +1,8 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fr">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="fr">
 
 <head th:fragment="headFiles">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,12 +54,12 @@
                         <i class="fa fa-fw fa-user-circle-o"></i>
                         Mon Compte
                     </a>
-                    <ul class="dropdown-menu dropdown_black" >
+                    <ul class="dropdown-menu dropdown_black" sec:authorize="isAnonymous()">
                         <li><a th:href="@{/login}" class="nav-link">Connexion</a></li>
                         <li><a th:href="@{/inscription}" class="nav-link">Inscription</a></li>
                     </ul>
 
-                    <ul class="dropdown-menu dropdown_black">
+                    <ul class="dropdown-menu dropdown_black" sec:authorize="isAuthenticated()">
                         <li><a th:href="@{/modifProfil}" class="nav-link">Modifier Profil</a></li>
                         <li><a th:href="@{/logout}" class="nav-link">Se déconnecter</a></li>
                     </ul>
