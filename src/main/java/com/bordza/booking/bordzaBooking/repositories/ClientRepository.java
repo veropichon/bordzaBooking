@@ -5,13 +5,13 @@ import com.bordza.booking.bordzaBooking.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
 
     public ClientEntity findByUser(UserEntity user);
 
     public ClientEntity findByCliId(Long cliId);
-
-  //  public ClientEntity findAllOrderByCliLastnameDesc();
 
 }
