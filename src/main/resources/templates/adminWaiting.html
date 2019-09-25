@@ -78,6 +78,7 @@
 <!------------  methode avec dropdow       !------->
 
 <div class="contenu">
+
     <div class="list_cli" th:if="${nbvalidation} > 0">
 
         <table class="table table-hover">
@@ -94,80 +95,75 @@
 
             <tr th:each="bookingAndClients : ${bookingsAndClients}">
                 <td>
-                    <ul>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"
-                                                data-hover="dropdown" data-placement="top">
-                            <span th:text="${bookingAndClients.booking.client.cliLastname}+' '+${bookingAndClients.booking.client.cliFirstname}"></span></a>
-                            <ul class="dropdown-content list-unstyled">
-                                <li th:field="${bookingAndClients.booking.client.cliBirthdate}"
-                                    th:id="'birthdate' + ${bookingAndClients.booking.client.cliId}">
-
-                                    <script th:inline="javascript">
-                                        /*<![CDATA[*/
-
-                                        var input_date = /*[[${bookingAndClients.booking.client.cliBirthdate}]]*/ 1234 - 11 - 04;
-                                        var client_id = /*[[${bookingAndClients.booking.client.cliId}]]*/ 5;
-                                        var age = cliAgeValidate(input_date, client_id);
-
-                                        /*]]>*/
-                                    </script>
-
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </td>
-
-                <td>
-                    <ul>
-                        <li class="dropdown list-unstyled">
-                            <a href="#" class="dropdown-toggle nav-link"
-                               data-toggle="dropdown" data-hover="dropdown"
-                               data-placement="top">
-                                <ul class="listCours list-unstyled ">
-                                    <li>
-                                        <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(bookingAndClients.booking.course.getCrsFromDate()))}"></span>
-                                        <span th:utext="${#temporals.day(bookingAndClients.booking.course.getCrsFromDate())}"></span>
-                                        <span th:utext="${#temporals.monthName(bookingAndClients.booking.course.getCrsFromDate())}"></span>
-                                        <span th:text="${#temporals.year(bookingAndClients.booking.course.getCrsFromDate())}"></span>
-                                        <span th:utext="${#temporals.format(bookingAndClients.booking.course.getCrsFromDate(), 'HH:mm')}"></span>
-                                        - <span
-                                            th:utext="${#temporals.format(bookingAndClients.booking.course.getCrsToDate(), 'HH:mm')}"></span>
-                                    </li>
-                                    <li><span th:utext="${bookingAndClients.booking.course.discipline.disLabel}"></span>
-                                    </li>
-                                    <li>
-                                        <span th:utext="${bookingAndClients.booking.course.level.levCourseLabel}"></span>
-                                    </li>
-
-                                </ul>
-                            </a>
-                            <ul class="dropdown-content list-unstyled">
-                                <li th:text="${bookingAndClients.booking.course.level.levCourseLabel}"></li>
-                                <li th:text="${bookingAndClients.booking.course.crsDesc}"></li>
-                            </ul>
-
-                        </li>
-                    </ul>
-                </td>
-
-                <td>
-                    <ul>
-                        <li class="dropdown list-unstyled"><a href="#" class="dropdown-toggle nav-link"
-                                                              data-toggle="dropdown" data-hover="dropdown"
-                                                              data-placement="top">
-                        <span th:if="${bookingAndClients.booking.course.crsPublished} == true "
-                              th:utext="${#lists.size(bookingAndClients.clients)}"/>
-                            <span th:if="${bookingAndClients.booking.course.crsPublished} == false "
-                                  th:utext="nouveau"/>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" data-hover="dropdown"
+                           data-placement="top">
+                            <span th:text="${bookingAndClients.booking.client.cliLastname}+' '+${bookingAndClients.booking.client.cliFirstname}"></span>
                         </a>
-                            <ul class="dropdown-content list-unstyled">
+                        <ul class="dropdown-content list-unstyled">
+                            <li th:field="${bookingAndClients.booking.client.cliBirthdate}"
+                                th:id="'birthdate' + ${bookingAndClients.booking.client.cliId}">
+
+                                <script th:inline="javascript">
+                                    /*<![CDATA[*/
+
+                                    var input_date = /*[[${bookingAndClients.booking.client.cliBirthdate}]]*/ 1234 - 11 - 04;
+                                    var client_id = /*[[${bookingAndClients.booking.client.cliId}]]*/ 5;
+                                    var age = cliAgeValidate(input_date, client_id);
+
+                                    /*]]>*/
+                                </script>
+
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+
+                <td>
+                    <div class="dropdown list-unstyled">
+                        <a href="#" class="dropdown-toggle nav-link"
+                           data-toggle="dropdown" data-hover="dropdown"
+                           data-placement="top">
+                            <ul class="listCours list-unstyled ">
+                                <li>
+                                    <span th:utext="${#strings.capitalize(#temporals.dayOfWeekName(bookingAndClients.booking.course.getCrsFromDate()))}"></span>
+                                    <span th:utext="${#temporals.day(bookingAndClients.booking.course.getCrsFromDate())}"></span>
+                                    <span th:utext="${#temporals.monthName(bookingAndClients.booking.course.getCrsFromDate())}"></span>
+                                    <span th:text="${#temporals.year(bookingAndClients.booking.course.getCrsFromDate())}"></span>
+                                    <span th:utext="${#temporals.format(bookingAndClients.booking.course.getCrsFromDate(), 'HH:mm')}"></span>
+                                    - <span
+                                        th:utext="${#temporals.format(bookingAndClients.booking.course.getCrsToDate(), 'HH:mm')}"></span>
+                                </li>
+                                <li><span th:utext="${bookingAndClients.booking.course.discipline.disLabel}"></span>
+                                </li>
+                                <li>
+                                    <span th:utext="${bookingAndClients.booking.course.level.levCourseLabel}"></span>
+                                </li>
+
+                            </ul>
+                        </a>
+                        <ul class="dropdown-content list-unstyled">
+                            <li th:text="${bookingAndClients.booking.course.level.levCourseLabel}"></li>
+                            <li th:text="${bookingAndClients.booking.course.crsDesc}"></li>
+                        </ul>
+
+                    </div>
+                </td>
+
+                <td>
+                    <div class="dropdown list-unstyled">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" data-hover="dropdown" data-placement="top">
+                            <span th:if="${bookingAndClients.booking.course.crsPublished} == true "
+                              th:utext="${#lists.size(bookingAndClients.clients)}"></span>
+                            <span th:if="${bookingAndClients.booking.course.crsPublished} == false "
+                                  th:utext="nouveau"></span>
+                        </a>
+                        <ul class="dropdown-content list-unstyled">
                             <span th:each="listClients : ${bookingAndClients.clients}">
                             <li th:text="${listClients.cliLastname}+' '+${listClients.cliFirstname}"></li></span>
 
-                            </ul>
-                        </li>
-                    </ul>
+                        </ul>
+                    </div>
                 </td>
 
                 <td>
@@ -185,7 +181,7 @@
                 <td><a th:href="@{'/adminDelete?bookingId='+ ${bookingAndClients.booking.bkId}}">
                     <i class="fa fa-w fa-trash icon_validation"> </i></a>
                 </td>
-                </ul>
+
             </tr>
 
 
