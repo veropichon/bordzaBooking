@@ -4,6 +4,10 @@
   text-align: left;
 }
 
+.fc-time-grid {
+  cursor: pointer;
+}
+
 .fc-rtl {
   text-align: right;
 }
@@ -579,7 +583,7 @@ TODO: more distinction between this file and common.css
 .fc-unthemed .fc-divider,
 .fc-unthemed .fc-popover .fc-header,
 .fc-unthemed .fc-list-heading td {
-  background: #eee;
+  background: black;
 }
 
 .fc-unthemed td.fc-today {

@@ -11,15 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import java.time.LocalDateTime;
-
-import com.bordza.booking.bordzaBooking.utils.SomeBean;
-import org.apache.commons.lang3.StringUtils;
-
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Slf4j
 @Service
@@ -76,13 +68,16 @@ public class AdminCourseService {
         // si le cours est publié et que le créateur n'est pas l'admin => inscrire automatiquement le créateur
         boolean isPublished = courseEntity.getCrsPublished();
         Long creatorId = courseEntity.getCrsCreatorId();
-        ClientEntity clientEntity = clientRepository.findByCliId(creatorId);
-
-        if ((isPublished == true) && (creatorId != 0)) {
-            CourseClientEntity courseClientEntity = courseClientRepository.findByCourseIsAndClientIs(courseEntity, clientEntity);
-            courseClientEntity.setBkValidated(true);
-            courseClientRepository.save(courseClientEntity);
+        if (creatorId > 0) {
+            ClientEntity clientEntity = clientRepository.findByCliId(creatorId);
+            if ((isPublished == true) && (creatorId != -1)) {
+                CourseClientEntity courseClientEntity = courseClientRepository.findByCourseIsAndClientIs(courseEntity, clientEntity);
+                courseClientEntity.setBkValidated(true);
+                courseClientRepository.save(courseClientEntity);
+            }
         }
+
+
 
     }
 
@@ -101,5 +96,26 @@ public class AdminCourseService {
         courseEntity.setCrsDeleted(false);
         courseRepository.save(courseEntity);
 
+    }
+
+    public void saveCourseClient(CourseClientEntity courseClientEntity, CourseEntity courseEntity, ClientEntity clientEntity)
+            throws IllegalArgumentException {
+
+        boolean bkVip = courseClientEntity.getBkVip();
+        boolean bkMat = courseClientEntity.getBkMat();
+
+        //courseClientEntity.setClient(clientEntity);
+        // courseClientEntity.setCourse(courseEntity);
+        courseClientEntity.setBkVip(bkVip);
+        courseClientEntity.setBkMat(bkMat);
+
+        courseClientRepository.save(courseClientEntity);
+
+    }
+
+    public void deleteCourse(CourseEntity courseEntity)
+            throws IllegalArgumentException {
+
+        courseRepository.delete(courseEntity);
     }
 }

@@ -3,7 +3,6 @@ package com.bordza.booking.bordzaBooking.domain;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -24,7 +23,7 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false, length = 50, unique = true)
     private String usrEmail;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 60)
     private String usrPwd;
 
     @Column(nullable = false, length = 20)
@@ -39,12 +38,12 @@ public class UserEntity implements UserDetails {
      */
     public static UserEntity defaultValue(UserEntity userEntity) {
 
-        if(userEntity.role == null){
+        if(userEntity.role == null || userEntity.role.isEmpty()){
             userEntity.role = "CLIENT";
         }
 
         if (userEntity.usrValidated == null) {
-            userEntity.usrValidated = false;
+            userEntity.usrValidated = true;
         }
 
         return userEntity;

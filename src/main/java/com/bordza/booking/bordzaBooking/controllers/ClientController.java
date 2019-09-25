@@ -5,6 +5,7 @@ import com.bordza.booking.bordzaBooking.domain.*;
 import com.bordza.booking.bordzaBooking.repositories.ClientRepository;
 import com.bordza.booking.bordzaBooking.repositories.LevelRepository;
 import com.bordza.booking.bordzaBooking.repositories.UserRepository;
+import com.bordza.booking.bordzaBooking.services.ClientIdService;
 import com.bordza.booking.bordzaBooking.services.ClientService;
 import com.bordza.booking.bordzaBooking.services.StorageService;
 import org.slf4j.Logger;
@@ -44,27 +45,35 @@ public class ClientController {
     @Autowired
     StorageService storageService;
 
+    @Autowired
+    private ClientIdService idService;
+
     private static final Logger log = LoggerFactory.getLogger("test Input");
 
     // Show user and client table on page index
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
 
-        List<UserEntity> usersList = userRepository.findAll();
+        /*List<UserEntity> usersList = userRepository.findAll();
         model.addAttribute("usersList", usersList);
 
         List<ClientEntity> clientsList = clientRepository.findAll();
         model.addAttribute("clientsList", clientsList);
 
-        model.addAttribute("pageTitle", "Accueil");
+        model.addAttribute("pageTitle", "Accueil");*/
 
-        return "index";
+        return "redirect:/calendar";
     }
 
     @GetMapping("/clientProfil")
     public String clientProfil(Model model, @RequestParam String clientId) {
 
-        ClientEntity clientEntity = clientRepository.findById(Long.valueOf(clientId)).get();
+        // Identification du visiteur
+        Long idConnected = idService.getClientId();
+        if (idConnected == -1) { return "redirect:/admincalendar"; }
+        if (idConnected == 0) { return "redirect:/login"; }
+
+        ClientEntity clientEntity = clientRepository.findById(idConnected).get();
 
         //Calcul de l'age
         LocalDate birthDate = clientEntity.getCliBirthdate().toLocalDate();
@@ -104,10 +113,15 @@ public class ClientController {
     @GetMapping("/modifProfil")
     public String viewProfil(Model model) {
 
+        // Identification du visiteur
+        Long idConnected = idService.getClientId();
+        if (idConnected == -1) { return "redirect:/admincalendar"; }
+        if (idConnected == 0) { return "redirect:/login"; }
+
         List<LevelEntity> levelsList = levelRepository.findAll();
         model.addAttribute("modelLevel", levelsList);
 
-        ClientEntity clientEntity = clientRepository.findById(1L).get();
+        ClientEntity clientEntity = clientRepository.findById(idConnected).get();
         UserEntity userEntity = userRepository.findById(clientEntity.getUser().getUsrId()).get();
 
         model.addAttribute("modelUser", userEntity);
@@ -152,21 +166,11 @@ public class ClientController {
 
                 // envoi de l'email pour validation email visiteur
 
-
             } catch (IllegalArgumentException e) {
                 return "inscription";
             }
-        try {
-            clientService.save(userEntity, clientEntity, file, redirectAttributes);
-            if (result.hasErrors()) {
-                return "inscription";
-            }
-        } catch (IllegalArgumentException e) {
-            return "inscription";
-        }
 
-        String url = "redirect:/clientProfil?clientId=" + String.valueOf(clientEntity.getCliId());
-        return url;
+        return "redirect:/login";
 
     }
 
@@ -177,6 +181,10 @@ public class ClientController {
                                @RequestParam("file") MultipartFile file,
                                RedirectAttributes redirectAttributes) {
 
+        // Identification du visiteur
+        Long idConnected = idService.getClientId();
+        if (idConnected == -1) { return "redirect:/admincalendar"; }
+        if (idConnected == 0) { return "redirect:/login"; }
 
         if (file.getSize() > 1300000) {
             model.addAttribute("errorMessage", "L'image est trop lourde.");

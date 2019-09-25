@@ -250,3 +250,11 @@ input#fromTimeHour, input#fromTimeMinutes {
 }
 
 /*-------------------------- liste des cours  ---------*/
+
+.client_modal{
+    border: none;
+}
+
+.client_modal td{
+    border: none;
+}

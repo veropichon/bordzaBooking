@@ -5,16 +5,18 @@
     <meta charset="UTF-8">
     <title th:text="${pageTitle}"></title>
     <th:block th:include="fragments/general.html::headFiles"></th:block>
+    <script src="/js/functions.js"></script>
+    <script src="/js/pictureUpload.js"></script>
+
 </head>
 
 <body>
 
 <header th:include="fragments/general.html::headerAdmin( myPageTitle=${pageTitle} , myBookingToValid=${bookingToValid} )"></header>
 
-
 <div class="contenu">
 
-
+    <form action="#" th:action="@{/adminSummary}" th:object="${modelCourse}" method="post">
 
         <div class="summary">
             <div class="info_cours">
@@ -68,9 +70,8 @@
             >Modifier</button>  !-->
         </div>
         <hr>
-    <div class="summary" th:if="${nbvalidation} > 0">
     <form action="#" th:action="@{/adminSummary}" th:object="${modelCourse}" method="post">
-
+        <div class="summary" th:if="${nbvalidation} > 0">
             <table class="table table-hover" th:object="${modelCourse}">
                 <thead class="thead-dark">
                 <tr>
@@ -232,6 +233,10 @@
                       <i class="fa fa-w fa-check-circle icon_validation_green"> </i></a></span>
 
                     </td>
+                    <!--         <td><a href="#">
+                                 <i class="fa fa-w fa-check-circle-o icon_validation"> </i></a>
+                            </td>
+                            !-->
 
                     <!-- modifier sur href suppression proposition cours !-->
 
@@ -245,10 +250,10 @@
                 </tbody>
             </table>
 
+            <button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button>
+            <!--        th:onclick="'window.location.href = \'' + @{/adminReservation} + '\''"  !-->
+        </div>
     </form>
-
-    <a th:href="@{'/adminReservation?courseId='+ ${modelCourse.crsId}}"><button type="submit" class="btn btn-primary bordza_green pull-right">Ajouter</button></a>
-    </div>
 </div>
 </div>
 

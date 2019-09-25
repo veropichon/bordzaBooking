@@ -8,6 +8,14 @@ function cliAge(input_date) {
 
     var age = Math.floor(((new Date).getTime() - date.getTime()) / (365.24 * 24 * 3600 * 1000));
 
+    return age;
+
+};
+
+function tutor(input_date) {
+
+    var age = cliAge(input_date);
+
     if (age < 18) {
         document.getElementById("tutor").style.display = "block";
     } else {
@@ -18,12 +26,12 @@ function cliAge(input_date) {
 function putResultMM(mm) {
     document.getElementById("resultMM").innerHTML = checkNumberDigits(mm);
     return;
-}
+};
 
 function putResultHH(hh) {
     document.getElementById("resultHH").innerHTML = hh;
     return;
-}
+};
 
 function checkNumberDigits(myNumber) {
     myNumber = myNumber.toString();
@@ -31,5 +39,13 @@ function checkNumberDigits(myNumber) {
         return "0" + myNumber;
     }
     return myNumber;
-}
+};
 
+function cliAgeValidate(input_date, client_id) {
+
+    var age = cliAge(input_date);
+    var birthdateId = 'birthdate' + client_id;
+    //alert("js : " + birthdateId + " / " + age);
+
+    document.getElementById(birthdateId).innerText = age;
+};

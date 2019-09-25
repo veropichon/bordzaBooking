@@ -1,5 +1,9 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="fr">
+
 <head th:fragment="headFiles">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -50,9 +54,14 @@
                         <i class="fa fa-fw fa-user-circle-o"></i>
                         Mon Compte
                     </a>
-                    <ul class="dropdown-menu dropdown_black">
+                    <ul class="dropdown-menu dropdown_black" sec:authorize="isAnonymous()">
+                        <li><a th:href="@{/login}" class="nav-link">Connexion</a></li>
                         <li><a th:href="@{/inscription}" class="nav-link">Inscription</a></li>
+                    </ul>
+
+                    <ul class="dropdown-menu dropdown_black" sec:authorize="isAuthenticated()">
                         <li><a th:href="@{/modifProfil}" class="nav-link">Modifier Profil</a></li>
+                        <li><a th:href="@{/logout}" class="nav-link">Se déconnecter</a></li>
                     </ul>
                 </li>
             </ul>
@@ -135,32 +144,34 @@
                     </a>
                 </li>
 
-                <!--
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-fw fa-star"></i>!-->
-                <!-- <span th:utext="'Validations en cours (' + ${BookingToValid} + ')'"></span> -->
-                <!--     Validations en cours
-                 </a>
-                 <ul class="dropdown-menu dropdown_black">
-                     <li><a href="#" class="nav-link">Cours en attente</a></li>
-                     <li><a th:href="@{/adminWaiting}" class="nav-link">Réservations en attente</a></li>
-                     </ul>
-                 </li>
-                 !-->
-
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a th:href="@{/adminWaiting}" class="nav-link">
                         <i class="fa fa-fw fa-star"></i>
-                        <span th:text="'Validations en cours (' + ${myBookingToValid} + ')'"></span>
-                        <!--Validations en attente!-->
-                    </a>
-                </li>
+                        <span th:if="${myBookingToValid} != null" th:text="'Validations en cours (' + ${myBookingToValid} + ')'"></span>
+                        <span th:if="${myBookingToValid} == null" th:text="'Validations en cours (0)'"></span>
 
+                    </a>
+                </li>!-->
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-fw fa-star"></i>
+                        Gestion des cours
+                    </a>
+                    <ul class="dropdown-menu dropdown_black" >
+                        <li class="nav-item">
+                            <a th:href="@{/adminWaiting}" class="nav-link">
+                                <span th:if="${myBookingToValid} != null" th:text="'Réservations (' + ${myBookingToValid} + ')'"></span>
+                                <span th:if="${myBookingToValid} == null" th:text="'Réservations (0)'"></span>
+                            </a>
+                        </li>
+                        <li><a th:href="@{/adminCourseList}" class="nav-link">Cours</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a th:href="@{/logout}" class="nav-link">
                         <i class="fa fa-fw fa-user-circle-o"></i>
-                        Mon Compte
+                        Se déconnecter
                     </a>
                 </li>
             </ul>
