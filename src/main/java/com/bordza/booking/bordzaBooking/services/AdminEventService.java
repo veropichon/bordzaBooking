@@ -22,27 +22,27 @@ public class AdminEventService {
             if (course.getCrsPublished()) {
                 if (!course.getCrsVip()) {
                     if (course.getDiscipline().getDisId() == 1) {
-                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + "  :  " + course.getCourseClients().size() + "/12", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#29828E", "light blue", "black");
+                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + "  :  " + course.getCourseClients().size() + "/12", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#29828E", "black", "black");
                         eventList.add(event);
                     } else if (course.getDiscipline().getDisId() == 2) {
-                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + "  :  " + course.getCourseClients().size() + "/12", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#097C4D", "green", "black");
+                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + "  :  " + course.getCourseClients().size() + "/12", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#097C4D", "black", "black");
                         eventList.add(event);
                     } else if (course.getDiscipline().getDisId() == 3) {
-                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + "  :  " + course.getCourseClients().size() + "/12", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#36C098", "green", "black");
+                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + "  :  " + course.getCourseClients().size() + "/12", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#36C098", "black", "black");
                         eventList.add(event);
                     } else {
-                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + "  :  " + course.getCourseClients().size() + "/12", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "red", "green", "black");
+                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + "  :  " + course.getCourseClients().size() + "/12", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "red", "black", "black");
                         eventList.add(event);
                     }
                 } else {
                     if (course.getDiscipline().getDisId() == 1) {
-                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + " VIP", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#29828E", "light blue", "black");
+                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + " VIP", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#29828E", "black", "black");
                         eventList.add(event);
                     } else if (course.getDiscipline().getDisId() == 2) {
-                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + " VIP", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#097C4D", "green", "black");
+                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + " VIP", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#097C4D", "black", "black");
                         eventList.add(event);
                     } else if (course.getDiscipline().getDisId() == 3) {
-                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + " VIP", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#36C098", "green", "black");
+                        Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle() + " VIP", "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "#36C098", "black", "black");
                         eventList.add(event);
                     } else {
                         Event event = new Event(course.getCrsFromDate(), course.getCrsToDate(), course.getCrsTitle(), "/adminPublishCourse?courseId=" + course.getCrsId() + "&ori=2", "red", "black", "black");
