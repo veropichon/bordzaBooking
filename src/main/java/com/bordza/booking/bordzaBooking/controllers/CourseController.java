@@ -154,7 +154,7 @@ public class CourseController {
         String adminEmail = userRepository.findUserEntityByRoleIs("ADMIN").getUsrEmail();
         subject = "Nouveau cours";
         contents = "Bonjour,\n\n";
-        contents += "Un nouveau cours est à valider.\nDescriptif du cours...\n";
+        contents += "Un nouveau cours est à valider.\n";
         msg = mailService.buildEmail(adminEmail, subject, contents, false);
         mailService.sendEmail(msg);
 
@@ -241,7 +241,7 @@ public class CourseController {
             String adminEmail = userRepository.findUserEntityByRoleIs("ADMIN").getUsrEmail();
             subject = "Demande d'inscription à un cours";
             contents = "Bonjour,\n\n";
-            contents += "Une nouvelle demande d'inscription est à valider.\nDescriptif du cours...\n";
+            contents += "Une nouvelle demande d'inscription est à valider.\n";
             msg = mailService.buildEmail(adminEmail, subject, contents, false);
             mailService.sendEmail(msg);
 
@@ -269,13 +269,15 @@ public class CourseController {
     // Récapitulatif des cours d'un client
 
     @GetMapping("/listCourses")
-   /* public String listCourses(Model model,
-                                     @RequestParam Long bookingId) {
-        CourseClientEntity booking = courseClientRepository.findById(bookingId).get();
-        A faire --- Récuperer ident Client
-   */
     public String listCourses(Model model) {
-        ClientEntity clientEntity = clientRepository.findById(1L).get();
+
+        // Identification du visiteur
+        Long idConnected = idService.getClientId();
+        if (idConnected == -1) { return "redirect:/admincalendar"; }
+        if (idConnected == 0) { return "redirect:/login"; }
+        ClientEntity clientEntity = clientRepository.findById(idConnected).get();
+        // model.addAttribute("modelClient", client);
+
         List<CourseClientEntity> courseClientsList = courseClientRepository.findAllByClientCliIdOrderByCourseCrsFromDateDesc(clientEntity.getCliId());
         log.info("taille liste : " + courseClientsList.size());
         model.addAttribute("nbcours", courseClientsList.size());

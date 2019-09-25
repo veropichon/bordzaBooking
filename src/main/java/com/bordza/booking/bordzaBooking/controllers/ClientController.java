@@ -156,14 +156,6 @@ public class ClientController {
             } catch (IllegalArgumentException e) {
                 return "inscription";
             }
-        try {
-            clientService.save(userEntity, clientEntity, file, redirectAttributes);
-            if (result.hasErrors()) {
-                return "inscription";
-            }
-        } catch (IllegalArgumentException e) {
-            return "inscription";
-        }
 
         String url = "redirect:/clientProfil?clientId=" + String.valueOf(clientEntity.getCliId());
         return url;

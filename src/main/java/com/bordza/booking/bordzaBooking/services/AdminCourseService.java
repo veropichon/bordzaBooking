@@ -76,13 +76,16 @@ public class AdminCourseService {
         // si le cours est publié et que le créateur n'est pas l'admin => inscrire automatiquement le créateur
         boolean isPublished = courseEntity.getCrsPublished();
         Long creatorId = courseEntity.getCrsCreatorId();
-        ClientEntity clientEntity = clientRepository.findByCliId(creatorId);
-
-        if ((isPublished == true) && (creatorId != 0)) {
-            CourseClientEntity courseClientEntity = courseClientRepository.findByCourseIsAndClientIs(courseEntity, clientEntity);
-            courseClientEntity.setBkValidated(true);
-            courseClientRepository.save(courseClientEntity);
+        if (creatorId > 0) {
+            ClientEntity clientEntity = clientRepository.findByCliId(creatorId);
+            if ((isPublished == true) && (creatorId != -1)) {
+                CourseClientEntity courseClientEntity = courseClientRepository.findByCourseIsAndClientIs(courseEntity, clientEntity);
+                courseClientEntity.setBkValidated(true);
+                courseClientRepository.save(courseClientEntity);
+            }
         }
+
+
 
     }
 
@@ -116,5 +119,11 @@ public class AdminCourseService {
 
         courseClientRepository.save(courseClientEntity);
 
+    }
+
+    public void deleteCourse(CourseEntity courseEntity)
+            throws IllegalArgumentException {
+
+        courseRepository.delete(courseEntity);
     }
 }

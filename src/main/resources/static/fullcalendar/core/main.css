@@ -4,6 +4,10 @@
   text-align: left;
 }
 
+.fc-time-grid {
+  cursor: pointer;
+}
+
 .fc-rtl {
   text-align: right;
 }
