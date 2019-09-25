@@ -158,12 +158,10 @@ public class AdminCourseSummaryController {
             String clientFirstname = clientRepository.findById(current_CliId).get().getCliFirstname();
 
             Long current_CrsId = courseClientEntity.getCourse().getCrsId();
-            String discipline = courseClientRepository.findById(current_CrsId).get().getCourse().getDiscipline().getDisLabel();
-            log.info("discipline : " + discipline);
 
             String subject = "Bordza - Votre demande d'inscription à un cours";
             String contents = "Bonjour " + clientFirstname + " " + clientLastname + ",\n\n";
-            contents += "Votre demande d'inscription à un cours de "+ discipline + " a bien été enregistrée.\n\n";
+            contents += "Votre demande d'inscription à un cours a bien été enregistrée.\n\n";
             contents += "L'équipe Bordza";
 
             MimeMessage msg = null;
