@@ -20,7 +20,7 @@ public class ClientRestController {
     ClientRepository clientRepository;
 
     @GetMapping("/api/clients")
-    public List<ClientEntity> showClients(){
+    public List<ClientEntity> showClients() {
 
         return clientRepository.findAll();
     }

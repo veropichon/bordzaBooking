@@ -39,8 +39,9 @@ public class CourseService {
 
     /**
      * Exception check when @POST from newCourse form
-     * @param courseEntity course input form newCourse
-     * @param clientEntity client input form newCourse
+     *
+     * @param courseEntity       course input form newCourse
+     * @param clientEntity       client input form newCourse
      * @param courseClientEntity courseClient input form newCourse
      * @throws IllegalArgumentException
      */

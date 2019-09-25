@@ -78,7 +78,6 @@ public class AdminCourseService {
         }
 
 
-
     }
 
     /* ENREGISTREMENT D'UN NOUVEAU COURS CREE PAR L'ADMIN */
